@@ -24,7 +24,7 @@
                 <tr><td>Google Scholar</td><td>18,700</td></tr>
             </tbody>
         </table>
-    </section>-->
+    </section>  -->
         <!-- Filters -->
         <section class="mb-4" id="filters">
             <div class="row g-3">
@@ -37,7 +37,7 @@
                     <input type="date" id="end-date" class="form-control">
                 </div>
 
-                <!-- Theme collapse -->
+                <!-- Themes collapse -->
                 <div class="col-12">
                     <button class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#themes-col">
                         Themes <span id="theme-count" class="badge bg-secondary">0</span>
@@ -50,22 +50,19 @@
                 <!-- Author text input -->
                 <div class="col-md-4">
                     <label for="author-filter" class="form-label">Author</label>
-                    <input type="text" id="author-filter" class="form-control"
-                           placeholder="Author name…">
+                    <input type="text" id="author-filter" class="form-control" placeholder="Author name…">
                 </div>
 
                 <!-- Journal text input -->
                 <div class="col-md-4">
                     <label for="journal-filter" class="form-label">Journal</label>
-                    <input type="text" id="journal-filter" class="form-control"
-                           placeholder="Journal name…">
+                    <input type="text" id="journal-filter" class="form-control" placeholder="Journal name…">
                 </div>
 
                 <!-- Keyword text input -->
                 <div class="col-md-4">
                     <label for="keyword-filter" class="form-label">Keyword</label>
-                    <input type="text" id="keyword-filter" class="form-control"
-                           placeholder="Keyword…">
+                    <input type="text" id="keyword-filter" class="form-control" placeholder="Keyword…">
                 </div>
 
                 <!-- Citation Count Range -->
@@ -101,6 +98,11 @@
             </thead>
             <tbody></tbody>
         </table>
+
+        <!-- Pagination Controls -->
+        <nav>
+            <ul class="pagination justify-content-center" id="pagination"></ul>
+        </nav>
     </div>
 
     <!-- Details Modal -->
@@ -129,13 +131,13 @@
                         <strong>Selected Node:</strong>
                         <span id="node-info">None</span>
                     </div>
-                    <div class="input-group mb-4" style="max-width:200px;">
+                    <div class="input-group mb-4" style="max-width:120px;">
                         <span class="input-group-text">Depth</span>
                         <input type="number"
                                id="modal-graph-level"
-                               class="form-control"
-                               min="1" max="4" value="1"
-                               style="max-width:80px; text-align:center;">
+                               class="form-control text-center"
+                               min="1" max="3" value="1"
+                               style="max-width:80px;">
                         <button id="regenerate-btn" class="btn btn-outline-primary">
                             Regenerate
                         </button>
@@ -146,7 +148,7 @@
         </div>
     </div>
 
-    <!-- Bootstrap, Cytoscape, main.js -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
     <script src="main.js"></script>

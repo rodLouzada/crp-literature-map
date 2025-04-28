@@ -1,38 +1,40 @@
 const DATA_URL = 'crp_openalex_enhanced.json';
 
-let currentSeed = null;
+let allRecords = [];
+let filteredRecords = [];
 let recordMap = {};
+let currentPage = 1;
+const pageSize = 10;
 
-// Load data, build map, and initialize
-(async () => {
+; (async () => {
+    // Load data and build lookup map
     const records = await loadData();
-    // Build a lookup map of all records by ID
-    records.forEach(r => { recordMap[r.id] = r; });
+    allRecords = records;
+    records.forEach(r => recordMap[r.id] = r);
+
+    // Build UI
     buildThemeFilters(records);
-    renderTable(records);
     setupSearch(records);
 
-    document.getElementById('regenerate-btn').onclick = () => {
-        if (currentSeed) showGraph(currentSeed);
-    };
+    // Initial render (no filters)
+    filteredRecords = allRecords;
+    renderTable();
+    renderPagination();
 })();
 
-// Fetch and return the JSON array
+// Fetch JSON dataset
 async function loadData() {
     const resp = await fetch(DATA_URL);
     if (!resp.ok) throw new Error(`Fetch failed: ${resp.statusText}`);
     return (await resp.json()).records || [];
 }
 
-// Build theme checkboxes (badge shows count)
 function buildThemeFilters(records) {
     const container = document.getElementById('theme-filters');
     const badge = document.getElementById('theme-count');
     const themes = new Set();
-
     records.forEach(r => (r.topics || []).forEach(t => themes.add(t.name)));
     badge.textContent = themes.size;
-    if (!themes.size) return;
     themes.forEach(name => {
         const id = `theme-${name.replace(/\W+/g, '_')}`;
         const div = document.createElement('div');
@@ -45,15 +47,13 @@ function buildThemeFilters(records) {
     });
 }
 
-// Get checked values from theme filters
 function getCheckedValues(containerId) {
     return Array.from(
         document.querySelectorAll(`#${containerId} input:checked`)
     ).map(i => i.value.toLowerCase());
 }
 
-// Apply all filters from inputs
-function applyFilters(records) {
+function applyFilters() {
     const titleQ = document.getElementById('search').value.trim().toLowerCase();
     const start = document.getElementById('start-date').value;
     const end = document.getElementById('end-date').value;
@@ -64,13 +64,13 @@ function applyFilters(records) {
     const minC = parseInt(document.getElementById('min-cites').value) || 0;
     const maxC = parseInt(document.getElementById('max-cites').value) || Infinity;
 
-    return records.filter(r => {
+    filteredRecords = allRecords.filter(r => {
         if (titleQ && !r.title.toLowerCase().includes(titleQ)) return false;
         if (start && r.publication_date && r.publication_date < start) return false;
         if (end && r.publication_date && r.publication_date > end) return false;
 
         if (themes.length) {
-            const tnames = (r.topics || []).map(x => x.name.toLowerCase());
+            const tnames = (r.topics || []).map(t => t.name.toLowerCase());
             if (!themes.some(t => tnames.includes(t))) return false;
         }
         if (authorQ) {
@@ -87,19 +87,28 @@ function applyFilters(records) {
 
         return true;
     });
+
+    currentPage = 1;
+    renderTable();
+    renderPagination();
 }
 
-// Render the table rows
-function renderTable(records) {
+function renderTable() {
     const tbody = document.querySelector('#results tbody');
     tbody.innerHTML = '';
-    if (!records.length) {
-        tbody.innerHTML = `<tr><td colspan="7" class="text-center py-3">
-      No records match filters.
-    </td></tr>`;
+
+    const startIdx = (currentPage - 1) * pageSize;
+    const pageRecords = filteredRecords.slice(startIdx, startIdx + pageSize);
+
+    if (!pageRecords.length) {
+        tbody.innerHTML = `
+      <tr><td colspan="7" class="text-center py-3">
+        No records match filters.
+      </td></tr>`;
         return;
     }
-    records.forEach(r => {
+
+    pageRecords.forEach(r => {
         const screening = r.screening?.title_abstract || 'Not screened';
         const tr = document.createElement('tr');
         tr.innerHTML = `
@@ -120,13 +129,70 @@ function renderTable(records) {
     });
 }
 
-// Wire up Search button
-function setupSearch(records) {
-    document.getElementById('search-btn').onclick = () =>
-        renderTable(applyFilters(records));
+function renderPagination() {
+    const totalPages = Math.ceil(filteredRecords.length / pageSize) || 1;
+    const ul = document.getElementById('pagination');
+    ul.innerHTML = '';
+
+    // Previous
+    const prevLi = document.createElement('li');
+    prevLi.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
+    prevLi.innerHTML = `<button class="page-link">Previous</button>`;
+    prevLi.onclick = () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderTable();
+            renderPagination();
+        }
+    };
+    ul.appendChild(prevLi);
+
+    // Numbers
+    for (let p = 1; p <= totalPages; p++) {
+        const li = document.createElement('li');
+        li.className = `page-item ${p === currentPage ? 'active' : ''}`;
+        li.innerHTML = `<button class="page-link">${p}</button>`;
+        li.onclick = () => {
+            currentPage = p;
+            renderTable();
+            renderPagination();
+        };
+        ul.appendChild(li);
+    }
+
+    // Next
+    const nextLi = document.createElement('li');
+    nextLi.className = `page-item ${currentPage === totalPages ? 'disabled' : ''}`;
+    nextLi.innerHTML = `<button class="page-link">Next</button>`;
+    nextLi.onclick = () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderTable();
+            renderPagination();
+        }
+    };
+    ul.appendChild(nextLi);
 }
 
-// Show the Graph modal, building the network from local JSON
+function setupSearch(records) {
+    document.getElementById('search-btn').onclick = applyFilters;
+}
+
+// Show details modal
+function showDetails(r) {
+    const mb = document.getElementById('modal-body');
+    mb.innerHTML = `
+    <h5>${r.title}</h5>
+    <p><strong>ID:</strong> ${r.id.split('/').pop()}</p>
+    <p><strong>Publication Date:</strong> ${r.publication_date || 'N/A'}</p>
+    <p><strong>Topics:</strong> ${(r.topics || []).map(t => t.name).join(', ')}</p>
+    <p><strong>Keywords:</strong> ${(r.keywords || []).join(', ')}</p>
+    <p><strong>URL:</strong> <a href="${r.url || '#'}">${r.url || 'N/A'}</a></p>
+  `;
+    new bootstrap.Modal(document.getElementById('detailModal')).show();
+}
+
+// Show graph modal (uses local JSON for recursion)
 function showGraph(seed) {
     const depth = parseInt(document.getElementById('modal-graph-level').value, 10) || 1;
     document.getElementById('node-info').textContent =
@@ -140,21 +206,20 @@ function showGraph(seed) {
         visited.add(id);
 
         const meta = recordMap[id];
-        if (!meta) return;  // skip if not in JSON
-
+        if (!meta) return;
         elements.push({ data: { id, label: meta.title, meta } });
 
         if (level < depth) {
-            // backward
-            (meta.backward_citations || []).slice(0, 50).forEach(ref => {
-                elements.push({ data: { source: id, target: ref } });
-                recurse(ref, level + 1);
-            });
-            // forward
-            (meta.forward_citations || []).slice(0, 50).forEach(cit => {
-                elements.push({ data: { source: cit, target: id } });
-                recurse(cit, level + 1);
-            });
+            (meta.backward_citations || []).slice(0, 50)
+                .forEach(ref => {
+                    elements.push({ data: { source: id, target: ref } });
+                    recurse(ref, level + 1);
+                });
+            (meta.forward_citations || []).slice(0, 50)
+                .forEach(cit => {
+                    elements.push({ data: { source: cit, target: id } });
+                    recurse(cit, level + 1);
+                });
         }
     }
 
@@ -166,8 +231,7 @@ function showGraph(seed) {
         elements,
         style: [
             {
-                selector: 'node',
-                style: {
+                selector: 'node', style: {
                     'background-color': '#0d6efd',
                     'label': 'data(label)',
                     'color': '#000',
@@ -182,7 +246,6 @@ function showGraph(seed) {
         layout: { name: 'cose' }
     });
 
-    // Update only the info field on node click
     cy.on('tap', 'node', evt => {
         const m = evt.target.data('meta');
         document.getElementById('node-info').textContent =
@@ -190,18 +253,4 @@ function showGraph(seed) {
     });
 
     new bootstrap.Modal(document.getElementById('graphModal')).show();
-}
-
-// Show detailed metadata in details modal
-function showDetails(r) {
-    const mb = document.getElementById('modal-body');
-    mb.innerHTML = `
-    <h5>${r.title}</h5>
-    <p><strong>ID:</strong> ${r.id.split('/').pop()}</p>
-    <p><strong>Publication Date:</strong> ${r.publication_date || 'N/A'}</p>
-    <p><strong>Topics:</strong> ${(r.topics || []).map(t => t.name).join(', ')}</p>
-    <p><strong>Keywords:</strong> ${(r.keywords || []).join(', ')}</p>
-    <p><strong>URL:</strong> <a href="${r.url || '#'}">${r.url || 'N/A'}</a></p>
-  `;
-    new bootstrap.Modal(document.getElementById('detailModal')).show();
 }
