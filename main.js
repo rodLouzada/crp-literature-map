@@ -5,34 +5,39 @@ const THROTTLE_MS = 200;
 
 let currentSeed = null;
 
-// simple sleep
+// simple sleep utility
 const sleep = ms => new Promise(res => setTimeout(res, ms));
 
-// Load and initial render
-(async () => {
+; (async () => {
+    // Initial load and render
     const records = await loadData();
     buildThemeFilters(records);
     renderTable(records);
     setupSearch(records);
 
+    // Regenerate graph when button clicked
     document.getElementById('regenerate-btn').onclick = () => {
         if (currentSeed) showGraph(currentSeed);
     };
 })();
 
+// Fetch JSON dataset
 async function loadData() {
     const resp = await fetch(DATA_URL);
     if (!resp.ok) throw new Error(`Fetch failed: ${resp.statusText}`);
     return (await resp.json()).records || [];
 }
 
+// Build the Theme checkboxes and badge
 function buildThemeFilters(records) {
     const container = document.getElementById('theme-filters');
     const badge = document.getElementById('theme-count');
     const themes = new Set();
+
     records.forEach(r => (r.topics || []).forEach(t => themes.add(t.name)));
     badge.textContent = themes.size;
     if (!themes.size) return;
+
     themes.forEach(name => {
         const id = `theme-${name.replace(/\W+/g, '_')}`;
         const div = document.createElement('div');
@@ -45,17 +50,19 @@ function buildThemeFilters(records) {
     });
 }
 
-function getChecked(containerId) {
+// Get values of checked checkboxes in a container
+function getCheckedValues(containerId) {
     return Array.from(
         document.querySelectorAll(`#${containerId} input:checked`)
     ).map(i => i.value.toLowerCase());
 }
 
+// Apply all filters: title, date, theme, author, journal, keyword, citation range
 function applyFilters(records) {
     const titleQ = document.getElementById('search').value.trim().toLowerCase();
     const start = document.getElementById('start-date').value;
     const end = document.getElementById('end-date').value;
-    const themes = getChecked('theme-filters');
+    const themes = getCheckedValues('theme-filters');
     const authorQ = document.getElementById('author-filter').value.trim().toLowerCase();
     const journalQ = document.getElementById('journal-filter').value.trim().toLowerCase();
     const keywordQ = document.getElementById('keyword-filter').value.trim().toLowerCase();
@@ -66,20 +73,26 @@ function applyFilters(records) {
         if (titleQ && !r.title.toLowerCase().includes(titleQ)) return false;
         if (start && r.publication_date && r.publication_date < start) return false;
         if (end && r.publication_date && r.publication_date > end) return false;
-        if (themes.length && !themes.some(t => (r.topics || []).map(x => x.name.toLowerCase()).includes(t)))
-            return false;
-        if (authorQ && !r.authors.some(a => a.name.toLowerCase().includes(authorQ)))
-            return false;
-        if (journalQ && !(r.journal || '').toLowerCase().includes(journalQ))
-            return false;
-        if (keywordQ && !((r.keywords || []).some(k => k.toLowerCase().includes(keywordQ))))
-            return false;
-        const cites = (r.citation_counts || {}).forward || 0;
+        if (themes.length) {
+            const names = (r.topics || []).map(t => t.name.toLowerCase());
+            if (!themes.some(t => names.includes(t))) return false;
+        }
+        if (authorQ) {
+            const authNames = r.authors.map(a => a.name.toLowerCase()).join(' ');
+            if (!authNames.includes(authorQ)) return false;
+        }
+        if (journalQ && !(r.journal || '').toLowerCase().includes(journalQ)) return false;
+        if (keywordQ) {
+            const kws = (r.keywords || []).map(k => k.toLowerCase()).join(' ');
+            if (!kws.includes(keywordQ)) return false;
+        }
+        const cites = (r.citation_counts?.forward) || 0;
         if (cites < minC || cites > maxC) return false;
         return true;
     });
 }
 
+// Render the filtered records into the table
 function renderTable(records) {
     const tbody = document.querySelector('#results tbody');
     tbody.innerHTML = '';
@@ -111,11 +124,13 @@ function renderTable(records) {
     });
 }
 
+// Wire up the Search button
 function setupSearch(records) {
     document.getElementById('search-btn').onclick = () =>
         renderTable(applyFilters(records));
 }
 
+// Fetch full metadata for a work ID
 async function fetchMetadata(id) {
     const local = id.split('/').pop();
     const resp = await fetch(API_BASE + local);
@@ -123,6 +138,7 @@ async function fetchMetadata(id) {
     return await resp.json();
 }
 
+// Build and display the citation network graph
 async function showGraph(seed) {
     const depth = parseInt(document.getElementById('modal-graph-level').value, 10) || 1;
     document.getElementById('node-info').textContent =
@@ -156,12 +172,10 @@ async function showGraph(seed) {
         await sleep(THROTTLE_MS);
 
         if (level < depth) {
-            // backward
             for (const ref of (meta.backward_citations || []).slice(0, 50)) {
                 elements.push({ data: { source: id, target: ref } });
                 await recurse(ref, level + 1);
             }
-            // forward
             if (meta.citation_counts.forward) {
                 const resp = await fetch(meta.cited_by_api_url + `&per_page=${MAX_PAGE}`);
                 if (resp.ok) {
@@ -200,7 +214,7 @@ async function showGraph(seed) {
         layout: { name: 'cose' }
     });
 
-    // node-click only updates info
+    // Update node-info when node clicked
     cy.on('tap', 'node', evt => {
         const m = evt.target.data('meta');
         document.getElementById('node-info').textContent =
@@ -210,6 +224,7 @@ async function showGraph(seed) {
     new bootstrap.Modal(document.getElementById('graphModal')).show();
 }
 
+// Show paper details in modal
 function showDetails(r) {
     const mb = document.getElementById('modal-body');
     mb.innerHTML = `
