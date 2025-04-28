@@ -3,17 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>CRP Literature Map</title>
+    <title>CRP Evidence Map</title>
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Cytoscape.js for citation network -->
+    <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
 </head>
 <body>
     <h1>Conservation Reserve Program Evidence Map</h1>
 
+    <!-- Scoping Table -->
+    <section id="scoping">
+        <h2>Search Scoping Results</h2>
+        <table id="scoping-table">
+            <thead>
+                <tr><th>Database</th><th>Hits</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Web of Science Core Collection</td><td>959</td></tr>
+                <tr><td>Lens.org</td><td>1696</td></tr>
+                <tr><td>Google Scholar</td><td>18,700</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+
+    <section id="filters">
+        <h2>Filters</h2>
+        <div class="filter-group">
+            <label>Start date: <input type="date" id="start-date"></label>
+            <label>End date:   <input type="date" id="end-date"></label>
+        </div>
+        <div class="filter-group" id="theme-filters">
+            <strong>Themes:</strong>
+            <!-- checkboxes added by JS -->
+        </div>
+    </section>
+
+    <!-- Free-text search remains for Title -->
     <div class="search-bar">
-        <input id="search" type="text" placeholder="Enter search term…">
+        <input id="search" type="text" placeholder="Search by title…">
         <button id="search-btn">Search</button>
     </div>
 
+    <!-- Results table -->
     <table id="results">
         <thead>
             <tr>
@@ -21,12 +54,29 @@
                 <th>Year</th>
                 <th>Authors</th>
                 <th>Cited By</th>
+                <th>Screening</th>      
+                <th>Details</th>        
+                <th>Network</th>        
             </tr>
         </thead>
-        <tbody>
-            <!-- rows will be injected here -->
-        </tbody>
+        <tbody></tbody>
     </table>
+
+    <!-- Details modal -->
+    <div id="detail-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Citation network modal -->
+    <div id="graph-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-graph">&times;</span>
+            <div id="cy" style="width:100%;height:400px;"></div>
+        </div>
+    </div>
 
     <script src="main.js"></script>
 </body>

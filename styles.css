@@ -1,10 +1,28 @@
 body {
     font-family: sans-serif;
     margin: 2rem;
-    line-height: 1.4;
 }
 
-h1 {
+h1, h2 {
+    margin-bottom: 0.5rem;
+}
+
+#scoping {
+    margin-bottom: 2rem;
+}
+
+#scoping-table {
+    width: auto;
+    border-collapse: collapse;
+}
+
+    #scoping-table th,
+    #scoping-table td {
+        border: 1px solid #ccc;
+        padding: 0.3rem 0.6rem;
+    }
+
+.filter-group {
     margin-bottom: 1rem;
 }
 
@@ -13,29 +31,50 @@ h1 {
 }
 
 #search {
-    padding: 0.5rem;
-    font-size: 1rem;
+    padding: 0.4rem;
     width: 60%;
-    box-sizing: border-box;
 }
 
 #search-btn {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    margin-left: 0.5rem;
+    padding: 0.4rem 1rem;
 }
 
-table {
+table#results {
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 2rem;
 }
 
-th, td {
-    border: 1px solid #ccc;
-    padding: 0.5rem;
-    text-align: left;
+    table#results th,
+    table#results td {
+        border: 1px solid #ccc;
+        padding: 0.4rem 0.6rem;
+        text-align: left;
+    }
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
 }
 
-th {
-    background-color: #f0f0f0;
+.modal-content {
+    background: white;
+    padding: 1rem;
+    border-radius: 4px;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;
+}
+
+.close, .close-graph {
+    float: right;
+    cursor: pointer;
+    font-size: 1.2rem;
 }
