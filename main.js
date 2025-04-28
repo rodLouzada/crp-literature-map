@@ -1,34 +1,30 @@
 const DATA_URL = 'crp_openalex_enhanced.json';
-const API_BASE = 'https://api.openalex.org/works/';
-const MAX_PAGE = 200;
-const THROTTLE_MS = 200;
 
 let currentSeed = null;
+let recordMap = {};
 
-// simple sleep utility
-const sleep = ms => new Promise(res => setTimeout(res, ms));
-
-; (async () => {
-    // Initial load and render
+// Load data, build map, and initialize
+(async () => {
     const records = await loadData();
+    // Build a lookup map of all records by ID
+    records.forEach(r => { recordMap[r.id] = r; });
     buildThemeFilters(records);
     renderTable(records);
     setupSearch(records);
 
-    // Regenerate graph when button clicked
     document.getElementById('regenerate-btn').onclick = () => {
         if (currentSeed) showGraph(currentSeed);
     };
 })();
 
-// Fetch JSON dataset
+// Fetch and return the JSON array
 async function loadData() {
     const resp = await fetch(DATA_URL);
     if (!resp.ok) throw new Error(`Fetch failed: ${resp.statusText}`);
     return (await resp.json()).records || [];
 }
 
-// Build the Theme checkboxes and badge
+// Build theme checkboxes (badge shows count)
 function buildThemeFilters(records) {
     const container = document.getElementById('theme-filters');
     const badge = document.getElementById('theme-count');
@@ -37,7 +33,6 @@ function buildThemeFilters(records) {
     records.forEach(r => (r.topics || []).forEach(t => themes.add(t.name)));
     badge.textContent = themes.size;
     if (!themes.size) return;
-
     themes.forEach(name => {
         const id = `theme-${name.replace(/\W+/g, '_')}`;
         const div = document.createElement('div');
@@ -50,14 +45,14 @@ function buildThemeFilters(records) {
     });
 }
 
-// Get values of checked checkboxes in a container
+// Get checked values from theme filters
 function getCheckedValues(containerId) {
     return Array.from(
         document.querySelectorAll(`#${containerId} input:checked`)
     ).map(i => i.value.toLowerCase());
 }
 
-// Apply all filters: title, date, theme, author, journal, keyword, citation range
+// Apply all filters from inputs
 function applyFilters(records) {
     const titleQ = document.getElementById('search').value.trim().toLowerCase();
     const start = document.getElementById('start-date').value;
@@ -73,13 +68,14 @@ function applyFilters(records) {
         if (titleQ && !r.title.toLowerCase().includes(titleQ)) return false;
         if (start && r.publication_date && r.publication_date < start) return false;
         if (end && r.publication_date && r.publication_date > end) return false;
+
         if (themes.length) {
-            const names = (r.topics || []).map(t => t.name.toLowerCase());
-            if (!themes.some(t => names.includes(t))) return false;
+            const tnames = (r.topics || []).map(x => x.name.toLowerCase());
+            if (!themes.some(t => tnames.includes(t))) return false;
         }
         if (authorQ) {
-            const authNames = r.authors.map(a => a.name.toLowerCase()).join(' ');
-            if (!authNames.includes(authorQ)) return false;
+            const auths = r.authors.map(a => a.name.toLowerCase()).join(' ');
+            if (!auths.includes(authorQ)) return false;
         }
         if (journalQ && !(r.journal || '').toLowerCase().includes(journalQ)) return false;
         if (keywordQ) {
@@ -88,19 +84,19 @@ function applyFilters(records) {
         }
         const cites = (r.citation_counts?.forward) || 0;
         if (cites < minC || cites > maxC) return false;
+
         return true;
     });
 }
 
-// Render the filtered records into the table
+// Render the table rows
 function renderTable(records) {
     const tbody = document.querySelector('#results tbody');
     tbody.innerHTML = '';
     if (!records.length) {
-        tbody.innerHTML = `
-      <tr><td colspan="7" class="text-center py-3">
-        No records match filters.
-      </td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" class="text-center py-3">
+      No records match filters.
+    </td></tr>`;
         return;
     }
     records.forEach(r => {
@@ -124,22 +120,14 @@ function renderTable(records) {
     });
 }
 
-// Wire up the Search button
+// Wire up Search button
 function setupSearch(records) {
     document.getElementById('search-btn').onclick = () =>
         renderTable(applyFilters(records));
 }
 
-// Fetch full metadata for a work ID
-async function fetchMetadata(id) {
-    const local = id.split('/').pop();
-    const resp = await fetch(API_BASE + local);
-    if (!resp.ok) throw new Error(`API fetch failed: ${resp.status}`);
-    return await resp.json();
-}
-
-// Build and display the citation network graph
-async function showGraph(seed) {
+// Show the Graph modal, building the network from local JSON
+function showGraph(seed) {
     const depth = parseInt(document.getElementById('modal-graph-level').value, 10) || 1;
     document.getElementById('node-info').textContent =
         `${seed.title} (${seed.id.split('/').pop()})`;
@@ -147,50 +135,30 @@ async function showGraph(seed) {
     const elements = [];
     const visited = new Set();
 
-    async function recurse(id, level) {
+    function recurse(id, level) {
         if (level > depth || visited.has(id)) return;
         visited.add(id);
 
-        let meta;
-        if (id === seed.id) {
-            meta = seed;
-        } else {
-            const raw = await fetchMetadata(id);
-            meta = {
-                id: raw.id,
-                title: raw.title,
-                backward_citations: raw.referenced_works || [],
-                cited_by_api_url: raw.cited_by_api_url,
-                citation_counts: {
-                    backward: raw.referenced_works_count,
-                    forward: raw.cited_by_count
-                }
-            };
-        }
+        const meta = recordMap[id];
+        if (!meta) return;  // skip if not in JSON
 
         elements.push({ data: { id, label: meta.title, meta } });
-        await sleep(THROTTLE_MS);
 
         if (level < depth) {
-            for (const ref of (meta.backward_citations || []).slice(0, 50)) {
+            // backward
+            (meta.backward_citations || []).slice(0, 50).forEach(ref => {
                 elements.push({ data: { source: id, target: ref } });
-                await recurse(ref, level + 1);
-            }
-            if (meta.citation_counts.forward) {
-                const resp = await fetch(meta.cited_by_api_url + `&per_page=${MAX_PAGE}`);
-                if (resp.ok) {
-                    const citers = (await resp.json()).results || [];
-                    for (const c of citers.slice(0, 50)) {
-                        elements.push({ data: { source: c.id, target: id } });
-                        await recurse(c.id, level + 1);
-                    }
-                }
-                await sleep(THROTTLE_MS);
-            }
+                recurse(ref, level + 1);
+            });
+            // forward
+            (meta.forward_citations || []).slice(0, 50).forEach(cit => {
+                elements.push({ data: { source: cit, target: id } });
+                recurse(cit, level + 1);
+            });
         }
     }
 
-    await recurse(seed.id, 1);
+    recurse(seed.id, 1);
     document.getElementById('cy').innerHTML = '';
 
     const cy = cytoscape({
@@ -209,12 +177,12 @@ async function showGraph(seed) {
                     'text-valign': 'center'
                 }
             },
-            { selector: 'edge', style: { width: 2, 'line-color': '#999' } }
+            { selector: 'edge', style: { 'width': 2, 'line-color': '#999' } }
         ],
         layout: { name: 'cose' }
     });
 
-    // Update node-info when node clicked
+    // Update only the info field on node click
     cy.on('tap', 'node', evt => {
         const m = evt.target.data('meta');
         document.getElementById('node-info').textContent =
@@ -224,7 +192,7 @@ async function showGraph(seed) {
     new bootstrap.Modal(document.getElementById('graphModal')).show();
 }
 
-// Show paper details in modal
+// Show detailed metadata in details modal
 function showDetails(r) {
     const mb = document.getElementById('modal-body');
     mb.innerHTML = `
