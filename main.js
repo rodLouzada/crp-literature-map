@@ -1,13 +1,24 @@
 const DATA_URL = 'crp_openalex_enhanced.json';
 const API_BASE = 'https://api.openalex.org/works/';
-const MAX_PAGE = 200;            // per_page cap
-const RECURSIVE_THROTTLE = 200;  // ms between API calls
+const MAX_PAGE = 200;
+const THROTTLE_MS = 200;
 
 let currentSeed = null;
 
-function sleep(ms) {
-    return new Promise(res => setTimeout(res, ms));
-}
+// simple sleep
+const sleep = ms => new Promise(res => setTimeout(res, ms));
+
+// Load and initial render
+(async () => {
+    const records = await loadData();
+    buildThemeFilters(records);
+    renderTable(records);
+    setupSearch(records);
+
+    document.getElementById('regenerate-btn').onclick = () => {
+        if (currentSeed) showGraph(currentSeed);
+    };
+})();
 
 async function loadData() {
     const resp = await fetch(DATA_URL);
@@ -15,77 +26,54 @@ async function loadData() {
     return (await resp.json()).records || [];
 }
 
-// Generic filter builder
-function buildCheckboxFilter(records, fieldPath, containerId, badgeId) {
-    const container = document.getElementById(containerId);
-    const badge = document.getElementById(badgeId);
-    const values = new Set();
-
-    records.forEach(r => {
-        const arr = fieldPath(r);
-        if (Array.isArray(arr)) arr.forEach(v => values.add(v));
-    });
-
-    badge.textContent = values.size;
-    values.forEach(val => {
-        const id = `${containerId}-${val.replace(/\W+/g, '_')}`;
+function buildThemeFilters(records) {
+    const container = document.getElementById('theme-filters');
+    const badge = document.getElementById('theme-count');
+    const themes = new Set();
+    records.forEach(r => (r.topics || []).forEach(t => themes.add(t.name)));
+    badge.textContent = themes.size;
+    if (!themes.size) return;
+    themes.forEach(name => {
+        const id = `theme-${name.replace(/\W+/g, '_')}`;
         const div = document.createElement('div');
         div.className = 'form-check form-check-inline';
         div.innerHTML = `
-      <input class="form-check-input" type="checkbox" id="${id}" value="${val}">
-      <label class="form-check-label" for="${id}">${val}</label>
+      <input class="form-check-input" type="checkbox" id="${id}" value="${name}">
+      <label class="form-check-label" for="${id}">${name}</label>
     `;
         container.appendChild(div);
     });
 }
 
-function buildFilters(records) {
-    // Themes
-    buildCheckboxFilter(records,
-        r => (r.topics || []).map(t => t.name),
-        'theme-filters', 'theme-count');
-
-    // Authors
-    buildCheckboxFilter(records,
-        r => r.authors.map(a => a.name),
-        'author-filters', 'author-count');
-
-    // Journals
-    buildCheckboxFilter(records,
-        r => [r.journal],
-        'journal-filters', 'journal-count');
-
-    // Keywords
-    buildCheckboxFilter(records,
-        r => r.keywords || [],
-        'keyword-filters', 'keyword-count');
-}
-
-function getCheckedValues(containerId) {
+function getChecked(containerId) {
     return Array.from(
         document.querySelectorAll(`#${containerId} input:checked`)
-    ).map(i => i.value);
+    ).map(i => i.value.toLowerCase());
 }
 
 function applyFilters(records) {
-    const q = document.getElementById('search').value.trim().toLowerCase();
+    const titleQ = document.getElementById('search').value.trim().toLowerCase();
     const start = document.getElementById('start-date').value;
     const end = document.getElementById('end-date').value;
-    const themes = getCheckedValues('theme-filters');
-    const authors = getCheckedValues('author-filters');
-    const journals = getCheckedValues('journal-filters');
-    const keywords = getCheckedValues('keyword-filters');
+    const themes = getChecked('theme-filters');
+    const authorQ = document.getElementById('author-filter').value.trim().toLowerCase();
+    const journalQ = document.getElementById('journal-filter').value.trim().toLowerCase();
+    const keywordQ = document.getElementById('keyword-filter').value.trim().toLowerCase();
     const minC = parseInt(document.getElementById('min-cites').value) || 0;
     const maxC = parseInt(document.getElementById('max-cites').value) || Infinity;
 
     return records.filter(r => {
-        if (q && !r.title.toLowerCase().includes(q)) return false;
+        if (titleQ && !r.title.toLowerCase().includes(titleQ)) return false;
         if (start && r.publication_date && r.publication_date < start) return false;
         if (end && r.publication_date && r.publication_date > end) return false;
-        if (themes.length && !themes.some(t => (r.topics || []).map(x => x.name).includes(t))) return false;
-        if (authors.length && !authors.some(a => r.authors.map(x => x.name).includes(a))) return false;
-        if (journals.length && !journals.includes(r.journal)) return false;
-        if (keywords.length && !keywords.some(k => (r.keywords || []).includes(k))) return false;
+        if (themes.length && !themes.some(t => (r.topics || []).map(x => x.name.toLowerCase()).includes(t)))
+            return false;
+        if (authorQ && !r.authors.some(a => a.name.toLowerCase().includes(authorQ)))
+            return false;
+        if (journalQ && !(r.journal || '').toLowerCase().includes(journalQ))
+            return false;
+        if (keywordQ && !((r.keywords || []).some(k => k.toLowerCase().includes(keywordQ))))
+            return false;
         const cites = (r.citation_counts || {}).forward || 0;
         if (cites < minC || cites > maxC) return false;
         return true;
@@ -96,9 +84,10 @@ function renderTable(records) {
     const tbody = document.querySelector('#results tbody');
     tbody.innerHTML = '';
     if (!records.length) {
-        tbody.innerHTML = `<tr><td colspan="7" class="text-center py-3">
-      No records match filters.
-    </td></tr>`;
+        tbody.innerHTML = `
+      <tr><td colspan="7" class="text-center py-3">
+        No records match filters.
+      </td></tr>`;
         return;
     }
     records.forEach(r => {
@@ -108,14 +97,17 @@ function renderTable(records) {
       <td><a href="${r.url || '#'}" target="_blank">${r.title}</a></td>
       <td>${r.publication_year || ''}</td>
       <td>${r.authors.map(a => a.name).join(', ')}</td>
-      <td>${(r.citation_counts?.forward) || 0}</td>
+      <td>${(r.citation_counts.forward) || 0}</td>
       <td>${screening}</td>
       <td><button class="btn btn-sm btn-outline-secondary details-btn">Details</button></td>
       <td><button class="btn btn-sm btn-outline-secondary network-btn">Graph</button></td>
     `;
         tbody.appendChild(tr);
         tr.querySelector('.details-btn').onclick = () => showDetails(r);
-        tr.querySelector('.network-btn').onclick = () => { currentSeed = r; showGraph(r); };
+        tr.querySelector('.network-btn').onclick = () => {
+            currentSeed = r;
+            showGraph(r);
+        };
     });
 }
 
@@ -132,7 +124,6 @@ async function fetchMetadata(id) {
 }
 
 async function showGraph(seed) {
-    currentSeed = seed;
     const depth = parseInt(document.getElementById('modal-graph-level').value, 10) || 1;
     document.getElementById('node-info').textContent =
         `${seed.title} (${seed.id.split('/').pop()})`;
@@ -149,22 +140,30 @@ async function showGraph(seed) {
             meta = seed;
         } else {
             const raw = await fetchMetadata(id);
-            meta = normalize(raw);
+            meta = {
+                id: raw.id,
+                title: raw.title,
+                backward_citations: raw.referenced_works || [],
+                cited_by_api_url: raw.cited_by_api_url,
+                citation_counts: {
+                    backward: raw.referenced_works_count,
+                    forward: raw.cited_by_count
+                }
+            };
         }
 
         elements.push({ data: { id, label: meta.title, meta } });
-        await sleep(RECURSIVE_THROTTLE);
+        await sleep(THROTTLE_MS);
 
         if (level < depth) {
-            // backward citations
+            // backward
             for (const ref of (meta.backward_citations || []).slice(0, 50)) {
                 elements.push({ data: { source: id, target: ref } });
                 await recurse(ref, level + 1);
             }
-            // forward citations (capped)
+            // forward
             if (meta.citation_counts.forward) {
-                const url = meta.cited_by_api_url + `&per_page=${MAX_PAGE}`;
-                const resp = await fetch(url);
+                const resp = await fetch(meta.cited_by_api_url + `&per_page=${MAX_PAGE}`);
                 if (resp.ok) {
                     const citers = (await resp.json()).results || [];
                     for (const c of citers.slice(0, 50)) {
@@ -172,7 +171,7 @@ async function showGraph(seed) {
                         await recurse(c.id, level + 1);
                     }
                 }
-                await sleep(RECURSIVE_THROTTLE);
+                await sleep(THROTTLE_MS);
             }
         }
     }
@@ -185,7 +184,8 @@ async function showGraph(seed) {
         elements,
         style: [
             {
-                selector: 'node', style: {
+                selector: 'node',
+                style: {
                     'background-color': '#0d6efd',
                     'label': 'data(label)',
                     'color': '#000',
@@ -200,6 +200,7 @@ async function showGraph(seed) {
         layout: { name: 'cose' }
     });
 
+    // node-click only updates info
     cy.on('tap', 'node', evt => {
         const m = evt.target.data('meta');
         document.getElementById('node-info').textContent =
@@ -209,25 +210,15 @@ async function showGraph(seed) {
     new bootstrap.Modal(document.getElementById('graphModal')).show();
 }
 
-function normalize(raw) {
-    return {
-        id: raw.id,
-        title: raw.title,
-        backward_citations: raw.referenced_works || [],
-        cited_by_api_url: raw.cited_by_api_url,
-        citation_counts: {
-            backward: raw.referenced_works_count,
-            forward: raw.cited_by_count
-        }
-    };
+function showDetails(r) {
+    const mb = document.getElementById('modal-body');
+    mb.innerHTML = `
+    <h5>${r.title}</h5>
+    <p><strong>ID:</strong> ${r.id.split('/').pop()}</p>
+    <p><strong>Publication Date:</strong> ${r.publication_date || 'N/A'}</p>
+    <p><strong>Topics:</strong> ${(r.topics || []).map(t => t.name).join(', ')}</p>
+    <p><strong>Keywords:</strong> ${(r.keywords || []).join(', ')}</p>
+    <p><strong>URL:</strong> <a href="${r.url || '#'}">${r.url || 'N/A'}</a></p>
+  `;
+    new bootstrap.Modal(document.getElementById('detailModal')).show();
 }
-
-(async () => {
-    const recs = await loadData();
-    buildFilters(recs);
-    renderTable(recs);
-    setupSearch(recs);
-    document.getElementById('regenerate-btn').onclick = () => {
-        if (currentSeed) showGraph(currentSeed);
-    };
-})();
