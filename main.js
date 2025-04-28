@@ -1,6 +1,8 @@
 const DATA_URL = 'crp_openalex_enhanced.json';
 const API_BASE = 'https://api.openalex.org/works/';
 
+let currentSeed = null;  // hold the node currently displayed
+
 async function loadData() {
     const resp = await fetch(DATA_URL);
     if (!resp.ok) throw new Error(`Fetch failed: ${resp.statusText}`);
@@ -9,19 +11,24 @@ async function loadData() {
 
 function buildThemeFilters(records) {
     const container = document.getElementById('theme-filters');
+    const countBadge = document.getElementById('theme-count');
     const themes = new Set();
-    records.forEach(r => (r.topics || []).forEach(t => themes.add(t.name)));
 
-    if (!themes.size) {
-        document.getElementById('themes-col').style.display = 'none';
-        return;
-    }
+    records.forEach(r => (r.topics || []).forEach(t => themes.add(t.name)));
+    countBadge.textContent = themes.size;
+    if (!themes.size) return;
+
     themes.forEach(name => {
         const id = `theme-${name.replace(/\W+/g, '_')}`;
         const div = document.createElement('div');
         div.className = 'form-check form-check-inline';
         div.innerHTML = `
-      <input class="form-check-input" type="checkbox" id="${id}" value="${name}">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="${id}"
+        value="${name}"
+      >
       <label class="form-check-label" for="${id}">${name}</label>
     `;
         container.appendChild(div);
@@ -62,7 +69,6 @@ function renderTable(records) {
       </td></tr>`;
         return;
     }
-
     records.forEach(r => {
         const screening = r.screening?.title_abstract || 'Not screened';
         const tr = document.createElement('tr');
@@ -84,11 +90,13 @@ function renderTable(records) {
       </td>
     `;
         tbody.appendChild(tr);
-
         tr.querySelector('.details-btn')
             .addEventListener('click', () => showDetails(r));
         tr.querySelector('.network-btn')
-            .addEventListener('click', () => showGraph(r));
+            .addEventListener('click', () => {
+                currentSeed = r;
+                showGraph(r);
+            });
     });
 }
 
@@ -105,7 +113,10 @@ async function fetchMetadata(id) {
 }
 
 async function showGraph(seed) {
-    const depth = parseInt(document.getElementById('graph-level').value) || 1;
+    const depth = parseInt(document.getElementById('modal-graph-level').value, 10) || 1;
+    document.getElementById('node-info').textContent =
+        `${seed.title} (${seed.id.split('/').pop()})`;
+
     const elements = [];
     const visited = new Set();
 
@@ -117,31 +128,25 @@ async function showGraph(seed) {
         if (id === seed.id) {
             meta = seed;
         } else {
-            meta = await fetchMetadata(id);
-            // normalize to our record shape
+            const raw = await fetchMetadata(id);
             meta = {
-                id: meta.id,
-                title: meta.title,
-                publication_date: meta.publication_date,
-                topics: meta.topics.map(t => ({ name: t.display_name })),
-                keywords: (meta.keywords || []).map(k => k.display_name),
-                abstract: null,  // skip for speed
-                url: meta.primary_location?.landing_page_url,
+                id: raw.id,
+                title: raw.title,
+                publication_date: raw.publication_date,
+                topics: raw.topics.map(t => ({ name: t.display_name })),
+                keywords: (raw.keywords || []).map(k => k.display_name),
+                url: raw.primary_location?.landing_page_url,
+                backward_citations: raw.referenced_works || [],
+                cited_by_api_url: raw.cited_by_api_url,
                 citation_counts: {
-                    backward: meta.referenced_works_count,
-                    forward: meta.cited_by_count
-                },
-                backward_citations: meta.referenced_works || [],
-                forward_citations: []  // we'll fetch via API url
+                    backward: raw.referenced_works_count,
+                    forward: raw.cited_by_count
+                }
             };
         }
 
-        // add node
-        elements.push({
-            data: { id: id, label: meta.title, meta }
-        });
+        elements.push({ data: { id, label: meta.title, meta } });
 
-        // add edges & recurse
         if (level < depth) {
             // backward
             for (const ref of meta.backward_citations.slice(0, depth * 5)) {
@@ -160,8 +165,10 @@ async function showGraph(seed) {
         }
     }
 
-    // build the graph
     await recurse(seed.id, 1);
+
+    // clear previous
+    document.getElementById('cy').innerHTML = '';
 
     const cy = cytoscape({
         container: document.getElementById('cy'),
@@ -172,11 +179,11 @@ async function showGraph(seed) {
                 style: {
                     'background-color': '#0d6efd',
                     'label': 'data(label)',
-                    'color': '#fff',
-                    'text-valign': 'center',
+                    'color': '#000',
                     'text-wrap': 'wrap',
                     'text-max-width': 80,
-                    'font-size': 8
+                    'font-size': 8,
+                    'text-valign': 'center',
                 }
             },
             {
@@ -193,6 +200,8 @@ async function showGraph(seed) {
     cy.on('tap', 'node', evt => {
         const meta = evt.target.data('meta');
         showDetails(meta);
+        document.getElementById('node-info').textContent =
+            `${meta.title} (${meta.id.split('/').pop()})`;
     });
 
     new bootstrap.Modal(document.getElementById('graphModal')).show();
@@ -202,6 +211,7 @@ function showDetails(r) {
     const mb = document.getElementById('modal-body');
     mb.innerHTML = `
     <h5>${r.title}</h5>
+    <p><strong>ID:</strong> ${r.id.split('/').pop()}</p>
     <p><strong>Publication Date:</strong> ${r.publication_date || 'N/A'}</p>
     <p><strong>Topics:</strong> ${(r.topics || []).map(t => t.name).join(', ')}</p>
     <p><strong>Keywords:</strong> ${(r.keywords || []).join(', ')}</p>
@@ -215,4 +225,9 @@ function showDetails(r) {
     buildThemeFilters(records);
     renderTable(records);
     setupSearch(records);
+
+    // Regenerate button inside modal
+    document.getElementById('regenerate-btn').onclick = () => {
+        if (currentSeed) showGraph(currentSeed);
+    };
 })();
