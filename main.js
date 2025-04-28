@@ -73,26 +73,43 @@ function applyFilters() {
     filteredRecords = allRecords.filter(r => {
         // Title
         if (titleQ && (!r.title || !r.title.toLowerCase().includes(titleQ))) return false;
-        // Dates
-        if (start && r.publication_date && r.publication_date < start) return false;
-        if (end && r.publication_date && r.publication_date > end) return false;
+
+        // Date
+        if (start && r.publication_date < start) return false;
+        if (end && r.publication_date > end) return false;
+
         // Themes
         if (themes.length) {
             const tnames = (r.topics || []).map(t => t.name.toLowerCase());
             if (!themes.some(t => tnames.includes(t))) return false;
         }
+
         // Author
         if (authorQ) {
-            const auths = r.authors.map(a => a.name.toLowerCase()).join(' ');
-            if (!auths.includes(authorQ)) return false;
+            // join only non-null names, then lowercase
+            const authString = r.authors
+                .map(a => a.name || '')
+                .filter(n => n)
+                .join(' ')
+                .toLowerCase();
+            if (!authString.includes(authorQ)) return false;
         }
+
         // Journal
-        if (journalQ && !(r.journal || '').toLowerCase().includes(journalQ)) return false;
+        if (journalQ) {
+            const jname = (r.journal || '').toLowerCase();
+            if (!jname.includes(journalQ)) return false;
+        }
+
         // Keyword
         if (keywordQ) {
-            const kws = (r.keywords || []).map(k => k.toLowerCase()).join(' ');
-            if (!kws.includes(keywordQ)) return false;
+            const kwString = (r.keywords || [])
+                .filter(k => typeof k === 'string')
+                .map(k => k.toLowerCase())
+                .join(' ');
+            if (!kwString.includes(keywordQ)) return false;
         }
+
         // Citation count
         const cites = (r.citation_counts?.forward) || 0;
         if (cites < minC || cites > maxC) return false;
@@ -104,6 +121,7 @@ function applyFilters() {
     renderTable();
     renderPagination();
 }
+
 
 // Render the current page of filteredRecords
 function renderTable() {
