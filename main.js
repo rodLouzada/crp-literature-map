@@ -235,12 +235,14 @@ function showDetails(r) {
 }
 
 // Show citation network using only local JSON data
+// Show citation network using only local JSON data
 function showGraph(seed) {
     const depth = parseInt(
         document.getElementById('modal-graph-level').value,
         10
     ) || 1;
 
+    // Update the "Selected Node" line
     document.getElementById('node-info').textContent =
         `${seed.title} (${seed.id.split('/').pop()})`;
 
@@ -254,25 +256,38 @@ function showGraph(seed) {
         const meta = recordMap[id];
         if (!meta) return;
 
+        // 1) Add the node
         elements.push({ data: { id, label: meta.title, meta } });
 
+        // 2) If we still have depth remaining, add edges + recurse
         if (level < depth) {
-            (meta.backward_citations || []).slice(0, 50)
-                .forEach(ref => {
-                    elements.push({ data: { source: id, target: ref } });
-                    recurse(ref, level + 1);
+            // backward citations (to older papers)
+            (meta.backward_citations || [])
+                .slice(0, 50)
+                .forEach(refMeta => {
+                    const refId = refMeta.id;
+                    elements.push({ data: { source: id, target: refId } });
+                    recurse(refId, level + 1);
                 });
-            (meta.forward_citations || []).slice(0, 50)
-                .forEach(cit => {
-                    elements.push({ data: { source: cit, target: id } });
-                    recurse(cit, level + 1);
+
+            // forward citations (papers that cite this one)
+            (meta.forward_citations || [])
+                .slice(0, 50)
+                .forEach(citMeta => {
+                    const citId = citMeta.id;
+                    elements.push({ data: { source: citId, target: id } });
+                    recurse(citId, level + 1);
                 });
         }
     }
 
+    // kick off recursion
     recurse(seed.id, 1);
+
+    // clear out any old graph
     document.getElementById('cy').innerHTML = '';
 
+    // initialize Cytoscape
     const cy = cytoscape({
         container: document.getElementById('cy'),
         elements,
@@ -300,11 +315,14 @@ function showGraph(seed) {
         layout: { name: 'cose' }
     });
 
+    // clicking any node just updates the Selected Node text
     cy.on('tap', 'node', evt => {
         const m = evt.target.data('meta');
         document.getElementById('node-info').textContent =
             `${m.title} (${m.id.split('/').pop()})`;
     });
 
+    // show the modal
     new bootstrap.Modal(document.getElementById('graphModal')).show();
 }
+
