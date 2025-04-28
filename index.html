@@ -24,12 +24,10 @@
                 <tr><td>Google Scholar</td><td>18,700</td></tr>
             </tbody>
         </table>
-    </section>
-
-         -->
+    </section>-->
         <!-- Filters -->
         <section class="mb-4" id="filters">
-            <div class="row g-3 align-items-end">
+            <div class="row g-3">
                 <div class="col-md-3">
                     <label for="start-date" class="form-label">Start date</label>
                     <input type="date" id="start-date" class="form-control">
@@ -38,29 +36,62 @@
                     <label for="end-date" class="form-label">End date</label>
                     <input type="date" id="end-date" class="form-control">
                 </div>
+
+                <!-- Collapsible: Themes -->
                 <div class="col-12">
-                    <button class="btn btn-outline-secondary"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#themes-col"
-                            aria-expanded="false"
-                            aria-controls="themes-col">
+                    <button class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#themes-col">
                         Themes <span id="theme-count" class="badge bg-secondary">0</span>
                     </button>
                 </div>
                 <div class="col-12 collapse" id="themes-col">
-                    <div id="theme-filters" class="d-flex flex-wrap gap-2 mt-2">
-                        <!-- checkboxes injected by main.js -->
-                    </div>
+                    <div id="theme-filters" class="d-flex flex-wrap gap-2 mt-2"></div>
+                </div>
+
+                <!-- Collapsible: Authors -->
+                <div class="col-12">
+                    <button class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#authors-col">
+                        Authors <span id="author-count" class="badge bg-secondary">0</span>
+                    </button>
+                </div>
+                <div class="col-12 collapse" id="authors-col">
+                    <div id="author-filters" class="d-flex flex-wrap gap-2 mt-2"></div>
+                </div>
+
+                <!-- Collapsible: Journals -->
+                <div class="col-12">
+                    <button class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#journals-col">
+                        Journals <span id="journal-count" class="badge bg-secondary">0</span>
+                    </button>
+                </div>
+                <div class="col-12 collapse" id="journals-col">
+                    <div id="journal-filters" class="d-flex flex-wrap gap-2 mt-2"></div>
+                </div>
+
+                <!-- Citation Count Range -->
+                <div class="col-md-3">
+                    <label class="form-label">Min Citations</label>
+                    <input type="number" id="min-cites" class="form-control" min="0" placeholder="0">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Max Citations</label>
+                    <input type="number" id="max-cites" class="form-control" min="0" placeholder="1000">
+                </div>
+
+                <!-- Collapsible: Keywords -->
+                <div class="col-12">
+                    <button class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#keywords-col">
+                        Keywords <span id="keyword-count" class="badge bg-secondary">0</span>
+                    </button>
+                </div>
+                <div class="col-12 collapse" id="keywords-col">
+                    <div id="keyword-filters" class="d-flex flex-wrap gap-2 mt-2"></div>
                 </div>
             </div>
         </section>
 
         <!-- Search Bar -->
         <div class="input-group mb-4">
-            <input type="text"
-                   id="search"
-                   class="form-control"
-                   placeholder="Search by title…">
+            <input type="text" id="search" class="form-control" placeholder="Search by title…">
             <button id="search-btn" class="btn btn-primary">Search</button>
         </div>
 
@@ -77,13 +108,11 @@
                     <th>Network</th>
                 </tr>
             </thead>
-            <tbody>
-                <!-- rows injected by main.js -->
-            </tbody>
+            <tbody></tbody>
         </table>
     </div>
 
-    <!-- Details Modal (unchanged) -->
+    <!-- Details Modal -->
     <div class="modal fade" id="detailModal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
@@ -96,7 +125,7 @@
         </div>
     </div>
 
-    <!-- Graph Modal: now with depth input & node-info only -->
+    <!-- Network Modal -->
     <div class="modal fade" id="graphModal" tabindex="-1">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
@@ -111,15 +140,8 @@
                     </div>
                     <div class="input-group mb-4" style="max-width:200px;">
                         <span class="input-group-text">Depth</span>
-                        <input type="number"
-                               id="modal-graph-level"
-                               class="form-control"
-                               min="1"
-                               max="3"
-                               value="1">
-                        <button id="regenerate-btn" class="btn btn-outline-primary">
-                            Regenerate
-                        </button>
+                        <input type="number" id="modal-graph-level" class="form-control" min="1" max="3" value="1">
+                        <button id="regenerate-btn" class="btn btn-outline-primary">Regenerate</button>
                     </div>
                     <div id="cy" style="width:100%; height:600px;"></div>
                 </div>
