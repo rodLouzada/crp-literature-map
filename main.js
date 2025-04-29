@@ -8,9 +8,15 @@ let currentPage = 1;
 const pageSize = 10;
 let currentSeed = null;
 
-// On load: fetch data, build map, render table & pagination, wire events
-; (async () => {
-    allRecords = await loadData();
+(async function () {
+    try {
+        allRecords = await loadData();
+    } catch (err) {
+        console.error('Failed to load data:', err);
+        return;
+    }
+
+    // build a lookup map
     allRecords.forEach(r => recordMap[r.id] = r);
 
     buildThemeFilters(allRecords);
@@ -20,37 +26,42 @@ let currentSeed = null;
     renderPagination();
     setupSearch();
 
-    // show graph inline when clicking "Network" button
-    document.querySelector('#results').addEventListener('click', e => {
+    // Show graph when a "Graph" button is clicked
+    document.querySelector('#results').addEventListener('click', function (e) {
         if (e.target.classList.contains('network-btn')) {
             const tr = e.target.closest('tr');
-            const idx = (currentPage - 1) * pageSize +
-                Array.from(tr.parentNode.children).indexOf(tr);
+            const rows = Array.from(tr.parentNode.children);
+            const idx = (currentPage - 1) * pageSize + rows.indexOf(tr);
             currentSeed = filteredRecords[idx];
             showGraph(currentSeed);
             document.getElementById('graphPanel').classList.remove('d-none');
         }
     });
 
-    // close inline graph
-    document.getElementById('close-graph').onclick = () =>
-        document.getElementById('graphPanel').classList.add('d-none');
+    // Close graph panel
+    document.getElementById('close-graph')
+        .addEventListener('click', () => {
+            document.getElementById('graphPanel').classList.add('d-none');
+        });
 
-    // regenerate at depth change
-    document.getElementById('graph-regenerate').onclick = () => {
-        if (currentSeed) showGraph(currentSeed);
-    };
+    // Regenerate network at new depth
+    document.getElementById('graph-regenerate')
+        .addEventListener('click', () => {
+            if (currentSeed) showGraph(currentSeed);
+        });
 })();
 
 // Fetch the JSON dataset
 async function loadData() {
     const resp = await fetch(DATA_URL);
-    if (!resp.ok) throw new Error(`Fetch failed: ${resp.statusText}`);
+    if (!resp.ok) {
+        throw new Error(`Fetch failed: ${resp.statusText}`);
+    }
     const data = await resp.json();
     return data.records || [];
 }
 
-// Build the Theme checkboxes
+// Build the theme checkboxes
 function buildThemeFilters(records) {
     const container = document.getElementById('theme-filters');
     const badge = document.getElementById('theme-count');
@@ -71,14 +82,14 @@ function buildThemeFilters(records) {
     });
 }
 
-// Utility: get checked values from a container
+// Utility to grab checked values
 function getCheckedValues(containerId) {
-    return Array.from(
-        document.querySelectorAll(`#${containerId} input:checked`)
-    ).map(i => i.value.toLowerCase());
+    return Array
+        .from(document.querySelectorAll(`#${containerId} input:checked`))
+        .map(i => i.value.toLowerCase());
 }
 
-// Apply filters and re-render
+// Apply all filters and re-render
 function applyFilters() {
     const titleQ = (document.getElementById('search').value || '').trim().toLowerCase();
     const start = document.getElementById('start-date').value;
@@ -91,24 +102,29 @@ function applyFilters() {
     const maxC = parseInt(document.getElementById('max-cites').value) || Infinity;
 
     filteredRecords = allRecords.filter(r => {
-        if (titleQ && (!r.title || !r.title.toLowerCase().includes(titleQ))) return false;
+        if (titleQ && !r.title?.toLowerCase().includes(titleQ)) return false;
         if (start && r.publication_date < start) return false;
         if (end && r.publication_date > end) return false;
+
         if (themes.length) {
             const tnames = (r.topics || []).map(t => t.name.toLowerCase());
             if (!themes.some(t => tnames.includes(t))) return false;
         }
+
         if (authorQ) {
-            const authString = r.authors.map(a => a.name || '').join(' ').toLowerCase();
-            if (!authString.includes(authorQ)) return false;
+            const auths = r.authors.map(a => a.name).join(' ').toLowerCase();
+            if (!auths.includes(authorQ)) return false;
         }
-        if (journalQ && !(r.journal || '').toLowerCase().includes(journalQ)) return false;
+        if (journalQ && !r.journal?.toLowerCase().includes(journalQ)) return false;
+
         if (keywordQ) {
-            const kwString = (r.keywords || []).map(k => k.toLowerCase()).join(' ');
-            if (!kwString.includes(keywordQ)) return false;
+            const kws = (r.keywords || []).join(' ').toLowerCase();
+            if (!kws.includes(keywordQ)) return false;
         }
-        const cites = (r.citation_counts?.forward) || 0;
+
+        const cites = r.citation_counts?.forward || 0;
         if (cites < minC || cites > maxC) return false;
+
         return true;
     });
 
@@ -117,10 +133,11 @@ function applyFilters() {
     renderPagination();
 }
 
-// Render the current page of filteredRecords
+// Render the paginated table
 function renderTable() {
     const tbody = document.querySelector('#results tbody');
     tbody.innerHTML = '';
+
     const startIdx = (currentPage - 1) * pageSize;
     const pageRecs = filteredRecords.slice(startIdx, startIdx + pageSize);
 
@@ -139,34 +156,34 @@ function renderTable() {
       <td><a href="${r.url || '#'}" target="_blank">${r.title}</a></td>
       <td>${r.publication_year || ''}</td>
       <td>${r.authors.map(a => a.name).join(', ')}</td>
-      <td>${(r.citation_counts.forward) || 0}</td>
+      <td>${r.citation_counts.forward || 0}</td>
       <td>${screening}</td>
       <td><button class="btn btn-sm btn-outline-secondary details-btn">Details</button></td>
       <td><button class="btn btn-sm btn-outline-secondary network-btn">Graph</button></td>
     `;
         tbody.appendChild(tr);
-        tr.querySelector('.details-btn').onclick = () => showDetails(r);
+        tr.querySelector('.details-btn').addEventListener('click', () => showDetails(r));
     });
 }
 
-// Render pagination controls
+// Render the pagination controls
 function renderPagination() {
     const totalPages = Math.max(1, Math.ceil(filteredRecords.length / pageSize));
     const ul = document.getElementById('pagination');
     ul.innerHTML = '';
 
-    function makePageItem(label, disabled, onClick) {
+    function makeItem(label, disabled, handler) {
         const li = document.createElement('li');
         li.className = `page-item${disabled ? ' disabled' : ''}`;
         const btn = document.createElement('button');
         btn.className = 'page-link';
         btn.textContent = label;
-        if (!disabled) btn.onclick = onClick;
+        if (!disabled) btn.addEventListener('click', handler);
         li.appendChild(btn);
         return li;
     }
 
-    ul.appendChild(makePageItem('Previous', currentPage === 1, () => {
+    ul.appendChild(makeItem('Previous', currentPage === 1, () => {
         currentPage--; renderTable(); renderPagination();
     }));
 
@@ -176,23 +193,27 @@ function renderPagination() {
         const btn = document.createElement('button');
         btn.className = 'page-link';
         btn.textContent = p;
-        btn.onclick = () => { currentPage = p; renderTable(); renderPagination(); };
+        btn.addEventListener('click', () => {
+            currentPage = p;
+            renderTable();
+            renderPagination();
+        });
         li.appendChild(btn);
         ul.appendChild(li);
     }
 
-    ul.appendChild(makePageItem('Next', currentPage === totalPages, () => {
+    ul.appendChild(makeItem('Next', currentPage === totalPages, () => {
         currentPage++; renderTable(); renderPagination();
     }));
 }
 
-// Wire up the Search button
+// Hook up the search button
 function setupSearch() {
     document.getElementById('search-btn')
         .addEventListener('click', applyFilters);
 }
 
-// Show paper details in modal
+// Show the details modal
 function showDetails(r) {
     const mb = document.getElementById('modal-body');
     mb.innerHTML = `
@@ -206,12 +227,9 @@ function showDetails(r) {
     new bootstrap.Modal(document.getElementById('detailModal')).show();
 }
 
-// Show inline citation network
+// Draw the inline citation network
 function showGraph(seed) {
-    const depth = parseInt(
-        document.getElementById('graph-depth').value, 10
-    ) || 1;
-
+    const depth = parseInt(document.getElementById('graph-depth').value, 10) || 1;
     document.getElementById('node-info').textContent = seed.title;
 
     const elements = [];
@@ -220,19 +238,27 @@ function showGraph(seed) {
     function recurse(id, level, type) {
         if (level > depth || visited.has(id)) return;
         visited.add(id);
+
         const meta = recordMap[id];
         if (!meta) return;
-        // add node
-        elements.push({ data: { id, label: meta.title, meta, metaType: type } });
+
+        elements.push({
+            data: { id, label: meta.title, meta, metaType: type }
+        });
+
         if (level < depth) {
             (meta.backward_citations || []).slice(0, 50).forEach(refId => {
                 if (!recordMap[refId]) return;
-                elements.push({ data: { id: `${id}->${refId}`, source: id, target: refId } });
+                elements.push({
+                    data: { id: `${id}->${refId}`, source: id, target: refId }
+                });
                 recurse(refId, level + 1, 'backward');
             });
             (meta.forward_citations || []).slice(0, 50).forEach(citId => {
                 if (!recordMap[citId]) return;
-                elements.push({ data: { id: `${citId}->${id}`, source: citId, target: id } });
+                elements.push({
+                    data: { id: `${citId}->${id}`, source: citId, target: id }
+                });
                 recurse(citId, level + 1, 'forward');
             });
         }
@@ -247,15 +273,38 @@ function showGraph(seed) {
         container,
         elements,
         style: [
-            { selector: 'node', style: { label: 'data(label)', 'text-wrap': 'wrap', 'text-max-width': 120, 'font-size': 8, 'text-valign': 'center', color: '#000' } },
-            { selector: 'node[metaType="backward"]', style: { 'background-color': 'green' } },
-            { selector: 'node[metaType="forward"]', style: { 'background-color': 'orange' } },
-            { selector: 'node[metaType="seed"]', style: { 'background-color': '#0d6efd' } },
-            { selector: 'edge', style: { width: 1.5, 'line-color': '#999' } }
+            {
+                selector: 'node',
+                style: {
+                    label: 'data(label)',
+                    'text-wrap': 'wrap',
+                    'text-max-width': 120,
+                    'font-size': 8,
+                    'text-valign': 'center',
+                    color: '#000'
+                }
+            },
+            {
+                selector: 'node[metaType="backward"]',
+                style: { 'background-color': 'green' }
+            },
+            {
+                selector: 'node[metaType="forward"]',
+                style: { 'background-color': 'orange' }
+            },
+            {
+                selector: 'node[metaType="seed"]',
+                style: { 'background-color': '#0d6efd' }
+            },
+            {
+                selector: 'edge',
+                style: { width: 1.5, 'line-color': '#999' }
+            }
         ],
         layout: { name: 'cose' }
     });
 
+    // size nodes by their degree
     cy.nodes().forEach(node => {
         const size = 20 + node.degree() * 5;
         node.style({ width: size, height: size });
