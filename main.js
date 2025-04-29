@@ -307,10 +307,11 @@ function showGraph(seed) {
         tile: true
     }).run();
 
+    // append connection count to each node’s label
     cy.nodes().forEach(node => {
         const deg = node.degree();
-        const size = Math.min(60, 20 + Math.log(deg + 1) * 20);
-        node.style({ width: size, height: size });
+        const baseTitle = node.data('meta').title;
+        node.data('label', `${baseTitle} (${deg})`);
     });
 
     cy.on('tap', 'node', evt => {
