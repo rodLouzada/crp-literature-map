@@ -229,61 +229,59 @@ function showDetails(r) {
 
 // Draw the inline citation network
 function showGraph(seed) {
+    const depth = parseInt(document.getElementById('graph-depth').value, 10) || 1;
     const elements = [];
+    const visitedNodes = new Set();
+    const visitedEdges = new Set();
 
-    // Seed node
+    // add seed node
     elements.push({
-        data: {
-            id: seed.id,
-            label: seed.title,
-            metaType: 'seed',
-            meta: seed
-        }
+        data: { id: seed.id, label: seed.title, metaType: 'seed', meta: seed }
     });
+    visitedNodes.add(seed.id);
 
-    // Nodes and edges for citations this paper makes
-    (seed.backward_citations || []).forEach(refId => {
-        const meta = recordMap[refId];
+    function recurse(nodeId, level) {
+        if (level >= depth) return;
+        const meta = recordMap[nodeId];
         if (!meta) return;
-        elements.push({
-            data: {
-                id: refId,
-                label: meta.title,
-                metaType: 'backward',
-                meta: meta
-            }
-        });
-        elements.push({
-            data: {
-                id: `${seed.id}->${refId}`,
-                source: seed.id,
-                target: refId
-            }
-        });
-    });
 
-    // Nodes and edges for papers that cite this paper
-    (seed.forward_citations || []).forEach(citId => {
-        const meta = recordMap[citId];
-        if (!meta) return;
-        elements.push({
-            data: {
-                id: citId,
-                label: meta.title,
-                metaType: 'forward',
-                meta: meta
+        // citations this paper makes
+        (meta.backward_citations || []).forEach(refId => {
+            const edgeId = `${nodeId}->${refId}`;
+            if (!visitedEdges.has(edgeId)) {
+                visitedEdges.add(edgeId);
+                if (!visitedNodes.has(refId) && recordMap[refId]) {
+                    const child = recordMap[refId];
+                    elements.push({
+                        data: { id: refId, label: child.title, metaType: 'backward', meta: child }
+                    });
+                    visitedNodes.add(refId);
+                }
+                elements.push({ data: { id: edgeId, source: nodeId, target: refId } });
             }
+            recurse(refId, level + 1);
         });
-        elements.push({
-            data: {
-                id: `${citId}->${seed.id}`,
-                source: citId,
-                target: seed.id
-            }
-        });
-    });
 
-    // Render graph
+        // papers that cite this paper
+        (meta.forward_citations || []).forEach(citId => {
+            const edgeId = `${citId}->${nodeId}`;
+            if (!visitedEdges.has(edgeId)) {
+                visitedEdges.add(edgeId);
+                if (!visitedNodes.has(citId) && recordMap[citId]) {
+                    const child = recordMap[citId];
+                    elements.push({
+                        data: { id: citId, label: child.title, metaType: 'forward', meta: child }
+                    });
+                    visitedNodes.add(citId);
+                }
+                elements.push({ data: { id: edgeId, source: citId, target: nodeId } });
+            }
+            recurse(citId, level + 1);
+        });
+    }
+
+    recurse(seed.id, 0);
+
     const container = document.getElementById('cy');
     container.innerHTML = '';
     const cy = cytoscape({
@@ -291,8 +289,7 @@ function showGraph(seed) {
         elements,
         style: [
             {
-                selector: 'node',
-                style: {
+                selector: 'node', style: {
                     label: 'data(label)',
                     'text-wrap': 'wrap',
                     'text-max-width': 120,
@@ -301,30 +298,14 @@ function showGraph(seed) {
                     color: '#000'
                 }
             },
-            {
-                selector: 'node[metaType="seed"]',
-                style: { 'background-color': '#0d6efd' }
-            },
-            {
-                selector: 'node[metaType="backward"]',
-                style: { 'background-color': 'green' }
-            },
-            {
-                selector: 'node[metaType="forward"]',
-                style: { 'background-color': 'yellow' }
-            },
-            {
-                selector: 'edge',
-                style: {
-                    width: 1.5,
-                    'line-color': '#999'
-                }
-            }
+            { selector: 'node[metaType="seed"]', style: { 'background-color': '#0d6efd' } },
+            { selector: 'node[metaType="backward"]', style: { 'background-color': 'green' } },
+            { selector: 'node[metaType="forward"]', style: { 'background-color': 'yellow' } },
+            { selector: 'edge', style: { width: 1.5, 'line-color': '#999' } }
         ],
         layout: { name: 'cose' }
     });
 
-    // Click handler to update selected node title
     cy.on('tap', 'node', evt => {
         const m = evt.target.data('meta');
         document.getElementById('node-info').textContent = m.title;
