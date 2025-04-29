@@ -238,36 +238,30 @@ function showGraph(seed) {
     function addNode(id, label, type, meta) {
         if (visitedNodes.has(id)) return;
         visitedNodes.add(id);
-        nodeEls.push({
-            data: { id, label, metaType: type, meta }
-        });
+        nodeEls.push({ data: { id, label, metaType: type, meta } });
     }
 
     function addEdge(source, target) {
         const eid = `${source}->${target}`;
         if (visitedEdges.has(eid)) return;
         visitedEdges.add(eid);
-        edgeEls.push({
-            data: { id: eid, source, target }
-        });
+        edgeEls.push({ data: { id: eid, source, target } });
     }
 
     function recurse(nodeId, level) {
-        if (level >= depth) return;
+        if (level > depth) return;
         const meta = recordMap[nodeId];
         if (!meta) return;
 
         (meta.backward_citations || []).forEach(refId => {
-            if (refId === nodeId) return;
-            if (!recordMap[refId]) return;
+            if (!recordMap[refId] || refId === nodeId) return;
             addNode(refId, recordMap[refId].title, 'backward', recordMap[refId]);
             addEdge(nodeId, refId);
             recurse(refId, level + 1);
         });
 
         (meta.forward_citations || []).forEach(citId => {
-            if (citId === nodeId) return;
-            if (!recordMap[citId]) return;
+            if (!recordMap[citId] || citId === nodeId) return;
             addNode(citId, recordMap[citId].title, 'forward', recordMap[citId]);
             addEdge(citId, nodeId);
             recurse(citId, level + 1);
@@ -300,12 +294,22 @@ function showGraph(seed) {
             { selector: 'node[metaType="backward"]', style: { 'background-color': 'green' } },
             { selector: 'node[metaType="forward"]', style: { 'background-color': 'yellow' } },
             { selector: 'edge', style: { width: 2, 'line-color': '#999' } }
-        ],
-        layout: { name: 'cose' }
+        ]
     });
 
+    cy.layout({
+        name: 'cose',
+        idealEdgeLength: 120,
+        nodeOverlap: 20,
+        nodeRepulsion: 8000,
+        gravity: 0.1,
+        numIter: 1000,
+        tile: true
+    }).run();
+
     cy.nodes().forEach(node => {
-        const size = 20 + node.degree() * 8;
+        const deg = node.degree();
+        const size = Math.min(60, 20 + Math.log(deg + 1) * 20);
         node.style({ width: size, height: size });
     });
 

@@ -35,6 +35,27 @@
                 .footer a:hover {
                     color: #fff;
                 }
+
+        .legend-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            vertical-align: middle;
+            margin-right: 4px;
+        }
+
+        .bg-primary {
+            background-color: #0d6efd;
+        }
+
+        .bg-success {
+            background-color: green;
+        }
+
+        .bg-warning {
+            background-color: yellow;
+        }
     </style>
 </head>
 <body>
@@ -118,6 +139,12 @@
                         <input type="number" id="graph-depth" class="form-control text-center" min="1" max="3" value="1">
                         <button id="graph-regenerate" class="btn btn-outline-success">Regenerate</button>
                     </div>
+                    <div class="mb-2">
+                        <span class="me-3"><span class="legend-dot bg-primary"></span> Selected paper</span>
+                        <span class="me-3"><span class="legend-dot bg-success"></span> Papers cited</span>
+                        <span><span class="legend-dot bg-warning"></span> Papers citing</span>
+                    </div>
+
                     <div id="cy" style="width:100%; height:600px;"></div>
                 </div>
             </div>
