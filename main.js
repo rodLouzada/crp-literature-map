@@ -229,12 +229,17 @@ function showDetails(r) {
 
 // Draw the inline citation network
 function showGraph(seed) {
-    const depth = parseInt(document.getElementById('graph-depth').value, 10) || 1;
+    // 1) Read the depth input (how many hops out to go)
+    const depthInput = parseInt(document.getElementById('graph-depth').value, 10);
+    const depth = isNaN(depthInput) ? 1 : depthInput;
+
+    // 2) Prepare arrays & sets
     const nodeEls = [];
     const edgeEls = [];
     const visitedNodes = new Set();
     const visitedEdges = new Set();
 
+    // 3) Helpers to add nodes/edges only once
     function addNode(id, label, type, meta) {
         if (visitedNodes.has(id)) return;
         visitedNodes.add(id);
@@ -248,11 +253,13 @@ function showGraph(seed) {
         edgeEls.push({ data: { id: eid, source, target } });
     }
 
+    // 4) Recursive walk up to `depth` levels
     function recurse(nodeId, level) {
-        if (level > depth) return;
+        if (level >= depth) return;
         const meta = recordMap[nodeId];
         if (!meta) return;
 
+        // papers this one cites (backward)
         (meta.backward_citations || []).forEach(refId => {
             if (!recordMap[refId] || refId === nodeId) return;
             addNode(refId, recordMap[refId].title, 'backward', recordMap[refId]);
@@ -260,6 +267,7 @@ function showGraph(seed) {
             recurse(refId, level + 1);
         });
 
+        // papers that cite this one (forward)
         (meta.forward_citations || []).forEach(citId => {
             if (!recordMap[citId] || citId === nodeId) return;
             addNode(citId, recordMap[citId].title, 'forward', recordMap[citId]);
@@ -268,13 +276,16 @@ function showGraph(seed) {
         });
     }
 
+    // 5) Seed node + kick off recursion
     addNode(seed.id, seed.title, 'seed', seed);
     recurse(seed.id, 0);
 
+    // 6) Combine elements
     const elements = nodeEls.concat(edgeEls);
     const container = document.getElementById('cy');
     container.innerHTML = '';
 
+    // 7) Initialize Cytoscape with static, larger node sizes
     const cy = cytoscape({
         container,
         elements,
@@ -282,6 +293,8 @@ function showGraph(seed) {
             {
                 selector: 'node',
                 style: {
+                    width: 90,
+                    height: 90,
                     label: 'data(label)',
                     'text-wrap': 'wrap',
                     'text-max-width': 150,
@@ -297,23 +310,25 @@ function showGraph(seed) {
         ]
     });
 
+    // 8) Improved spacing layout
     cy.layout({
         name: 'cose',
         idealEdgeLength: 120,
-        nodeOverlap: 20,
+        nodeOverlap: 40,
         nodeRepulsion: 8000,
         gravity: 0.1,
         numIter: 1000,
         tile: true
     }).run();
 
-    // append connection count to each node’s label
+    // 9) Append connection count to each node’s label
     cy.nodes().forEach(node => {
         const deg = node.degree();
-        const baseTitle = node.data('meta').title;
-        node.data('label', `${baseTitle} (${deg})`);
+        const title = node.data('meta').title;
+        node.data('label', `${title} (${deg})`);
     });
 
+    // 10) Click handler to update selected-node display
     cy.on('tap', 'node', evt => {
         const m = evt.target.data('meta');
         document.getElementById('node-info').textContent = m.title;
