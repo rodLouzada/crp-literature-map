@@ -236,16 +236,22 @@ function showGraph(seed) {
 
     // add seed node
     elements.push({
-        data: { id: seed.id, label: seed.title, metaType: 'seed', meta: seed }
+        data: {
+            id: seed.id,
+            label: seed.title,
+            metaType: 'seed',
+            meta: seed
+        }
     });
     visitedNodes.add(seed.id);
 
+    // recursive expansion
     function recurse(nodeId, level) {
-        if (level >= depth) return;
+        if (level > depth) return;
         const meta = recordMap[nodeId];
         if (!meta) return;
 
-        // citations this paper makes
+        // papers this node cites (backward)
         (meta.backward_citations || []).forEach(refId => {
             const edgeId = `${nodeId}->${refId}`;
             if (!visitedEdges.has(edgeId)) {
@@ -253,16 +259,27 @@ function showGraph(seed) {
                 if (!visitedNodes.has(refId) && recordMap[refId]) {
                     const child = recordMap[refId];
                     elements.push({
-                        data: { id: refId, label: child.title, metaType: 'backward', meta: child }
+                        data: {
+                            id: refId,
+                            label: child.title,
+                            metaType: 'backward',
+                            meta: child
+                        }
                     });
                     visitedNodes.add(refId);
                 }
-                elements.push({ data: { id: edgeId, source: nodeId, target: refId } });
+                elements.push({
+                    data: {
+                        id: edgeId,
+                        source: nodeId,
+                        target: refId
+                    }
+                });
             }
             recurse(refId, level + 1);
         });
 
-        // papers that cite this paper
+        // papers that cite this node (forward)
         (meta.forward_citations || []).forEach(citId => {
             const edgeId = `${citId}->${nodeId}`;
             if (!visitedEdges.has(edgeId)) {
@@ -270,11 +287,22 @@ function showGraph(seed) {
                 if (!visitedNodes.has(citId) && recordMap[citId]) {
                     const child = recordMap[citId];
                     elements.push({
-                        data: { id: citId, label: child.title, metaType: 'forward', meta: child }
+                        data: {
+                            id: citId,
+                            label: child.title,
+                            metaType: 'forward',
+                            meta: child
+                        }
                     });
                     visitedNodes.add(citId);
                 }
-                elements.push({ data: { id: edgeId, source: citId, target: nodeId } });
+                elements.push({
+                    data: {
+                        id: edgeId,
+                        source: citId,
+                        target: nodeId
+                    }
+                });
             }
             recurse(citId, level + 1);
         });
@@ -282,6 +310,7 @@ function showGraph(seed) {
 
     recurse(seed.id, 0);
 
+    // render
     const container = document.getElementById('cy');
     container.innerHTML = '';
     const cy = cytoscape({
@@ -289,23 +318,47 @@ function showGraph(seed) {
         elements,
         style: [
             {
-                selector: 'node', style: {
+                selector: 'node',
+                style: {
                     label: 'data(label)',
                     'text-wrap': 'wrap',
-                    'text-max-width': 120,
-                    'font-size': 8,
+                    'text-max-width': 150,
+                    'font-size': 6,
                     'text-valign': 'center',
                     color: '#000'
                 }
             },
-            { selector: 'node[metaType="seed"]', style: { 'background-color': '#0d6efd' } },
-            { selector: 'node[metaType="backward"]', style: { 'background-color': 'green' } },
-            { selector: 'node[metaType="forward"]', style: { 'background-color': 'yellow' } },
-            { selector: 'edge', style: { width: 1.5, 'line-color': '#999' } }
+            {
+                selector: 'node[metaType="seed"]',
+                style: { 'background-color': '#0d6efd' }
+            },
+            {
+                selector: 'node[metaType="backward"]',
+                style: { 'background-color': 'green' }
+            },
+            {
+                selector: 'node[metaType="forward"]',
+                style: { 'background-color': 'yellow' }
+            },
+            {
+                selector: 'edge',
+                style: {
+                    width: 1.5,
+                    'line-color': '#999'
+                }
+            }
         ],
         layout: { name: 'cose' }
     });
 
+    // increase node sizes based on degree
+    cy.nodes().forEach(node => {
+        const deg = node.degree();
+        const size = 30 + deg * 10;
+        node.style({ width: size, height: size });
+    });
+
+    // click updates selected node title
     cy.on('tap', 'node', evt => {
         const m = evt.target.data('meta');
         document.getElementById('node-info').textContent = m.title;
