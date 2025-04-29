@@ -243,23 +243,22 @@ function showDetails(r) {
 
 // Citation network (unchanged)
 function showGraph(seed) {
-    // 1) Read the depth input (how many hops out to go)
+    // 1) Read desired depth (1 = only direct neighbors)
     const depthInput = parseInt(document.getElementById('graph-depth').value, 10);
     const depth = isNaN(depthInput) ? 1 : depthInput;
 
-    // 2) Prepare arrays & sets
+    // 2) Prepare holders
     const nodeEls = [];
     const edgeEls = [];
     const visitedNodes = new Set();
     const visitedEdges = new Set();
 
-    // 3) Helpers to add nodes/edges only once
+    // 3) Helpers
     function addNode(id, label, type, meta) {
         if (visitedNodes.has(id)) return;
         visitedNodes.add(id);
         nodeEls.push({ data: { id, label, metaType: type, meta } });
     }
-
     function addEdge(source, target) {
         const eid = `${source}->${target}`;
         if (visitedEdges.has(eid)) return;
@@ -267,39 +266,54 @@ function showGraph(seed) {
         edgeEls.push({ data: { id: eid, source, target } });
     }
 
-    // 4) Recursive walk up to `depth` levels
+    // 4) Level-1: add seed + its direct citations
+    addNode(seed.id, seed.title, 'seed', seed);
+    const firstNeighbors = [];
+
+    (seed.backward_citations || []).forEach(refId => {
+        if (!recordMap[refId]) return;
+        addNode(refId, recordMap[refId].title, 'backward', recordMap[refId]);
+        addEdge(seed.id, refId);
+        firstNeighbors.push(refId);
+    });
+
+    (seed.forward_citations || []).forEach(citId => {
+        if (!recordMap[citId]) return;
+        addNode(citId, recordMap[citId].title, 'forward', recordMap[citId]);
+        addEdge(citId, seed.id);
+        firstNeighbors.push(citId);
+    });
+
+    // 5) Levels >1: recurse outward from each first neighbor
     function recurse(nodeId, level) {
-        if (level >= depth) return;
+        if (level > depth) return;
         const meta = recordMap[nodeId];
         if (!meta) return;
 
-        // papers this one cites (backward)
         (meta.backward_citations || []).forEach(refId => {
-            if (!recordMap[refId] || refId === nodeId) return;
+            if (!recordMap[refId]) return;
             addNode(refId, recordMap[refId].title, 'backward', recordMap[refId]);
             addEdge(nodeId, refId);
             recurse(refId, level + 1);
         });
 
-        // papers that cite this one (forward)
         (meta.forward_citations || []).forEach(citId => {
-            if (!recordMap[citId] || citId === nodeId) return;
+            if (!recordMap[citId]) return;
             addNode(citId, recordMap[citId].title, 'forward', recordMap[citId]);
             addEdge(citId, nodeId);
             recurse(citId, level + 1);
         });
     }
 
-    // 5) Seed node + kick off recursion
-    addNode(seed.id, seed.title, 'seed', seed);
-    recurse(seed.id, 0);
+    if (depth > 1) {
+        firstNeighbors.forEach(nei => recurse(nei, 2));
+    }
 
-    // 6) Combine elements
+    // 6) Combine elements and render Cytoscape
     const elements = nodeEls.concat(edgeEls);
     const container = document.getElementById('cy');
     container.innerHTML = '';
 
-    // 7) Initialize Cytoscape with static, larger node sizes
     const cy = cytoscape({
         container,
         elements,
@@ -321,31 +335,28 @@ function showGraph(seed) {
             { selector: 'node[metaType="backward"]', style: { 'background-color': 'green' } },
             { selector: 'node[metaType="forward"]', style: { 'background-color': 'yellow' } },
             { selector: 'edge', style: { width: 2, 'line-color': '#999' } }
-        ]
+        ],
+        layout: {
+            name: 'cose',
+            idealEdgeLength: 120,
+            nodeOverlap: 40,
+            nodeRepulsion: 8000,
+            gravity: 0.1,
+            numIter: 1000,
+            tile: true
+        }
     });
 
-    // 8) Improved spacing layout
-    cy.layout({
-        name: 'cose',
-        idealEdgeLength: 120,
-        nodeOverlap: 40,
-        nodeRepulsion: 8000,
-        gravity: 0.1,
-        numIter: 1000,
-        tile: true
-    }).run();
-
-    // 9) Append connection count to each node’s label
+    // 7) Append connection counts
     cy.nodes().forEach(node => {
         const deg = node.degree();
         const title = node.data('meta').title;
         node.data('label', `${title} (${deg})`);
     });
 
-    // 10) Click handler to update selected-node display
+    // 8) Click → update Selected Node
     cy.on('tap', 'node', evt => {
         const m = evt.target.data('meta');
         document.getElementById('node-info').textContent = m.title;
     });
 }
-
