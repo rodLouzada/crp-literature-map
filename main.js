@@ -245,18 +245,18 @@ function showGraph(seed) {
     });
     visitedNodes.add(seed.id);
 
-    // recursive expansion
     function recurse(nodeId, level) {
         if (level > depth) return;
         const meta = recordMap[nodeId];
         if (!meta) return;
 
-        // papers this node cites (backward)
+        // citations this paper makes (backward)
         (meta.backward_citations || []).forEach(refId => {
+            if (!recordMap[refId]) return;
             const edgeId = `${nodeId}->${refId}`;
             if (!visitedEdges.has(edgeId)) {
                 visitedEdges.add(edgeId);
-                if (!visitedNodes.has(refId) && recordMap[refId]) {
+                if (!visitedNodes.has(refId)) {
                     const child = recordMap[refId];
                     elements.push({
                         data: {
@@ -279,12 +279,13 @@ function showGraph(seed) {
             recurse(refId, level + 1);
         });
 
-        // papers that cite this node (forward)
+        // papers that cite this paper (forward)
         (meta.forward_citations || []).forEach(citId => {
+            if (!recordMap[citId]) return;
             const edgeId = `${citId}->${nodeId}`;
             if (!visitedEdges.has(edgeId)) {
                 visitedEdges.add(edgeId);
-                if (!visitedNodes.has(citId) && recordMap[citId]) {
+                if (!visitedNodes.has(citId)) {
                     const child = recordMap[citId];
                     elements.push({
                         data: {
@@ -351,14 +352,12 @@ function showGraph(seed) {
         layout: { name: 'cose' }
     });
 
-    // increase node sizes based on degree
+    // increase node size by degree
     cy.nodes().forEach(node => {
-        const deg = node.degree();
-        const size = 30 + deg * 10;
+        const size = 30 + node.degree() * 10;
         node.style({ width: size, height: size });
     });
 
-    // click updates selected node title
     cy.on('tap', 'node', evt => {
         const m = evt.target.data('meta');
         document.getElementById('node-info').textContent = m.title;
