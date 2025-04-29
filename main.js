@@ -1,4 +1,4 @@
-﻿const DATA_URL = 'crp_openalex_with_states.json';
+﻿const DATA_URL = 'crp_openalex_enhanced.json';
 
 let allRecords = [];
 let filteredRecords = [];
