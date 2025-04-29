@@ -229,43 +229,63 @@ function showDetails(r) {
 
 // Draw the inline citation network
 function showGraph(seed) {
-    const depth = parseInt(document.getElementById('graph-depth').value, 10) || 1;
-    document.getElementById('node-info').textContent = seed.title;
+    // DEBUG: print raw citation arrays for this seed
+    console.group(`Debug citations for: ${seed.title}`);
+    console.log('backward_citations (seed cites):', seed.backward_citations);
+    console.log('forward_citations (cited by seed):', seed.forward_citations);
+    console.groupEnd();
 
-    const elements = [];
-    const visited = new Set();
+    const depth = parseInt(document.getElementById('graph-depth').value, 10) || 1;
+    const MAX_NEIGHBORS = 10;
+    const MAX_ELEMENTS = 200;
+
+    let elements = [];
+    let visited = new Set();
 
     function recurse(id, level, type) {
-        if (level > depth || visited.has(id)) return;
+        if (level > depth || visited.has(id) || elements.length >= MAX_ELEMENTS) return;
         visited.add(id);
 
         const meta = recordMap[id];
         if (!meta) return;
 
+        // add node
         elements.push({
             data: { id, label: meta.title, meta, metaType: type }
         });
 
         if (level < depth) {
-            (meta.backward_citations || []).slice(0, 50).forEach(refId => {
-                if (!recordMap[refId]) return;
-                elements.push({
-                    data: { id: `${id}->${refId}`, source: id, target: refId }
+            // citations this paper makes
+            (meta.backward_citations || [])
+                .slice(0, MAX_NEIGHBORS)
+                .forEach(refId => {
+                    if (elements.length >= MAX_ELEMENTS) return;
+                    elements.push({
+                        data: { id: `${id}->${refId}`, source: id, target: refId }
+                    });
+                    recurse(refId, level + 1, 'backward');
                 });
-                recurse(refId, level + 1, 'backward');
-            });
-            (meta.forward_citations || []).slice(0, 50).forEach(citId => {
-                if (!recordMap[citId]) return;
-                elements.push({
-                    data: { id: `${citId}->${id}`, source: citId, target: id }
+
+            // citations made to this paper
+            (meta.forward_citations || [])
+                .slice(0, MAX_NEIGHBORS)
+                .forEach(citId => {
+                    if (elements.length >= MAX_ELEMENTS) return;
+                    elements.push({
+                        data: { id: `${citId}->${id}`, source: citId, target: id }
+                    });
+                    recurse(citId, level + 1, 'forward');
                 });
-                recurse(citId, level + 1, 'forward');
-            });
         }
     }
 
     recurse(seed.id, 1, 'seed');
 
+    // DEBUG: after building, how many nodes and edges queued?
+    console.log(`Total elements queued for Cytoscape: ${elements.length}`);
+    console.log(`Unique nodes discovered: ${visited.size}`);
+
+    // render graph
     const container = document.getElementById('cy');
     container.innerHTML = '';
 
@@ -298,7 +318,10 @@ function showGraph(seed) {
             },
             {
                 selector: 'edge',
-                style: { width: 1.5, 'line-color': '#999' }
+                style: {
+                    width: 1.5,
+                    'line-color': '#999'
+                }
             }
         ],
         layout: { name: 'cose' }
@@ -310,8 +333,10 @@ function showGraph(seed) {
         node.style({ width: size, height: size });
     });
 
+    // update Selected Node on click
     cy.on('tap', 'node', evt => {
         const m = evt.target.data('meta');
         document.getElementById('node-info').textContent = m.title;
     });
 }
+
