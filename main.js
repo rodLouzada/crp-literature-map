@@ -243,20 +243,22 @@ function showDetails(r) {
 
 // Citation network (unchanged)
 function showGraph(seed) {
+    // 1) Get depth
     const depthInput = parseInt(document.getElementById('graph-depth').value, 10);
     const depth = isNaN(depthInput) ? 1 : depthInput;
 
+    // 2) Prepare containers
     const nodeEls = [];
     const edgeEls = [];
     const visitedNodes = new Set();
     const visitedEdges = new Set();
 
+    // 3) Helpers to add node/edge only once
     function addNode(id, label, type, meta) {
         if (visitedNodes.has(id)) return;
         visitedNodes.add(id);
         nodeEls.push({ data: { id, label, metaType: type, meta } });
     }
-
     function addEdge(src, tgt) {
         const eid = `${src}->${tgt}`;
         if (visitedEdges.has(eid)) return;
@@ -264,10 +266,9 @@ function showGraph(seed) {
         edgeEls.push({ data: { id: eid, source: src, target: tgt } });
     }
 
-    // 1) level‑1 neighbors only
+    // 4) Level‑1: seed + direct neighbors
     addNode(seed.id, seed.title, 'seed', seed);
     const firstNeighbors = [];
-
     (seed.backward_citations || []).forEach(rid => {
         if (!recordMap[rid]) return;
         addNode(rid, recordMap[rid].title, 'backward', recordMap[rid]);
@@ -281,12 +282,11 @@ function showGraph(seed) {
         firstNeighbors.push(cid);
     });
 
-    // 2) deeper levels if requested
+    // 5) Levels >1: recurse
     function recurse(nodeId, level) {
         if (level > depth) return;
         const m = recordMap[nodeId];
         if (!m) return;
-
         (m.backward_citations || []).forEach(rid => {
             if (!recordMap[rid]) return;
             addNode(rid, recordMap[rid].title, 'backward', recordMap[rid]);
@@ -300,12 +300,9 @@ function showGraph(seed) {
             recurse(cid, level + 1);
         });
     }
+    if (depth > 1) firstNeighbors.forEach(n => recurse(n, 2));
 
-    if (depth > 1) {
-        firstNeighbors.forEach(nid => recurse(nid, 2));
-    }
-
-    // 3) render
+    // 6) Render Cytoscape
     const elements = nodeEls.concat(edgeEls);
     const container = document.getElementById('cy');
     container.innerHTML = '';
@@ -316,8 +313,7 @@ function showGraph(seed) {
             {
                 selector: 'node',
                 style: {
-                    width: 90,
-                    height: 90,
+                    width: 90, height: 90,
                     label: 'data(label)',
                     'text-wrap': 'wrap',
                     'text-max-width': 150,
@@ -342,18 +338,17 @@ function showGraph(seed) {
         }
     });
 
-    // 4) click vs Ctrl+click
+    // 7) Node click → update & open URL
     cy.on('tap', 'node', evt => {
         const m = evt.target.data('meta');
-        if (evt.originalEvent.ctrlKey && m.url) {
-            window.open(m.url, '_blank');
-        } else {
-            document.getElementById('node-info').textContent = m.title;
-        }
+        document.getElementById('node-info').textContent = m.title;
+        if (m.url) window.open(m.url, '_blank');
     });
 
-    // 5) CSV download
-    document.getElementById('download-csv').onclick = () => {
+    // 8) Bind Download CSV
+    const downloadBtn = document.getElementById('download-csv');
+    downloadBtn.replaceWith(downloadBtn.cloneNode(true)); // clear old handlers
+    document.getElementById('download-csv').addEventListener('click', () => {
         const rows = [['id', 'title', 'url', 'backward_count', 'forward_count']];
         cy.nodes().forEach(n => {
             const m = n.data('meta');
@@ -373,6 +368,5 @@ function showGraph(seed) {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-    };
+    });
 }
-
