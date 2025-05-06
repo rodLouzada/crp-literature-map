@@ -190,36 +190,73 @@ function renderPagination() {
     const ul = document.getElementById('pagination');
     ul.innerHTML = '';
 
-    function makeItem(label, disable, handler) {
+    function createItem(label, page, disabled, active) {
         const li = document.createElement('li');
-        li.className = `page-item${disable ? ' disabled' : ''}`;
+        li.className = `page-item${disabled ? ' disabled' : ''}${active ? ' active' : ''}`;
         const btn = document.createElement('button');
-        btn.className = 'page-link'; btn.textContent = label;
-        if (!disable) btn.addEventListener('click', handler);
+        btn.className = 'page-link';
+        btn.textContent = label;
+        if (!disabled && !active) {
+            btn.addEventListener('click', () => {
+                currentPage = page;
+                renderTable();
+                renderPagination();
+            });
+        }
         li.appendChild(btn);
         return li;
     }
 
-    ul.appendChild(makeItem('Previous', currentPage === 1, () => {
-        currentPage--; renderTable(); renderPagination();
-    }));
+    // Previous
+    ul.appendChild(createItem('Previous', currentPage - 1, currentPage === 1, false));
 
-    for (let p = 1; p <= totalPages; p++) {
-        const li = document.createElement('li');
-        li.className = `page-item${p === currentPage ? ' active' : ''}`;
-        const btn = document.createElement('button');
-        btn.className = 'page-link'; btn.textContent = p;
-        btn.addEventListener('click', () => {
-            currentPage = p; renderTable(); renderPagination();
-        });
-        li.appendChild(btn);
-        ul.appendChild(li);
+    let startPage, endPage;
+    if (totalPages <= 7) {
+        startPage = 1;
+        endPage = totalPages;
+    } else {
+        startPage = Math.max(1, currentPage - 2);
+        endPage = Math.min(totalPages, currentPage + 2);
+        if (startPage <= 2) {
+            startPage = 1;
+            endPage = 5;
+        } else if (endPage >= totalPages - 1) {
+            startPage = totalPages - 4;
+            endPage = totalPages;
+        }
     }
 
-    ul.appendChild(makeItem('Next', currentPage === totalPages, () => {
-        currentPage++; renderTable(); renderPagination();
-    }));
+    // First page + leading ellipsis
+    if (startPage > 1) {
+        ul.appendChild(createItem('1', 1, false, currentPage === 1));
+        if (startPage > 2) {
+            const li = document.createElement('li');
+            li.className = 'page-item disabled';
+            li.innerHTML = '<span class="page-link">…</span>';
+            ul.appendChild(li);
+        }
+    }
+
+    // Page window
+    for (let p = startPage; p <= endPage; p++) {
+        ul.appendChild(createItem(p.toString(), p, false, p === currentPage));
+    }
+
+    // Trailing ellipsis + last page
+    if (endPage < totalPages) {
+        if (endPage < totalPages - 1) {
+            const li = document.createElement('li');
+            li.className = 'page-item disabled';
+            li.innerHTML = '<span class="page-link">…</span>';
+            ul.appendChild(li);
+        }
+        ul.appendChild(createItem(totalPages.toString(), totalPages, false, currentPage === totalPages));
+    }
+
+    // Next
+    ul.appendChild(createItem('Next', currentPage + 1, currentPage === totalPages, false));
 }
+
 
 // Hook up Search
 function setupSearch() {
