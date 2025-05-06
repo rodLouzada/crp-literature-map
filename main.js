@@ -243,77 +243,72 @@ function showDetails(r) {
 
 // Citation network (unchanged)
 function showGraph(seed) {
-    // 1) Read desired depth (1 = only direct neighbors)
     const depthInput = parseInt(document.getElementById('graph-depth').value, 10);
     const depth = isNaN(depthInput) ? 1 : depthInput;
 
-    // 2) Prepare holders
     const nodeEls = [];
     const edgeEls = [];
     const visitedNodes = new Set();
     const visitedEdges = new Set();
 
-    // 3) Helpers
     function addNode(id, label, type, meta) {
         if (visitedNodes.has(id)) return;
         visitedNodes.add(id);
         nodeEls.push({ data: { id, label, metaType: type, meta } });
     }
-    function addEdge(source, target) {
-        const eid = `${source}->${target}`;
+
+    function addEdge(src, tgt) {
+        const eid = `${src}->${tgt}`;
         if (visitedEdges.has(eid)) return;
         visitedEdges.add(eid);
-        edgeEls.push({ data: { id: eid, source, target } });
+        edgeEls.push({ data: { id: eid, source: src, target: tgt } });
     }
 
-    // 4) Level-1: add seed + its direct citations
+    // 1) level‑1 neighbors only
     addNode(seed.id, seed.title, 'seed', seed);
     const firstNeighbors = [];
 
-    (seed.backward_citations || []).forEach(refId => {
-        if (!recordMap[refId]) return;
-        addNode(refId, recordMap[refId].title, 'backward', recordMap[refId]);
-        addEdge(seed.id, refId);
-        firstNeighbors.push(refId);
+    (seed.backward_citations || []).forEach(rid => {
+        if (!recordMap[rid]) return;
+        addNode(rid, recordMap[rid].title, 'backward', recordMap[rid]);
+        addEdge(seed.id, rid);
+        firstNeighbors.push(rid);
+    });
+    (seed.forward_citations || []).forEach(cid => {
+        if (!recordMap[cid]) return;
+        addNode(cid, recordMap[cid].title, 'forward', recordMap[cid]);
+        addEdge(cid, seed.id);
+        firstNeighbors.push(cid);
     });
 
-    (seed.forward_citations || []).forEach(citId => {
-        if (!recordMap[citId]) return;
-        addNode(citId, recordMap[citId].title, 'forward', recordMap[citId]);
-        addEdge(citId, seed.id);
-        firstNeighbors.push(citId);
-    });
-
-    // 5) Levels >1: recurse outward from each first neighbor
+    // 2) deeper levels if requested
     function recurse(nodeId, level) {
         if (level > depth) return;
-        const meta = recordMap[nodeId];
-        if (!meta) return;
+        const m = recordMap[nodeId];
+        if (!m) return;
 
-        (meta.backward_citations || []).forEach(refId => {
-            if (!recordMap[refId]) return;
-            addNode(refId, recordMap[refId].title, 'backward', recordMap[refId]);
-            addEdge(nodeId, refId);
-            recurse(refId, level + 1);
+        (m.backward_citations || []).forEach(rid => {
+            if (!recordMap[rid]) return;
+            addNode(rid, recordMap[rid].title, 'backward', recordMap[rid]);
+            addEdge(nodeId, rid);
+            recurse(rid, level + 1);
         });
-
-        (meta.forward_citations || []).forEach(citId => {
-            if (!recordMap[citId]) return;
-            addNode(citId, recordMap[citId].title, 'forward', recordMap[citId]);
-            addEdge(citId, nodeId);
-            recurse(citId, level + 1);
+        (m.forward_citations || []).forEach(cid => {
+            if (!recordMap[cid]) return;
+            addNode(cid, recordMap[cid].title, 'forward', recordMap[cid]);
+            addEdge(cid, nodeId);
+            recurse(cid, level + 1);
         });
     }
 
     if (depth > 1) {
-        firstNeighbors.forEach(nei => recurse(nei, 2));
+        firstNeighbors.forEach(nid => recurse(nid, 2));
     }
 
-    // 6) Combine elements and render Cytoscape
+    // 3) render
     const elements = nodeEls.concat(edgeEls);
     const container = document.getElementById('cy');
     container.innerHTML = '';
-
     const cy = cytoscape({
         container,
         elements,
@@ -347,16 +342,37 @@ function showGraph(seed) {
         }
     });
 
-    // 7) Append connection counts
-    cy.nodes().forEach(node => {
-        const deg = node.degree();
-        const title = node.data('meta').title;
-        node.data('label', `${title} (${deg})`);
-    });
-
-    // 8) Click → update Selected Node
+    // 4) click vs Ctrl+click
     cy.on('tap', 'node', evt => {
         const m = evt.target.data('meta');
-        document.getElementById('node-info').textContent = m.title;
+        if (evt.originalEvent.ctrlKey && m.url) {
+            window.open(m.url, '_blank');
+        } else {
+            document.getElementById('node-info').textContent = m.title;
+        }
     });
+
+    // 5) CSV download
+    document.getElementById('download-csv').onclick = () => {
+        const rows = [['id', 'title', 'url', 'backward_count', 'forward_count']];
+        cy.nodes().forEach(n => {
+            const m = n.data('meta');
+            rows.push([
+                m.id,
+                m.title.replace(/"/g, '""'),
+                m.url || '',
+                m.citation_counts?.backward || 0,
+                m.citation_counts?.forward || 0
+            ]);
+        });
+        const csv = rows.map(r => `"${r.join('","')}"`).join('\n');
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `${seed.id.split('/').pop()}-network.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    };
 }
+
