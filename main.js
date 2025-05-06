@@ -241,19 +241,19 @@ function showDetails(r) {
     new bootstrap.Modal(document.getElementById('detailModal')).show();
 }
 
-// Citation network (unchanged)
+// Citation network 
 function showGraph(seed) {
-    // 1) Get depth
+    // 1) Read depth
     const depthInput = parseInt(document.getElementById('graph-depth').value, 10);
     const depth = isNaN(depthInput) ? 1 : depthInput;
 
-    // 2) Prepare containers
+    // 2) Prepare
     const nodeEls = [];
     const edgeEls = [];
     const visitedNodes = new Set();
     const visitedEdges = new Set();
 
-    // 3) Helpers to add node/edge only once
+    // 3) Helpers
     function addNode(id, label, type, meta) {
         if (visitedNodes.has(id)) return;
         visitedNodes.add(id);
@@ -302,7 +302,7 @@ function showGraph(seed) {
     }
     if (depth > 1) firstNeighbors.forEach(n => recurse(n, 2));
 
-    // 6) Render Cytoscape
+    // 6) Render
     const elements = nodeEls.concat(edgeEls);
     const container = document.getElementById('cy');
     container.innerHTML = '';
@@ -338,26 +338,29 @@ function showGraph(seed) {
         }
     });
 
-    // 7) Node click → update & open URL
+    // 7) Node click → update selected & open URL
     cy.on('tap', 'node', evt => {
         const m = evt.target.data('meta');
         document.getElementById('node-info').textContent = m.title;
         if (m.url) window.open(m.url, '_blank');
     });
 
-    // 8) Bind Download CSV
+    // 8) CSV download without citation counts
     const downloadBtn = document.getElementById('download-csv');
-    downloadBtn.replaceWith(downloadBtn.cloneNode(true)); // clear old handlers
+    downloadBtn.replaceWith(downloadBtn.cloneNode(true));
     document.getElementById('download-csv').addEventListener('click', () => {
-        const rows = [['id', 'title', 'url', 'backward_count', 'forward_count']];
+        const header = ['id', 'title', 'url', 'year', 'authors', 'journal', 'states'];
+        const rows = [header];
         cy.nodes().forEach(n => {
             const m = n.data('meta');
             rows.push([
                 m.id,
                 m.title.replace(/"/g, '""'),
                 m.url || '',
-                m.citation_counts?.backward || 0,
-                m.citation_counts?.forward || 0
+                m.publication_year || '',
+                (m.authors || []).map(a => a.name).join('; '),
+                m.journal || '',
+                (m.states || []).join('; ')
             ]);
         });
         const csv = rows.map(r => `"${r.join('","')}"`).join('\n');
