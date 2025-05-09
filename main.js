@@ -1,28 +1,29 @@
 ﻿const DATA_URL = 'crp_openalex_enhanced.json';
 
+
 let allRecords = [], filteredRecords = [], recordMap = {};
 let currentPage = 1, pageSize = 10, currentSeed = null;
 let currentGraphNodes = [];
 
 ; (async function init() {
-    // 1) Load data
+    // Load dataset
     const resp = await fetch(DATA_URL);
     if (!resp.ok) throw new Error(resp.statusText);
     const json = await resp.json();
     allRecords = json.records || [];
     allRecords.forEach(r => recordMap[r.id] = r);
 
-    // 2) Build filters
+    // Build collapsible filters
     buildFieldFilters(allRecords);
     buildDomainFilters(allRecords);
     buildStateFilters(allRecords);
 
-    // 3) Initial display
+    // Initial render
     filteredRecords = allRecords.slice();
     renderTable();
     renderPagination();
 
-    // 4) Wire up buttons
+    // Button handlers
     document.getElementById('search-btn').addEventListener('click', onSearch);
     document.getElementById('clear-btn').addEventListener('click', onClear);
     document.getElementById('download-csv').addEventListener('click', () =>
@@ -30,7 +31,7 @@ let currentGraphNodes = [];
     document.getElementById('download-graph-csv').addEventListener('click', () =>
         downloadCSV(currentGraphNodes, 'crp_graph.csv'));
 
-    // Enter key in title box
+    // Enter key in title search
     document.getElementById('search').addEventListener('keypress', e => {
         if (e.key === 'Enter') {
             e.preventDefault();
@@ -38,10 +39,10 @@ let currentGraphNodes = [];
         }
     });
 
-    // Table delegation
+    // Table delegation for Details/Graph buttons
     document.getElementById('results').addEventListener('click', onTableClick);
 
-    // Graph controls
+    // Graph panel controls
     document.getElementById('close-graph').onclick = () =>
         document.getElementById('graphPanel').classList.add('d-none');
     document.getElementById('graph-regenerate').onclick = () =>
@@ -49,53 +50,62 @@ let currentGraphNodes = [];
 })();
 
 function buildFieldFilters(records) {
-    const c = document.getElementById('field-filters'),
-        badge = document.getElementById('field-count'),
-        set = new Set();
-    records.forEach(r => r.primary_topic.field && set.add(r.primary_topic.field));
+    const container = document.getElementById('field-filters');
+    const badge = document.getElementById('field-count');
+    const set = new Set();
+    records.forEach(r => {
+        const f = r.primary_topic?.field;
+        if (f) set.add(f);
+    });
     const list = Array.from(set).sort();
     badge.textContent = list.length;
     list.forEach(name => {
         const id = `field-${name.replace(/\W+/g, '_')}`;
-        c.insertAdjacentHTML('beforeend', `
+        container.insertAdjacentHTML('beforeend', `
       <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" id="${id}" value="${name}">
         <label class="form-check-label" for="${id}">${name}</label>
-      </div>`);
+      </div>
+    `);
     });
 }
 
 function buildDomainFilters(records) {
-    const c = document.getElementById('domain-filters'),
-        badge = document.getElementById('domain-count'),
-        set = new Set();
-    records.forEach(r => r.primary_topic.domain && set.add(r.primary_topic.domain));
+    const container = document.getElementById('domain-filters');
+    const badge = document.getElementById('domain-count');
+    const set = new Set();
+    records.forEach(r => {
+        const d = r.primary_topic?.domain;
+        if (d) set.add(d);
+    });
     const list = Array.from(set).sort();
     badge.textContent = list.length;
     list.forEach(name => {
         const id = `domain-${name.replace(/\W+/g, '_')}`;
-        c.insertAdjacentHTML('beforeend', `
+        container.insertAdjacentHTML('beforeend', `
       <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" id="${id}" value="${name}">
         <label class="form-check-label" for="${id}">${name}</label>
-      </div>`);
+      </div>
+    `);
     });
 }
 
 function buildStateFilters(records) {
-    const c = document.getElementById('state-filters'),
-        badge = document.getElementById('state-count'),
-        set = new Set();
+    const container = document.getElementById('state-filters');
+    const badge = document.getElementById('state-count');
+    const set = new Set();
     records.forEach(r => (r.states || []).forEach(s => set.add(s)));
     const list = Array.from(set).sort();
     badge.textContent = list.length;
     list.forEach(name => {
         const id = `state-${name.replace(/\W+/g, '_')}`;
-        c.insertAdjacentHTML('beforeend', `
+        container.insertAdjacentHTML('beforeend', `
       <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" id="${id}" value="${name}">
         <label class="form-check-label" for="${id}">${name}</label>
-      </div>`);
+      </div>
+    `);
     });
 }
 
@@ -113,10 +123,13 @@ function onSearch() {
 }
 
 function onClear() {
+    // Reset form inputs
     document.getElementById('filters').reset();
-    ['field-filters', 'domain-filters', 'state-filters'].forEach(cid => {
-        document.querySelectorAll(`#${cid} input:checked`).forEach(i => i.checked = false);
-    });
+    // Uncheck all custom checkboxes
+    ['field-filters', 'domain-filters', 'state-filters']
+        .forEach(cid =>
+            document.querySelectorAll(`#${cid} input:checked`).forEach(i => i.checked = false)
+        );
     document.getElementById('search').value = '';
     filteredRecords = allRecords.slice();
     currentPage = 1;
@@ -125,65 +138,55 @@ function onClear() {
 }
 
 function applyFilters() {
-    // 1) Collect raw inputs
-    const rawSearch = document.getElementById('search')?.value || '';
-    const terms = rawSearch
+    // Title search terms
+    const raw = (document.getElementById('search').value || '')
         .trim()
-        .toLowerCase()
-        .split(/\s+/)
-        .filter(w => !!w);
+        .toLowerCase();
+    const terms = raw ? raw.split(/\s+/).filter(w => !!w) : [];
 
-    const start = document.getElementById('start-date')?.value || '';
-    const end = document.getElementById('end-date')?.value || '';
+    const start = document.getElementById('start-date').value || '';
+    const end = document.getElementById('end-date').value || '';
     const fields = getCheckedValues('field-filters');
     const domains = getCheckedValues('domain-filters');
     const states = getCheckedValues('state-filters');
-    const authorQ = (document.getElementById('author-filter')?.value || '').toLowerCase();
-    const journalQ = (document.getElementById('journal-filter')?.value || '').toLowerCase();
-    const keywordQ = (document.getElementById('keyword-filter')?.value || '').toLowerCase();
-    const minC = parseInt(document.getElementById('min-cites')?.value) || 0;
-    const maxC = parseInt(document.getElementById('max-cites')?.value) || Infinity;
+    const authorQ = (document.getElementById('author-filter').value || '').toLowerCase();
+    const journalQ = (document.getElementById('journal-filter').value || '').toLowerCase();
+    const keywordQ = (document.getElementById('keyword-filter').value || '').toLowerCase();
+    const minC = parseInt(document.getElementById('min-cites').value) || 0;
+    const maxC = parseInt(document.getElementById('max-cites').value) || Infinity;
 
     filteredRecords = allRecords.filter(r => {
-        // Title search (must have every term)
-        const title = (r.title || '').toLowerCase();
-        if (terms.length && !terms.every(w => title.includes(w))) {
-            return false;
+        // 1) Title
+        if (terms.length) {
+            const t = (r.title || '').toLowerCase();
+            if (!terms.every(w => t.includes(w))) return false;
         }
-
-        // Date range
+        // 2) Date
         const pub = r.publication_date || '';
         if (start && pub < start) return false;
         if (end && pub > end) return false;
-
-        // Primary topic → field
-        const field = ((r.primary_topic || {}).field || '').toLowerCase();
-        if (fields.length && !fields.includes(field)) return false;
-
-        // Primary topic → domain
-        const domain = ((r.primary_topic || {}).domain || '').toLowerCase();
-        if (domains.length && !domains.includes(domain)) return false;
-
-        // States
+        // 3) Field
+        const f = (r.primary_topic?.field || '').toLowerCase();
+        if (fields.length && !fields.includes(f)) return false;
+        // 4) Domain
+        const d = (r.primary_topic?.domain || '').toLowerCase();
+        if (domains.length && !domains.includes(d)) return false;
+        // 5) States
         if (states.length) {
             const sList = (r.states || []).map(s => s.toLowerCase());
             if (!states.some(s => sList.includes(s))) return false;
         }
-
-        // Author
-        const aList = (r.authors || []).map(a => (a.name || '')).join(' ').toLowerCase();
+        // 6) Author
+        const aList = (r.authors || []).map(a => a.name || '').join(' ').toLowerCase();
         if (authorQ && !aList.includes(authorQ)) return false;
-
-        // Journal
-        const journ = (r.journal || '').toLowerCase();
-        if (journalQ && !journ.includes(journalQ)) return false;
-
-        // Keyword
+        // 7) Journal
+        const j = (r.journal || '').toLowerCase();
+        if (journalQ && !j.includes(journalQ)) return false;
+        // 8) Keyword
         const kList = (r.keywords || []).join(' ').toLowerCase();
         if (keywordQ && !kList.includes(keywordQ)) return false;
-
-        // Citation count
-        const c = (r.citation_counts?.forward) || 0;
+        // 9) Citation count
+        const c = r.citation_counts?.forward || 0;
         if (c < minC || c > maxC) return false;
 
         return true;
@@ -194,12 +197,14 @@ function renderTable() {
     const tbody = document.querySelector('#results tbody');
     tbody.innerHTML = '';
     const startIdx = (currentPage - 1) * pageSize;
-    const slice = filteredRecords.slice(startIdx, startIdx + pageSize);
-    if (!slice.length) {
+    const pageRecs = filteredRecords.slice(startIdx, startIdx + pageSize);
+
+    if (!pageRecs.length) {
         tbody.innerHTML = `<tr><td colspan="8" class="text-center py-3">No records match filters.</td></tr>`;
         return;
     }
-    slice.forEach(r => {
+
+    pageRecs.forEach(r => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
       <td><a href="${r.url || '#'}" target="_blank">${r.title}</a></td>
@@ -224,7 +229,8 @@ function renderPagination() {
         const li = document.createElement('li');
         li.className = `page-item${disabled ? ' disabled' : ''}${active ? ' active' : ''}`;
         const btn = document.createElement('button');
-        btn.className = 'page-link'; btn.textContent = label;
+        btn.className = 'page-link';
+        btn.textContent = label;
         if (!disabled) btn.onclick = handler;
         li.appendChild(btn);
         return li;
@@ -232,8 +238,8 @@ function renderPagination() {
 
     ul.appendChild(makeItem('Prev', currentPage === 1, () => { currentPage--; updateView(); }));
 
-    let start = Math.max(1, currentPage - 2),
-        end = Math.min(totalPages, currentPage + 2);
+    let start = Math.max(1, currentPage - 2);
+    let end = Math.min(totalPages, currentPage + 2);
     if (currentPage <= 3) start = 1, end = Math.min(5, totalPages);
     if (currentPage >= totalPages - 2) start = Math.max(1, totalPages - 4), end = totalPages;
 
@@ -250,15 +256,15 @@ function updateView() {
 }
 
 function onTableClick(e) {
+    const tr = e.target.closest('tr');
+    const rowIndex = Array.from(tr.parentNode.children).indexOf(tr);
+    const globalIndex = (currentPage - 1) * pageSize + rowIndex;
+
     if (e.target.classList.contains('details-btn')) {
-        const tr = e.target.closest('tr'),
-            idx = (currentPage - 1) * pageSize + Array.from(tr.parentNode.children).indexOf(tr);
-        showDetails(filteredRecords[idx]);
+        showDetails(filteredRecords[globalIndex]);
     }
     if (e.target.classList.contains('network-btn')) {
-        const tr = e.target.closest('tr'),
-            idx = (currentPage - 1) * pageSize + Array.from(tr.parentNode.children).indexOf(tr);
-        currentSeed = filteredRecords[idx];
+        currentSeed = filteredRecords[globalIndex];
         showGraph(currentSeed);
         document.getElementById('graphPanel').classList.remove('d-none');
     }
@@ -271,7 +277,7 @@ function downloadCSV(records, filename) {
         const M = {
             url: r.url || '',
             is_oa: r.is_oa ? 'Yes' : 'No',
-            title: `"${r.title.replace(/"/g, '""')}"`,
+            title: `"${(r.title || '').replace(/"/g, '""')}"`,
             doi: r.doi || '',
             type: r.type || '',
             journal: `"${(r.journal || '').replace(/"/g, '""')}"`,
@@ -293,7 +299,7 @@ function showDetails(r) {
     mb.innerHTML = `
     <h5>${r.title}</h5>
     <p><strong>ID:</strong> ${r.id.split('/').pop()}</p>
-    <p><strong>Date:</strong> ${r.publication_date || 'N/A'}</p>
+    <p><strong>Publication Date:</strong> ${r.publication_date || 'N/A'}</p>
     <p><strong>Topics:</strong> ${(r.topics || []).map(t => t.name).join(', ')}</p>
     <p><strong>Keywords:</strong> ${(r.keywords || []).join(', ')}</p>
     <p><strong>States:</strong> ${(r.states || []).join(', ')}</p>
@@ -348,11 +354,16 @@ function showGraph(seed) {
         elements: nodes.concat(edges),
         style: [
             {
-                selector: 'node', style: {
-                    width: 90, height: 90,
+                selector: 'node',
+                style: {
+                    width: 90,
+                    height: 90,
                     label: 'data(label)',
-                    'text-wrap': 'wrap', 'text-max-width': 150,
-                    'font-size': 8, 'text-valign': 'center', color: '#000'
+                    'text-wrap': 'wrap',
+                    'text-max-width': 150,
+                    'font-size': 8,
+                    'text-valign': 'center',
+                    color: '#000'
                 }
             },
             { selector: 'node[metaType="seed"]', style: { 'background-color': '#0d6efd' } },
@@ -361,12 +372,18 @@ function showGraph(seed) {
             { selector: 'edge', style: { width: 2, 'line-color': '#999' } }
         ],
         layout: {
-            name: 'cose', idealEdgeLength: 120, nodeOverlap: 40,
-            nodeRepulsion: 8000, gravity: 0.1, numIter: 500, tile: true
+            name: 'cose',
+            idealEdgeLength: 120,
+            nodeOverlap: 40,
+            nodeRepulsion: 8000,
+            gravity: 0.1,
+            numIter: 500,
+            tile: true
         }
     });
 
-    cy.on('tap', 'node', evt =>
-        document.getElementById('node-info').textContent = evt.target.data('label')
-    );
+    cy.on('tap', 'node', evt => {
+        document.getElementById('node-info').textContent = evt.target.data('label');
+    });
 }
+
