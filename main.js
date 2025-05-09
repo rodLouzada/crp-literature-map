@@ -1,6 +1,4 @@
 ﻿const DATA_URL = 'crp_openalex_enhanced.json';
-
-
 let allRecords = [], filteredRecords = [], recordMap = {};
 let currentPage = 1, pageSize = 10, currentSeed = null;
 let currentGraphNodes = [];
