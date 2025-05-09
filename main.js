@@ -4,12 +4,14 @@ let currentPage = 1, pageSize = 10, currentSeed = null;
 let currentGraphNodes = [];
 
 ; (async function init() {
-    // Load dataset
-    const resp = await fetch(DATA_URL);
-    if (!resp.ok) throw new Error(resp.statusText);
-    const json = await resp.json();
-    allRecords = json.records || [];
-    allRecords.forEach(r => recordMap[r.id] = r);
+    // Load JSON Lines dataset
+    const txt = await fetch(DATA_URL).then(r => {
+            if (!r.ok) throw new Error(r.statusText);
+            return r.text();
+            });
+    // split on newlines, parse each
+    const lines = txt.trim().split('\n');
+    allRecords = lines.map(line => JSON.parse(line));
 
     // Build collapsible filters
     buildFieldFilters(allRecords);
