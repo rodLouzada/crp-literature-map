@@ -5,49 +5,48 @@ let currentPage = 1, pageSize = 10, currentSeed = null;
 let currentGraphNodes = [];
 
 ; (async function init() {
-    // 1) Load the JSON (with a top‑level "records" array)
+    
     const resp = await fetch(DATA_URL);
     if (!resp.ok) throw new Error(`Failed to load ${DATA_URL}: ${resp.status}`);
     const js = await resp.json();
     allRecords = Array.isArray(js.records) ? js.records : [];
 
-    // 2) Build lookup map for fast citation‑graph access
+    
     allRecords.forEach(r => recordMap[r.id] = r);
 
-    // 3) Build collapsible filters
+    
     buildFieldFilters(allRecords);
     buildDomainFilters(allRecords);
     buildStateFilters(allRecords);
 
-    // 4) Initial render
+    
     filteredRecords = allRecords.slice();
     renderTable();
     renderPagination();
 
-    // 5) Button & input wiring
+    
     document.getElementById('search-btn').addEventListener('click', onSearch);
     document.getElementById('clear-btn').addEventListener('click', onClear);
-    document.getElementById('download-csv').addEventListener('click', () =>
-        downloadCSV(filteredRecords, 'crp_search.csv'));
-    document.getElementById('download-graph-csv').addEventListener('click', () =>
-        downloadCSV(currentGraphNodes, 'crp_graph.csv'));
+    document.getElementById('download-csv')
+        .addEventListener('click', () => downloadCSV(filteredRecords, 'crp_search.csv'));
+    document.getElementById('download-graph-csv')
+        .addEventListener('click', () => downloadCSV(currentGraphNodes, 'crp_graph.csv'));
 
-    document.getElementById('search').addEventListener('keypress', e => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            onSearch();
-        }
-    });
+    document.getElementById('search')
+        .addEventListener('keypress', e => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                onSearch();
+            }
+        });
 
-    document.getElementById('results').addEventListener('click', onTableClick);
-    document.getElementById('close-graph').onclick = () =>
-        document.getElementById('graphPanel').classList.add('d-none');
-    document.getElementById('graph-regenerate').onclick = () =>
-        currentSeed && showGraph(currentSeed);
+    document.getElementById('results')
+        .addEventListener('click', onTableClick);
+
+    document.getElementById('close-graph').onclick = () => document.getElementById('graphPanel').classList.add('d-none');
+    document.getElementById('graph-regenerate').onclick = () => currentSeed && showGraph(currentSeed);
 })();
 
-// —————————————————————————————————————————————————————————
-// Build the list of Field checkboxes
 function buildFieldFilters(records) {
     const container = document.getElementById('field-filters');
     const badge = document.getElementById('field-count');
@@ -69,7 +68,6 @@ function buildFieldFilters(records) {
     });
 }
 
-// Build the list of Domain checkboxes
 function buildDomainFilters(records) {
     const container = document.getElementById('domain-filters');
     const badge = document.getElementById('domain-count');
@@ -91,7 +89,6 @@ function buildDomainFilters(records) {
     });
 }
 
-// Build the list of State checkboxes
 function buildStateFilters(records) {
     const container = document.getElementById('state-filters');
     const badge = document.getElementById('state-count');
