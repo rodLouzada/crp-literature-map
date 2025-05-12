@@ -9,14 +9,18 @@ let currentGraphNodes = [];
         .then(r => { if (!r.ok) throw new Error(r.statusText); return r.text(); })
         .then(t => t.trim());
 
-    // 2) Decide between full-JSON vs JSONL
-    if (txt.startsWith('{') || txt.startsWith('[')) {
-        // Full JSON object or array
-        let js = JSON.parse(txt);
-        // If it's an object with `.records`, use that; else if array, use it directly
-        allRecords = Array.isArray(js) ? js : (js.records || []);
-    } else {
-        // JSON Lines: one JSON object per line
+    // 2) Try full-JSON, otherwise JSONL
+    try {
+        const js = JSON.parse(txt);
+        if (Array.isArray(js)) {
+            allRecords = js;
+        } else if (js.records && Array.isArray(js.records)) {
+            allRecords = js.records;
+        } else {
+            throw new Error('No records array in JSON');
+        }
+    } catch (e) {
+        // fallback: JSON Lines
         allRecords = txt
             .split('\n')
             .map(line => {
@@ -29,32 +33,36 @@ let currentGraphNodes = [];
     // 3) Build lookup map
     allRecords.forEach(r => recordMap[r.id] = r);
 
-    // 4) Build filters, render table, wire up buttons, etc...
+    // 4) Build collapsible filters
     buildFieldFilters(allRecords);
     buildDomainFilters(allRecords);
     buildStateFilters(allRecords);
 
+    // 5) Initial render
     filteredRecords = allRecords.slice();
     renderTable();
     renderPagination();
 
+    // 6) Wire up buttons & inputs
     document.getElementById('search-btn').addEventListener('click', onSearch);
     document.getElementById('clear-btn').addEventListener('click', onClear);
-    document.getElementById('download-csv').addEventListener('click', () =>
-        downloadCSV(filteredRecords, 'crp_search.csv'));
-    document.getElementById('download-graph-csv').addEventListener('click', () =>
-        downloadCSV(currentGraphNodes, 'crp_graph.csv'));
+    document.getElementById('download-csv')
+        .addEventListener('click', () => downloadCSV(filteredRecords, 'crp_search.csv'));
+    document.getElementById('download-graph-csv')
+        .addEventListener('click', () => downloadCSV(currentGraphNodes, 'crp_graph.csv'));
 
-    document.getElementById('search').addEventListener('keypress', e => {
-        if (e.key === 'Enter') { e.preventDefault(); onSearch(); }
-    });
+    document.getElementById('search')
+        .addEventListener('keypress', e => {
+            if (e.key === 'Enter') { e.preventDefault(); onSearch(); }
+        });
 
-    document.getElementById('results').addEventListener('click', onTableClick);
+    document.getElementById('results')
+        .addEventListener('click', onTableClick);
+
     document.getElementById('close-graph').onclick = () =>
         document.getElementById('graphPanel').classList.add('d-none');
     document.getElementById('graph-regenerate').onclick = () =>
         currentSeed && showGraph(currentSeed);
-
 })();
 
 function buildFieldFilters(records) {
