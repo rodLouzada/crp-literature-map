@@ -4,48 +4,7 @@ let allRecords = [], filteredRecords = [], recordMap = {};
 let currentPage = 1, pageSize = 10, currentSeed = null;
 let currentGraphNodes = [];
 
-; (async function init() {
-    
-    const resp = await fetch(DATA_URL);
-    if (!resp.ok) throw new Error(`Failed to load ${DATA_URL}: ${resp.status}`);
-    const js = await resp.json();
-    allRecords = Array.isArray(js.records) ? js.records : [];
 
-    
-    allRecords.forEach(r => recordMap[r.id] = r);
-
-    
-    buildFieldFilters(allRecords);
-    buildDomainFilters(allRecords);
-    buildStateFilters(allRecords);
-
-    
-    filteredRecords = allRecords.slice();
-    renderTable();
-    renderPagination();
-
-    
-    document.getElementById('search-btn').addEventListener('click', onSearch);
-    document.getElementById('clear-btn').addEventListener('click', onClear);
-    document.getElementById('download-csv')
-        .addEventListener('click', () => downloadCSV(filteredRecords, 'crp_search.csv'));
-    document.getElementById('download-graph-csv')
-        .addEventListener('click', () => downloadCSV(currentGraphNodes, 'crp_graph.csv'));
-
-    document.getElementById('search')
-        .addEventListener('keypress', e => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                onSearch();
-            }
-        });
-
-    document.getElementById('results')
-        .addEventListener('click', onTableClick);
-
-    document.getElementById('close-graph').onclick = () => document.getElementById('graphPanel').classList.add('d-none');
-    document.getElementById('graph-regenerate').onclick = () => currentSeed && showGraph(currentSeed);
-})();
 
 function buildFieldFilters(records) {
     const container = document.getElementById('field-filters');
@@ -119,6 +78,49 @@ function onSearch() {
     renderTable();
     renderPagination();
 }
+
+; (async function init() {
+
+    const resp = await fetch(DATA_URL);
+    if (!resp.ok) throw new Error(`Failed to load ${DATA_URL}: ${resp.status}`);
+    const js = await resp.json();
+    allRecords = Array.isArray(js.records) ? js.records : [];
+
+
+    allRecords.forEach(r => recordMap[r.id] = r);
+
+
+    buildFieldFilters(allRecords);
+    buildDomainFilters(allRecords);
+    buildStateFilters(allRecords);
+
+
+    filteredRecords = allRecords.slice();
+    renderTable();
+    renderPagination();
+
+
+    document.getElementById('search-btn').addEventListener('click', onSearch);
+    document.getElementById('clear-btn').addEventListener('click', onClear);
+    document.getElementById('download-csv')
+        .addEventListener('click', () => downloadCSV(filteredRecords, 'crp_search.csv'));
+    document.getElementById('download-graph-csv')
+        .addEventListener('click', () => downloadCSV(currentGraphNodes, 'crp_graph.csv'));
+
+    document.getElementById('search')
+        .addEventListener('keypress', e => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                onSearch();
+            }
+        });
+
+    document.getElementById('results')
+        .addEventListener('click', onTableClick);
+
+    document.getElementById('close-graph').onclick = () => document.getElementById('graphPanel').classList.add('d-none');
+    document.getElementById('graph-regenerate').onclick = () => currentSeed && showGraph(currentSeed);
+})();
 
 function onClear() {
     document.getElementById('filters').reset();
