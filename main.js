@@ -9,36 +9,21 @@ let currentGraphNodes = [];
         .then(r => { if (!r.ok) throw new Error(r.statusText); return r.text(); })
         .then(t => t.trim());
 
-    // 2) Try full-JSON, otherwise JSONL
-    try {
-        const js = JSON.parse(txt);
-        if (Array.isArray(js)) {
-            allRecords = js;
-        } else if (js.records && Array.isArray(js.records)) {
-            allRecords = js.records;
-        } else {
-            throw new Error('No records array in JSON');
-        }
-    } catch (e) {
-        // fallback: JSON Lines
-        allRecords = txt
-            .split('\n')
-            .map(line => {
-                try { return JSON.parse(line); }
-                catch { return null; }
-            })
-            .filter(o => o);
-    }
+    // 2) Parse each line as JSON
+    allRecords = txt
+        .split(/\r?\n/)
+        .filter(line => line.trim().length > 0)
+        .map(line => JSON.parse(line));
 
-    // 3) Build lookup map
+    // 3) Index for graph lookups
     allRecords.forEach(r => recordMap[r.id] = r);
 
-    // 4) Build collapsible filters
+    // 4) Build your collapsible filters
     buildFieldFilters(allRecords);
     buildDomainFilters(allRecords);
     buildStateFilters(allRecords);
 
-    // 5) Initial render
+    // 5) Initial table render + pagination
     filteredRecords = allRecords.slice();
     renderTable();
     renderPagination();
@@ -51,40 +36,17 @@ let currentGraphNodes = [];
     document.getElementById('download-graph-csv')
         .addEventListener('click', () => downloadCSV(currentGraphNodes, 'crp_graph.csv'));
 
-    document.getElementById('search')
-        .addEventListener('keypress', e => {
-            if (e.key === 'Enter') { e.preventDefault(); onSearch(); }
-        });
+    document.getElementById('search').addEventListener('keypress', e => {
+        if (e.key === 'Enter') { e.preventDefault(); onSearch(); }
+    });
 
-    document.getElementById('results')
-        .addEventListener('click', onTableClick);
+    document.getElementById('results').addEventListener('click', onTableClick);
 
     document.getElementById('close-graph').onclick = () =>
         document.getElementById('graphPanel').classList.add('d-none');
     document.getElementById('graph-regenerate').onclick = () =>
         currentSeed && showGraph(currentSeed);
 })();
-
-function buildFieldFilters(records) {
-    const container = document.getElementById('field-filters');
-    const badge = document.getElementById('field-count');
-    const set = new Set();
-    records.forEach(r => {
-        const f = r.primary_topic?.field;
-        if (f) set.add(f);
-    });
-    const list = Array.from(set).sort();
-    badge.textContent = list.length;
-    list.forEach(name => {
-        const id = `field-${name.replace(/\W+/g, '_')}`;
-        container.insertAdjacentHTML('beforeend', `
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="${id}" value="${name}">
-        <label class="form-check-label" for="${id}">${name}</label>
-      </div>
-    `);
-    });
-}
 
 function buildDomainFilters(records) {
     const container = document.getElementById('domain-filters');
