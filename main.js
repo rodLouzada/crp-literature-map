@@ -1,53 +1,75 @@
 ﻿const DATA_URL = 'crp_openalex_enhanced.json';
+
 let allRecords = [], filteredRecords = [], recordMap = {};
 let currentPage = 1, pageSize = 10, currentSeed = null;
 let currentGraphNodes = [];
 
 ; (async function init() {
-    // 1) Fetch raw text
-    const txt = await fetch(DATA_URL)
-        .then(r => { if (!r.ok) throw new Error(r.statusText); return r.text(); })
-        .then(t => t.trim());
+    // 1) Load the JSON (with a top‑level "records" array)
+    const resp = await fetch(DATA_URL);
+    if (!resp.ok) throw new Error(`Failed to load ${DATA_URL}: ${resp.status}`);
+    const js = await resp.json();
+    allRecords = Array.isArray(js.records) ? js.records : [];
 
-    // 2) Parse each line as JSON
-    allRecords = txt
-        .split(/\r?\n/)
-        .filter(line => line.trim().length > 0)
-        .map(line => JSON.parse(line));
-
-    // 3) Index for graph lookups
+    // 2) Build lookup map for fast citation‑graph access
     allRecords.forEach(r => recordMap[r.id] = r);
 
-    // 4) Build your collapsible filters
+    // 3) Build collapsible filters
     buildFieldFilters(allRecords);
     buildDomainFilters(allRecords);
     buildStateFilters(allRecords);
 
-    // 5) Initial table render + pagination
+    // 4) Initial render
     filteredRecords = allRecords.slice();
     renderTable();
     renderPagination();
 
-    // 6) Wire up buttons & inputs
+    // 5) Button & input wiring
     document.getElementById('search-btn').addEventListener('click', onSearch);
     document.getElementById('clear-btn').addEventListener('click', onClear);
-    document.getElementById('download-csv')
-        .addEventListener('click', () => downloadCSV(filteredRecords, 'crp_search.csv'));
-    document.getElementById('download-graph-csv')
-        .addEventListener('click', () => downloadCSV(currentGraphNodes, 'crp_graph.csv'));
+    document.getElementById('download-csv').addEventListener('click', () =>
+        downloadCSV(filteredRecords, 'crp_search.csv'));
+    document.getElementById('download-graph-csv').addEventListener('click', () =>
+        downloadCSV(currentGraphNodes, 'crp_graph.csv'));
 
     document.getElementById('search').addEventListener('keypress', e => {
-        if (e.key === 'Enter') { e.preventDefault(); onSearch(); }
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            onSearch();
+        }
     });
 
     document.getElementById('results').addEventListener('click', onTableClick);
-
     document.getElementById('close-graph').onclick = () =>
         document.getElementById('graphPanel').classList.add('d-none');
     document.getElementById('graph-regenerate').onclick = () =>
         currentSeed && showGraph(currentSeed);
 })();
 
+// —————————————————————————————————————————————————————————
+// Build the list of Field checkboxes
+function buildFieldFilters(records) {
+    const container = document.getElementById('field-filters');
+    const badge = document.getElementById('field-count');
+    const set = new Set();
+    records.forEach(r => {
+        const f = r.primary_topic?.field;
+        if (f) set.add(f);
+    });
+    const list = Array.from(set).sort();
+    badge.textContent = list.length;
+    list.forEach(name => {
+        const id = `field-${name.replace(/\W+/g, '_')}`;
+        container.insertAdjacentHTML('beforeend', `
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="${id}" value="${name}">
+        <label class="form-check-label" for="${id}">${name}</label>
+      </div>
+    `);
+    });
+}
+
+// Build the list of Domain checkboxes
 function buildDomainFilters(records) {
     const container = document.getElementById('domain-filters');
     const badge = document.getElementById('domain-count');
@@ -69,6 +91,7 @@ function buildDomainFilters(records) {
     });
 }
 
+// Build the list of State checkboxes
 function buildStateFilters(records) {
     const container = document.getElementById('state-filters');
     const badge = document.getElementById('state-count');
@@ -101,13 +124,10 @@ function onSearch() {
 }
 
 function onClear() {
-    // Reset form inputs
     document.getElementById('filters').reset();
-    // Uncheck all custom checkboxes
     ['field-filters', 'domain-filters', 'state-filters']
-        .forEach(cid =>
-            document.querySelectorAll(`#${cid} input:checked`).forEach(i => i.checked = false)
-        );
+        .forEach(cid => document.querySelectorAll(`#${cid} input:checked`)
+            .forEach(i => i.checked = false));
     document.getElementById('search').value = '';
     filteredRecords = allRecords.slice();
     currentPage = 1;
@@ -116,11 +136,9 @@ function onClear() {
 }
 
 function applyFilters() {
-    // Title search terms
     const raw = (document.getElementById('search').value || '')
-        .trim()
-        .toLowerCase();
-    const terms = raw ? raw.split(/\s+/).filter(w => !!w) : [];
+        .trim().toLowerCase();
+    const terms = raw ? raw.split(/\s+/).filter(w => w) : [];
 
     const start = document.getElementById('start-date').value || '';
     const end = document.getElementById('end-date').value || '';
@@ -134,39 +152,34 @@ function applyFilters() {
     const maxC = parseInt(document.getElementById('max-cites').value) || Infinity;
 
     filteredRecords = allRecords.filter(r => {
-        // 1) Title
+        // Title terms
         if (terms.length) {
             const t = (r.title || '').toLowerCase();
             if (!terms.every(w => t.includes(w))) return false;
         }
-        // 2) Date
+        // Date range
         const pub = r.publication_date || '';
         if (start && pub < start) return false;
         if (end && pub > end) return false;
-        // 3) Field
+        // Field/domain/state
         const f = (r.primary_topic?.field || '').toLowerCase();
         if (fields.length && !fields.includes(f)) return false;
-        // 4) Domain
         const d = (r.primary_topic?.domain || '').toLowerCase();
         if (domains.length && !domains.includes(d)) return false;
-        // 5) States
         if (states.length) {
             const sList = (r.states || []).map(s => s.toLowerCase());
             if (!states.some(s => sList.includes(s))) return false;
         }
-        // 6) Author
+        // Author/journal/keyword
         const aList = (r.authors || []).map(a => a.name || '').join(' ').toLowerCase();
         if (authorQ && !aList.includes(authorQ)) return false;
-        // 7) Journal
         const j = (r.journal || '').toLowerCase();
         if (journalQ && !j.includes(journalQ)) return false;
-        // 8) Keyword
         const kList = (r.keywords || []).join(' ').toLowerCase();
         if (keywordQ && !kList.includes(keywordQ)) return false;
-        // 9) Citation count
+        // Citations
         const c = r.citation_counts?.forward || 0;
         if (c < minC || c > maxC) return false;
-
         return true;
     });
 }
@@ -203,29 +216,27 @@ function renderPagination() {
     const ul = document.getElementById('pagination');
     ul.innerHTML = '';
 
-    const makeItem = (label, disabled, handler, active = false) => {
+    const make = (lbl, disc, fn, act = false) => {
         const li = document.createElement('li');
-        li.className = `page-item${disabled ? ' disabled' : ''}${active ? ' active' : ''}`;
+        li.className = `page-item${disc ? ' disabled' : ''}${act ? ' active' : ''}`;
         const btn = document.createElement('button');
-        btn.className = 'page-link';
-        btn.textContent = label;
-        if (!disabled) btn.onclick = handler;
+        btn.className = 'page-link'; btn.textContent = lbl;
+        if (!disc) btn.onclick = fn;
         li.appendChild(btn);
         return li;
     };
 
-    ul.appendChild(makeItem('Prev', currentPage === 1, () => { currentPage--; updateView(); }));
+    ul.appendChild(make('Prev', currentPage === 1, () => { currentPage--; updateView(); }));
 
-    let start = Math.max(1, currentPage - 2);
-    let end = Math.min(totalPages, currentPage + 2);
+    let start = Math.max(1, currentPage - 2),
+        end = Math.min(totalPages, currentPage + 2);
     if (currentPage <= 3) start = 1, end = Math.min(5, totalPages);
     if (currentPage >= totalPages - 2) start = Math.max(1, totalPages - 4), end = totalPages;
 
     for (let p = start; p <= end; p++) {
-        ul.appendChild(makeItem(p, false, () => { currentPage = p; updateView(); }, p === currentPage));
+        ul.appendChild(make(p, false, () => { currentPage = p; updateView(); }, p === currentPage));
     }
-
-    ul.appendChild(makeItem('Next', currentPage === totalPages, () => { currentPage++; updateView(); }));
+    ul.appendChild(make('Next', currentPage === totalPages, () => { currentPage++; updateView(); }));
 }
 
 function updateView() {
@@ -235,14 +246,13 @@ function updateView() {
 
 function onTableClick(e) {
     const tr = e.target.closest('tr');
-    const rowIndex = Array.from(tr.parentNode.children).indexOf(tr);
-    const globalIndex = (currentPage - 1) * pageSize + rowIndex;
+    const idx = (currentPage - 1) * pageSize + Array.from(tr.parentNode.children).indexOf(tr);
 
     if (e.target.classList.contains('details-btn')) {
-        showDetails(filteredRecords[globalIndex]);
+        showDetails(filteredRecords[idx]);
     }
     if (e.target.classList.contains('network-btn')) {
-        currentSeed = filteredRecords[globalIndex];
+        currentSeed = filteredRecords[idx];
         showGraph(currentSeed);
         document.getElementById('graphPanel').classList.remove('d-none');
     }
@@ -298,11 +308,11 @@ function showGraph(seed) {
         nodes.push({ data: { id, label, metaType: type } });
         currentGraphNodes.push(meta);
     }
-    function addEdge(src, tgt) {
-        const eid = `${src}->${tgt}`;
+    function addEdge(s, t) {
+        const eid = `${s}->${t}`;
         if (seenE.has(eid)) return;
         seenE.add(eid);
-        edges.push({ data: { id: eid, source: src, target: tgt } });
+        edges.push({ data: { id: eid, source: s, target: t } });
     }
 
     function recurse(id, lvl) {
@@ -332,16 +342,10 @@ function showGraph(seed) {
         elements: nodes.concat(edges),
         style: [
             {
-                selector: 'node',
-                style: {
-                    width: 90,
-                    height: 90,
-                    label: 'data(label)',
-                    'text-wrap': 'wrap',
-                    'text-max-width': 150,
-                    'font-size': 8,
-                    'text-valign': 'center',
-                    color: '#000'
+                selector: 'node', style: {
+                    width: 90, height: 90, label: 'data(label)',
+                    'text-wrap': 'wrap', 'text-max-width': 150,
+                    'font-size': 8, 'text-valign': 'center', color: '#000'
                 }
             },
             { selector: 'node[metaType="seed"]', style: { 'background-color': '#0d6efd' } },
@@ -360,8 +364,7 @@ function showGraph(seed) {
         }
     });
 
-    cy.on('tap', 'node', evt => {
-        document.getElementById('node-info').textContent = evt.target.data('label');
-    });
+    cy.on('tap', 'node', evt =>
+        document.getElementById('node-info').textContent = evt.target.data('label')
+    );
 }
-
