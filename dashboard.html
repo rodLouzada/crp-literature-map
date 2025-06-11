@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CRP Evidence Map</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f8f9fa;
@@ -13,17 +12,13 @@
 
         .banner {
             background: linear-gradient(90deg, #006400, #228B22);
-            color: #fff;
+            color: white;
             padding: 2rem 1rem;
         }
 
             .banner h1 {
                 margin: 0;
                 font-weight: 700;
-            }
-
-            .banner .btn-dashboard {
-                margin-top: 1rem;
             }
 
         .footer {
@@ -34,6 +29,7 @@
 
             .footer a {
                 color: #adb5bd;
+                text-decoration: none;
             }
 
                 .footer a:hover {
@@ -48,6 +44,18 @@
             vertical-align: middle;
             margin-right: 4px;
         }
+
+        .bg-primary {
+            background-color: #0d6efd;
+        }
+
+        .bg-success {
+            background-color: green;
+        }
+
+        .bg-warning {
+            background-color: yellow;
+        }
     </style>
 </head>
 <body>
@@ -57,10 +65,6 @@
         <div class="container">
             <h1>Conservation Reserve Program Evidence Map</h1>
             <p class="lead">Explore research on CRP</p>
-            <!-- Dashboard button -->
-            <a href="dashboard.html" class="btn btn-light btn-dashboard">
-                View Dashboard
-            </a>
         </div>
     </header>
 
@@ -146,9 +150,12 @@
                         <button type="button" id="clear-btn" class="btn btn-outline-danger">Clear Filters</button>
                         <button type="button" id="download-csv" class="btn btn-secondary">Download CSV</button>
                     </div>
+
                 </form>
             </div>
         </div>
+
+
 
         <!-- Graph Panel -->
         <section id="graphPanel" class="container mb-4 d-none">
@@ -186,7 +193,7 @@
                         <th>Year</th>
                         <th>Authors</th>
                         <th>Cited By</th>
-                        <th>Open Access</th>
+                        <th>Open Access</th>
                         <th>Type</th>
                         <th>Details</th>
                         <th>Network</th>
@@ -219,8 +226,8 @@
     <!-- Footer -->
     <footer class="footer text-center">
         <div class="container">
-            <p class="mb-1">© 2025 CRP Evidence Map</p>
-            <p class="mb-0"><a href="#">About</a> | <a href="#">Contact</a> | <a href="#">GitHub Repo</a></p>
+            <p class="mb-1">© 2025 CRP Evidence Map</p>
+            <p class="mb-0"><a href="#">About</a> | <a href="#">Contact</a> | <a href="#">GitHub Repo</a></p>
         </div>
     </footer>
 
