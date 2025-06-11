@@ -34,6 +34,10 @@
                 .footer a:hover {
                     color: #fff;
                 }
+
+        .chart-container {
+            height: 300px;
+        }
     </style>
 </head>
 <body>
@@ -45,43 +49,130 @@
 
     <div class="container my-4">
         <h1 class="mb-4 text-center">Conservation Reserve Program Evidence Map</h1>
-        <div class="row g-4">
-            <!-- Publications Over Time -->
+
+        <!-- Publications -->
+        <div class="row g-4 mb-4">
             <div class="col-md-6">
                 <div class="card h-100 shadow-sm">
-                    <div class="card-header">Papers Published Per Year</div>
+                    <div class="card-header">Annual Publications</div>
                     <div class="card-body">
-                        <div id="pubsChart"></div>
+                        <div id="pubsChart" class="chart-container"></div>
                     </div>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header">Cumulative Publications</div>
+                    <div class="card-body">
+                        <div id="cumulativeChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            <!-- Open Access Uptake -->
+        <!-- Topics and Keywords Trends -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header">Top Topics Over Time</div>
+                    <div class="card-body">
+                        <div id="topicsTrendChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header">Keyword Trends</div>
+                    <div class="card-body">
+                        <div id="keywordTrendChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Distribution Charts -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header">Top Domains</div>
+                    <div class="card-body">
+                        <div id="domainChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header">Top Fields</div>
+                    <div class="card-body">
+                        <div id="fieldChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header">Interdisciplinarity (%)</div>
+                    <div class="card-body">
+                        <div id="interdisciplinarityChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Uptake and Impact -->
+        <div class="row g-4 mb-4">
             <div class="col-md-6">
                 <div class="card h-100 shadow-sm">
                     <div class="card-header">Open Access Uptake (%)</div>
                     <div class="card-body">
-                        <div id="oaChart"></div>
+                        <div id="oaChart" class="chart-container"></div>
                     </div>
                 </div>
             </div>
-
-            <!-- Domain Distribution -->
             <div class="col-md-6">
                 <div class="card h-100 shadow-sm">
-                    <div class="card-header">Top Domains</div>
+                    <div class="card-header">Avg. Citation Impact (FWCI)</div>
                     <div class="card-body">
-                        <div id="domainChart"></div>
+                        <div id="fwciChart" class="chart-container"></div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Field Distribution -->
-            <div class="col-md-6">
+        <!-- Top Entities -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
                 <div class="card h-100 shadow-sm">
-                    <div class="card-header">Top Fields</div>
+                    <div class="card-header">Top States</div>
                     <div class="card-body">
-                        <div id="fieldChart"></div>
+                        <div id="stateChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header">Top Journals</div>
+                    <div class="card-body">
+                        <div id="journalChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header">Top Authors</div>
+                    <div class="card-body">
+                        <div id="authorChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Funders -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-6 offset-md-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header">Top Funders</div>
+                    <div class="card-body">
+                        <div id="funderChart" class="chart-container"></div>
                     </div>
                 </div>
             </div>
@@ -90,7 +181,8 @@
 
     <footer class="footer text-center">
         <div class="container">
-            <p class="mb-0">&copy; 2025 CRP Evidence Dashboard | <a href="#">GitHub Repo</a></p>
+            <p class="mb-1">&copy; 2025 CRP Evidence Dashboard</p>
+            <p class="mb-0"><a href="#">GitHub Repo</a></p>
         </div>
     </footer>
 
@@ -99,54 +191,102 @@
     <script>
         (async function () {
             const resp = await fetch('metrics.json');
-            if (!resp.ok) {
-                console.error('Failed to load metrics.json:', resp.statusText);
-                return;
-            }
+            if (!resp.ok) return console.error('Failed loading metrics.json');
+
             const m = await resp.json();
 
-            // 1) Publications Over Time
-            const yrs = m.publications_over_time.by_year.map(o => o.year);
-            const cnt = m.publications_over_time.by_year.map(o => o.count);
+            // Publications & Cumulative
+            const pubs = m.publications_over_time.by_year;
+            const years = pubs.map(o => o.year), counts = pubs.map(o => o.count),
+                cumul = pubs.map(o => o.cumulative);
             Plotly.newPlot('pubsChart', [{
-                x: yrs, y: cnt, type: 'scatter', mode: 'lines+markers',
-                marker: { color: '#006400' }
-            }], {
-                margin: { t: 20, r: 20, b: 40, l: 40 },
-                xaxis: { title: 'Year' },
-                yaxis: { title: 'Papers Published' }
+                x: years, y: counts, type: 'scatter', mode: 'lines+markers', marker: { color: '#006400' }
+            }], { margin: { t: 20, b: 40 }, xaxis: { title: 'Year' }, yaxis: { title: 'Papers' } });
+            Plotly.newPlot('cumulativeChart', [{
+                x: years, y: cumul, type: 'scatter', mode: 'lines', marker: { color: '#228B22' }
+            }], { margin: { t: 20, b: 40 }, xaxis: { title: 'Year' }, yaxis: { title: 'Cumulative' } });
+
+            // Top Topics Over Time: pick top 5 overall
+            const overallTopics = Object.entries(
+                m.publications_over_time.by_year.reduce((acc, o) => {
+                    (m.top_topics_by_year[o.year] || []).forEach(t => acc[t.topic] = (acc[t.topic] || 0) + t.count);
+                    return acc;
+                }, {})
+            ).sort((a, b) => b[1] - a[1]).slice(0, 5).map(x => x[0]);
+            const topicTraces = overallTopics.map(topic => {
+                const y = pubs.map(o => {
+                    const arr = m.top_topics_by_year[o.year] || [];
+                    const obj = arr.find(t => t.topic === topic);
+                    return obj ? obj.count : 0;
+                });
+                return { x: years, y, mode: 'lines+markers', name: topic };
+            });
+            Plotly.newPlot('topicsTrendChart', topicTraces, {
+                margin: { t: 20, b: 40 }, xaxis: { title: 'Year' }, yaxis: { title: 'Count' }
             });
 
-            // 2) Open Access Uptake
-            const oa = Object.entries(m.open_access_uptake)
-                .sort((a, b) => a[0] - b[0]);
-            Plotly.newPlot('oaChart', [{
-                x: oa.map(e => e[0]), y: oa.map(e => e[1]), type: 'bar',
-                marker: { color: '#228B22' }
-            }], {
-                margin: { t: 20, r: 20, b: 40, l: 40 },
-                xaxis: { title: 'Year' },
-                yaxis: { title: '% Open Access', range: [0, 100] }
+            // Keyword Trends
+            const kwTraces = Object.entries(m.keyword_trends).map(([kw, obj]) => {
+                const ys = years.map(y => obj[y] || 0);
+                return { x: years, y: ys, mode: 'lines+markers', name: kw };
+            });
+            Plotly.newPlot('keywordTrendChart', kwTraces, {
+                margin: { t: 20, b: 40 }, xaxis: { title: 'Year' }, yaxis: { title: 'Count' }
             });
 
-            // 3) Domain Distribution
-            const dom = m.domain_distribution.slice(0, 10);
+            // Domain
+            const dom = m.domain_distribution.slice(0, 8);
             Plotly.newPlot('domainChart', [{
-                labels: dom.map(d => d[0]), values: dom.map(d => d[1]), type: 'pie',
-                textinfo: 'percent+label'
-            }], {
-                margin: { t: 20, r: 20, b: 20, l: 20 }
-            });
+                labels: dom.map(d => d[0]), values: dom.map(d => d[1]), type: 'pie', textinfo: 'label+percent'
+            }], { margin: { t: 20, b: 20 } });
 
-            // 4) Field Distribution
-            const fld = m.field_distribution.slice(0, 10).reverse();
+            // Field
+            const fld = m.field_distribution.slice(0, 8).reverse();
             Plotly.newPlot('fieldChart', [{
-                x: fld.map(d => d[1]), y: fld.map(d => d[0]), type: 'bar', orientation: 'h',
-                marker: { color: '#2E8B57' }
-            }], {
-                margin: { t: 20, r: 20, b: 40, l: 100 },
-                xaxis: { title: 'Number of Papers' }
-            });
+                x: fld.map(d => d[1]), y: fld.map(d => d[0]), type: 'bar', orientation: 'h', marker: { color: '#2E8B57' }
+            }], { margin: { t: 20, l: 100 } });
+
+            // Interdisciplinarity
+            const inter = Object.entries(m.interdisciplinarity_by_year).sort((a, b) => a[0] - b[0]);
+            Plotly.newPlot('interdisciplinarityChart', [{
+                x: inter.map(e => e[0]), y: inter.map(e => e[1]), type: 'scatter', mode: 'lines+markers', marker: { color: '#8B0000' }
+            }], { margin: { t: 20, b: 40 }, xaxis: { title: 'Year' }, yaxis: { title: '% Non-Ag' }, });
+
+            // Open Access
+            const oa = Object.entries(m.open_access_uptake).sort((a, b) => a[0] - b[0]);
+            Plotly.newPlot('oaChart', [{
+                x: oa.map(e => e[0]), y: oa.map(e => e[1]), type: 'bar', marker: { color: '#228B22' }
+            }], { margin: { t: 20, b: 40 }, xaxis: { title: 'Year' }, yaxis: { title: '% OA' }, });
+
+            // FWCI
+            const fw = Object.entries(m.citation_impact.average_fwci_by_year).sort((a, b) => a[0] - b[0]);
+            Plotly.newPlot('fwciChart', [{
+                x: fw.map(e => e[0]), y: fw.map(e => e[1]), type: 'scatter', mode: 'lines+markers', marker: { color: '#00008B' }
+            }], { margin: { t: 20, b: 40 }, xaxis: { title: 'Year' }, yaxis: { title: 'Avg FWCI' }, });
+
+            // States
+            const st = m.state_counts.slice(0, 10).reverse();
+            Plotly.newPlot('stateChart', [{
+                x: st.map(d => d[1]), y: st.map(d => d[0]), type: 'bar', orientation: 'h', marker: { color: '#FFA500' }
+            }], { margin: { t: 20, l: 100 }, xaxis: { title: 'Papers' }, });
+
+            // Journals
+            const jn = m.top_journals.reverse();
+            Plotly.newPlot('journalChart', [{
+                x: jn.map(d => d[1]), y: jn.map(d => d[0]), type: 'bar', orientation: 'h', marker: { color: '#6A5ACD' }
+            }], { margin: { t: 20, l: 150 }, xaxis: { title: 'Papers' }, });
+
+            // Authors
+            const au = m.top_authors.reverse();
+            Plotly.newPlot('authorChart', [{
+                x: au.map(d => d[1]), y: au.map(d => d[0]), type: 'bar', orientation: 'h', marker: { color: '#DC143C' }
+            }], { margin: { t: 20, l: 150 }, xaxis: { title: 'Papers' }, });
+
+            // Funders
+            const fu = m.top_funders.reverse();
+            Plotly.newPlot('funderChart', [{
+                x: fu.map(d => d[1]), y: fu.map(d => d[0]), type: 'bar', orientation: 'h', marker: { color: '#20B2AA' }
+            }], { margin: { t: 20, l: 150 }, xaxis: { title: 'Papers' }, });
         })();
     </script>
 </body>
