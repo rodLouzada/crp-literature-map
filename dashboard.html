@@ -13,7 +13,7 @@
         .card {
             border-radius: 0.75rem;
             margin-bottom: 1.5rem;
-            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
         }
 
         .card-header {
@@ -24,10 +24,13 @@
         }
 
         .chart-container {
-            height: 300px;
+            position: relative;
+            width: 100%;
+            aspect-ratio: 2 / 1;
         }
 
         canvas {
+            display: block;
             width: 100% !important;
             height: 100% !important;
         }
@@ -52,140 +55,105 @@
     <div class="container my-4">
         <h1 class="mb-4 text-center">Conservation Reserve Program Evidence Map</h1>
 
-        <!-- Create cards for each chart (1 to 12) as used in dashboard.js -->
+        <!-- Chart Cards -->
         <div class="row">
             <div class="col-12">
 
-                <!-- 1. Publications Per Year -->
+                <!-- Charts: 1 to 12 -->
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
                         Papers Published Per Year
                         <button class="help-btn" data-bs-toggle="tooltip" title="Annual count of CRP‐related papers by publication year.">?</button>
                     </div>
-                    <div class="card-body chart-container">
-                        <canvas id="pubsChart"></canvas>
-                    </div>
+                    <div class="card-body chart-container"><canvas id="pubsChart"></canvas></div>
                 </div>
 
-                <!-- 2. Cumulative Publications -->
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
                         Cumulative Publications
                         <button class="help-btn" data-bs-toggle="tooltip" title="Cumulative number of CRP‐related papers over time.">?</button>
                     </div>
-                    <div class="card-body chart-container">
-                        <canvas id="cumulativeChart"></canvas>
-                    </div>
+                    <div class="card-body chart-container"><canvas id="cumulativeChart"></canvas></div>
                 </div>
 
-                <!-- 3. Open Access Uptake -->
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
                         Open Access Uptake (%)
                         <button class="help-btn" data-bs-toggle="tooltip" title="Percentage of CRP papers that are open access by year.">?</button>
                     </div>
-                    <div class="card-body chart-container">
-                        <canvas id="oaChart"></canvas>
-                    </div>
+                    <div class="card-body chart-container"><canvas id="oaChart"></canvas></div>
                 </div>
 
-                <!-- 4. Domain Distribution -->
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
                         Top Domains
                         <button class="help-btn" data-bs-toggle="tooltip" title="Breakdown of papers by primary topic domain (top 10).">?</button>
                     </div>
-                    <div class="card-body chart-container">
-                        <canvas id="domainChart"></canvas>
-                    </div>
+                    <div class="card-body chart-container"><canvas id="domainChart"></canvas></div>
                 </div>
 
-                <!-- 5. Field Distribution -->
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
                         Top Fields
                         <button class="help-btn" data-bs-toggle="tooltip" title="Breakdown of papers by primary topic field (top 10).">?</button>
                     </div>
-                    <div class="card-body chart-container">
-                        <canvas id="fieldChart"></canvas>
-                    </div>
+                    <div class="card-body chart-container"><canvas id="fieldChart"></canvas></div>
                 </div>
 
-                <!-- 6. Citation Impact -->
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
                         Avg. Citation Impact (FWCI)
                         <button class="help-btn" data-bs-toggle="tooltip" title="Average Field‐Weighted Citation Impact per year.">?</button>
                     </div>
-                    <div class="card-body chart-container">
-                        <canvas id="fwciChart"></canvas>
-                    </div>
+                    <div class="card-body chart-container"><canvas id="fwciChart"></canvas></div>
                 </div>
 
-                <!-- 7. APC Cost -->
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
                         Avg. APC Cost (USD)
                         <button class="help-btn" data-bs-toggle="tooltip" title="Average Article Processing Charges in USD by year.">?</button>
                     </div>
-                    <div class="card-body chart-container">
-                        <canvas id="apcChart"></canvas>
-                    </div>
+                    <div class="card-body chart-container"><canvas id="apcChart"></canvas></div>
                 </div>
 
-                <!-- 8. Top Authors -->
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
                         Top Authors
                         <button class="help-btn" data-bs-toggle="tooltip" title="Top 10 authors by number of CRP‐related papers.">?</button>
                     </div>
-                    <div class="card-body chart-container">
-                        <canvas id="authorChart"></canvas>
-                    </div>
+                    <div class="card-body chart-container"><canvas id="authorChart"></canvas></div>
                 </div>
 
-                <!-- 9. Top Journals -->
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
                         Top Journals
                         <button class="help-btn" data-bs-toggle="tooltip" title="Top 10 journals publishing CRP‐related research.">?</button>
                     </div>
-                    <div class="card-body chart-container">
-                        <canvas id="journalChart"></canvas>
-                    </div>
+                    <div class="card-body chart-container"><canvas id="journalChart"></canvas></div>
                 </div>
 
-                <!-- 10. Top Funders -->
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
                         Top Funders
                         <button class="help-btn" data-bs-toggle="tooltip" title="Top 10 grant funders acknowledged in CRP papers.">?</button>
                     </div>
-                    <div class="card-body chart-container">
-                        <canvas id="funderChart"></canvas>
-                    </div>
+                    <div class="card-body chart-container"><canvas id="funderChart"></canvas></div>
                 </div>
 
-                <!-- 11. Indexed-In Trends -->
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
                         Indexed-In Trends (Top 5)
                         <button class="help-btn" data-bs-toggle="tooltip" title="Yearly count of CRP papers indexed in top databases.">?</button>
                     </div>
-                    <div class="card-body chart-container">
-                        <canvas id="indexedTrendChart"></canvas>
-                    </div>
+                    <div class="card-body chart-container"><canvas id="indexedTrendChart"></canvas></div>
                 </div>
 
-                <!-- 12. Top Indexed-In Overall -->
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
                         Top Indexing Sources
                         <button class="help-btn" data-bs-toggle="tooltip" title="Top databases or platforms indexing CRP papers overall.">?</button>
                     </div>
-                    <div class="card-body chart-container">
-                        <canvas id="indexedTopChart"></canvas>
-                    </div>
+                    <div class="card-body chart-container"><canvas id="indexedTopChart"></canvas></div>
                 </div>
 
             </div>
@@ -203,13 +171,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Initialize Bootstrap tooltips
+        // Bootstrap tooltips
         document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
             new bootstrap.Tooltip(el);
         });
     </script>
 
-    <!-- Main dashboard script -->
+    <!-- Main dashboard logic -->
     <script src="dashboard.js"></script>
 </body>
 </html>
