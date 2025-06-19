@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>CRP Evidence Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
         body {
             background-color: #f8f9fa;
         }
 
         .card {
-            border-radius: .75rem;
+            border-radius: 0.75rem;
             margin-bottom: 1.5rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
         }
 
         .card-header {
             background-color: #006400;
             color: #fff;
             font-weight: 600;
+            font-size: 1.1rem;
         }
 
         .chart-container {
@@ -46,303 +47,193 @@
     <div class="container my-4">
         <h1 class="mb-4 text-center">Conservation Reserve Program Evidence Map</h1>
 
-        <!-- Publications -->
-        <div class="card">
-            <div class="card-header d-flex align-items-center">
-                Papers Published Per Year
-                <button class="help-btn" data-bs-toggle="tooltip"
-                        title="Annual count of CRP‐related papers by publication year.">
-                    ?
-                </button>
-            </div>
-            <div class="card-body">
-                <div id="pubsChart" class="chart-container"></div>
-            </div>
-        </div>
+        <!-- Chart Cards -->
+        <div class="row">
+            <div class="col-12">
+                <!-- Each section is wrapped in a Bootstrap card -->
+                <!-- 1. Publications Per Year -->
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        Papers Published Per Year
+                        <button class="help-btn" data-bs-toggle="tooltip" title="Annual count of CRP‐related papers by publication year.">?</button>
+                    </div>
+                    <div class="card-body">
+                        <div id="pubsChart" class="chart-container"></div>
+                    </div>
+                </div>
 
-        <!-- Cumulative -->
-        <div class="card">
-            <div class="card-header d-flex align-items-center">
-                Cumulative Publications
-                <button class="help-btn" data-bs-toggle="tooltip"
-                        title="Cumulative number of CRP‐related papers over time.">
-                    ?
-                </button>
-            </div>
-            <div class="card-body">
-                <div id="cumulativeChart" class="chart-container"></div>
-            </div>
-        </div>
+                <!-- 2. Cumulative Publications -->
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        Cumulative Publications
+                        <button class="help-btn" data-bs-toggle="tooltip" title="Cumulative number of CRP‐related papers over time.">?</button>
+                    </div>
+                    <div class="card-body">
+                        <div id="cumulativeChart" class="chart-container"></div>
+                    </div>
+                </div>
 
-        <!-- Top Topics -->
-        <div class="card">
-            <div class="card-header d-flex align-items-center">
-                Top Topics Over Time
-                <button class="help-btn" data-bs-toggle="tooltip"
-                        title="Yearly counts of the top 5 primary topics.">
-                    ?
-                </button>
-            </div>
-            <div class="card-body">
-                <div id="topicsTrendChart" class="chart-container"></div>
-            </div>
-        </div>
+                <!-- 3. Top Topics Over Time -->
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        Top Topics Over Time
+                        <button class="help-btn" data-bs-toggle="tooltip" title="Yearly counts of the top 5 primary topics.">?</button>
+                    </div>
+                    <div class="card-body">
+                        <div id="topicsTrendChart" class="chart-container"></div>
+                    </div>
+                </div>
 
-        <!-- Keyword Trends -->
-        <div class="card">
-            <div class="card-header d-flex align-items-center">
-                Keyword Trends
-                <button class="help-btn" data-bs-toggle="tooltip"
-                        title="Yearly occurrence of selected keywords.">
-                    ?
-                </button>
-            </div>
-            <div class="card-body">
-                <div id="keywordTrendChart" class="chart-container"></div>
-            </div>
-        </div>
+                <!-- 4. Keyword Trends -->
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        Keyword Trends
+                        <button class="help-btn" data-bs-toggle="tooltip" title="Yearly occurrence of selected keywords.">?</button>
+                    </div>
+                    <div class="card-body">
+                        <div id="keywordTrendChart" class="chart-container"></div>
+                    </div>
+                </div>
 
-        <!-- Domain Distribution -->
-        <div class="card">
-            <div class="card-header d-flex align-items-center">
-                Top Domains
-                <button class="help-btn" data-bs-toggle="tooltip"
-                        title="Breakdown of papers by primary topic domain (top 10).">
-                    ?
-                </button>
-            </div>
-            <div class="card-body">
-                <div id="domainChart" class="chart-container"></div>
-            </div>
-        </div>
+                <!-- 5. Domain Distribution -->
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        Top Domains
+                        <button class="help-btn" data-bs-toggle="tooltip" title="Breakdown of papers by primary topic domain (top 10).">?</button>
+                    </div>
+                    <div class="card-body">
+                        <div id="domainChart" class="chart-container"></div>
+                    </div>
+                </div>
 
-        <!-- Field Distribution -->
-        <div class="card">
-            <div class="card-header d-flex align-items-center">
-                Top Fields
-                <button class="help-btn" data-bs-toggle="tooltip"
-                        title="Breakdown of papers by primary topic field (top 10).">
-                    ?
-                </button>
-            </div>
-            <div class="card-body">
-                <div id="fieldChart" class="chart-container"></div>
-            </div>
-        </div>
+                <!-- 6. Field Distribution -->
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        Top Fields
+                        <button class="help-btn" data-bs-toggle="tooltip" title="Breakdown of papers by primary topic field (top 10).">?</button>
+                    </div>
+                    <div class="card-body">
+                        <div id="fieldChart" class="chart-container"></div>
+                    </div>
+                </div>
 
-        <!-- Open Access Uptake -->
-        <div class="card">
-            <div class="card-header d-flex align-items-center">
-                Open Access Uptake (%)
-                <button class="help-btn" data-bs-toggle="tooltip"
-                        title="Percentage of CRP papers that are open access by year.">
-                    ?
-                </button>
-            </div>
-            <div class="card-body">
-                <div id="oaChart" class="chart-container"></div>
-            </div>
-        </div>
+                <!-- 7. Open Access Uptake -->
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        Open Access Uptake (%)
+                        <button class="help-btn" data-bs-toggle="tooltip" title="Percentage of CRP papers that are open access by year.">?</button>
+                    </div>
+                    <div class="card-body">
+                        <div id="oaChart" class="chart-container"></div>
+                    </div>
+                </div>
 
-        <!-- Citation Impact -->
-        <div class="card">
-            <div class="card-header d-flex align-items-center">
-                Avg. Citation Impact (FWCI)
-                <button class="help-btn" data-bs-toggle="tooltip"
-                        title="Average Field‐Weighted Citation Impact per year.">
-                    ?
-                </button>
-            </div>
-            <div class="card-body">
-                <div id="fwciChart" class="chart-container"></div>
-            </div>
-        </div>
+                <!-- 8. Citation Impact -->
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        Avg. Citation Impact (FWCI)
+                        <button class="help-btn" data-bs-toggle="tooltip" title="Average Field‐Weighted Citation Impact per year.">?</button>
+                    </div>
+                    <div class="card-body">
+                        <div id="fwciChart" class="chart-container"></div>
+                    </div>
+                </div>
 
-        <!-- Top States -->
-        <div class="card">
-            <div class="card-header d-flex align-items-center">
-                Top U.S. States
-                <button class="help-btn" data-bs-toggle="tooltip"
-                        title="Top 10 U.S. states mentioned across all papers.">
-                    ?
-                </button>
-            </div>
-            <div class="card-body">
-                <div id="stateChart" class="chart-container"></div>
-            </div>
-        </div>
+                <!-- 9. APC Cost -->
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        Avg. APC Cost (USD)
+                        <button class="help-btn" data-bs-toggle="tooltip" title="Average Article Processing Charges in USD by year.">?</button>
+                    </div>
+                    <div class="card-body">
+                        <div id="apcChart" class="chart-container"></div>
+                    </div>
+                </div>
 
-        <!-- Top Authors -->
-        <div class="card">
-            <div class="card-header d-flex align-items-center">
-                Top Authors
-                <button class="help-btn" data-bs-toggle="tooltip"
-                        title="Top 10 authors by number of CRP‐related papers.">
-                    ?
-                </button>
-            </div>
-            <div class="card-body">
-                <div id="authorChart" class="chart-container"></div>
-            </div>
-        </div>
+                <!-- 10. Top States -->
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        Top U.S. States
+                        <button class="help-btn" data-bs-toggle="tooltip" title="Top 10 U.S. states mentioned across all papers.">?</button>
+                    </div>
+                    <div class="card-body">
+                        <div id="stateChart" class="chart-container"></div>
+                    </div>
+                </div>
 
-        <!-- Top Journals -->
-        <div class="card">
-            <div class="card-header d-flex align-items-center">
-                Top Journals
-                <button class="help-btn" data-bs-toggle="tooltip"
-                        title="Top 10 journals publishing CRP‐related research.">
-                    ?
-                </button>
-            </div>
-            <div class="card-body">
-                <div id="journalChart" class="chart-container"></div>
-            </div>
-        </div>
+                <!-- 11. Top Authors -->
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        Top Authors
+                        <button class="help-btn" data-bs-toggle="tooltip" title="Top 10 authors by number of CRP‐related papers.">?</button>
+                    </div>
+                    <div class="card-body">
+                        <div id="authorChart" class="chart-container"></div>
+                    </div>
+                </div>
 
-        <!-- Top Funders -->
-        <div class="card">
-            <div class="card-header d-flex align-items-center">
-                Top Funders
-                <button class="help-btn" data-bs-toggle="tooltip"
-                        title="Top 5 grant funders acknowledged in CRP papers.">
-                    ?
-                </button>
-            </div>
-            <div class="card-body">
-                <div id="funderChart" class="chart-container"></div>
+                <!-- 12. Top Journals -->
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        Top Journals
+                        <button class="help-btn" data-bs-toggle="tooltip" title="Top 10 journals publishing CRP‐related research.">?</button>
+                    </div>
+                    <div class="card-body">
+                        <div id="journalChart" class="chart-container"></div>
+                    </div>
+                </div>
+
+                <!-- 13. Top Funders -->
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        Top Funders
+                        <button class="help-btn" data-bs-toggle="tooltip" title="Top 5 grant funders acknowledged in CRP papers.">?</button>
+                    </div>
+                    <div class="card-body">
+                        <div id="funderChart" class="chart-container"></div>
+                    </div>
+                </div>
+
+                <!-- 14. Indexed In Trends -->
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        Indexed-In Trends (Top 5)
+                        <button class="help-btn" data-bs-toggle="tooltip" title="Yearly count of CRP papers indexed in top databases.">?</button>
+                    </div>
+                    <div class="card-body">
+                        <div id="indexedTrendChart" class="chart-container"></div>
+                    </div>
+                </div>
+
+                <!-- 15. Top Indexed In Overall -->
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        Top Indexing Sources
+                        <button class="help-btn" data-bs-toggle="tooltip" title="Top databases or platforms indexing CRP papers overall.">?</button>
+                    </div>
+                    <div class="card-body">
+                        <div id="indexedTopChart" class="chart-container"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <footer class="footer text-center">
+    <footer class="footer text-center mt-4">
         <div class="container">
             <p class="mb-1">&copy; 2025 CRP Evidence Dashboard</p>
             <p class="mb-0"><a href="#">GitHub Repo</a></p>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script>
-        // Initialize Bootstrap tooltips
         document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
             new bootstrap.Tooltip(el);
         });
-
-        (async function () {
-            const resp = await fetch('metrics.json');
-            if (!resp.ok) {
-                console.error('Failed loading metrics.json');
-                return;
-            }
-            const m = await resp.json();
-
-            // Publications
-            const yrs = m.publications_over_time.by_year.map(o => o.year);
-            const cnt = m.publications_over_time.by_year.map(o => o.count);
-            Plotly.newPlot('pubsChart', [{
-                x: yrs, y: cnt, type: 'scatter', mode: 'lines+markers', marker: { color: '#006400' }
-            }], { margin: { t: 20, b: 40 }, xaxis: { title: 'Year' }, yaxis: { title: 'Count' } });
-
-            // Cumulative
-            const cumul = m.publications_over_time.by_year.map(o => o.cumulative);
-            Plotly.newPlot('cumulativeChart', [{
-                x: yrs, y: cumul, type: 'scatter', mode: 'lines', marker: { color: '#228B22' }
-            }], { margin: { t: 20, b: 40 }, xaxis: { title: 'Year' }, yaxis: { title: 'Cumulative' } });
-
-            // Top Topics
-            const overallTopics = Object.entries(
-                m.publications_over_time.by_year.reduce((acc, o) => {
-                    (m.top_topics_by_year[o.year] || []).forEach(t => acc[t.topic] = (acc[t.topic] || 0) + t.count);
-                    return acc;
-                }, {})
-            ).sort((a, b) => b[1] - a[1]).slice(0, 5).map(x => x[0]);
-            const topicTraces = overallTopics.map(topic => {
-                return {
-                    x: yrs,
-                    y: yrs.map(y => {
-                        const arr = m.top_topics_by_year[y] || [];
-                        const obj = arr.find(t => t.topic === topic);
-                        return obj ? obj.count : 0;
-                    }),
-                    mode: 'lines+markers',
-                    name: topic
-                };
-            });
-            Plotly.newPlot('topicsTrendChart', topicTraces, {
-                margin: { t: 20, b: 40 }, xaxis: { title: 'Year' }, yaxis: { title: 'Count' }
-            });
-
-            // Keyword Trends
-            const kwTraces = Object.entries(m.keyword_trends).map(([kw, obj]) => ({
-                x: yrs, y: yrs.map(y => obj[y] || 0),
-                mode: 'lines+markers', name: kw
-            }));
-            Plotly.newPlot('keywordTrendChart', kwTraces, {
-                margin: { t: 20, b: 40 }, xaxis: { title: 'Year' }, yaxis: { title: 'Count' }
-            });
-
-            // Domains
-            const dom = m.domain_distribution.slice(0, 10);
-            Plotly.newPlot('domainChart', [{
-                labels: dom.map(d => d[0]),
-                values: dom.map(d => d[1]),
-                type: 'pie',
-                textinfo: 'label+percent'
-            }], { margin: { t: 20, b: 20 } });
-
-            // Fields
-            const fld = m.field_distribution.slice(0, 10).reverse();
-            Plotly.newPlot('fieldChart', [{
-                x: fld.map(d => d[1]),
-                y: fld.map(d => d[0]),
-                type: 'bar',
-                orientation: 'h',
-                marker: { color: '#2E8B57' }
-            }], { margin: { t: 20, l: 100 }, xaxis: { title: 'Count' } });
-
-            // Open Access
-            const oa = Object.entries(m.open_access_uptake).sort((a, b) => a[0] - b[0]);
-            Plotly.newPlot('oaChart', [{
-                x: oa.map(e => e[0]), y: oa.map(e => e[1]), type: 'bar', marker: { color: '#228B22' }
-            }], { margin: { t: 20, b: 40 }, xaxis: { title: 'Year' }, yaxis: { title: '% OA' } });
-
-            // FWCI
-            const fw = Object.entries(m.citation_impact.average_fwci_by_year).sort((a, b) => a[0] - b[0]);
-            Plotly.newPlot('fwciChart', [{
-                x: fw.map(e => e[0]), y: fw.map(e => e[1]), type: 'scatter', mode: 'lines+markers',
-                marker: { color: '#00008B' }
-            }], { margin: { t: 20, b: 40 }, xaxis: { title: 'Year' }, yaxis: { title: 'Avg FWCI' } });
-
-            // States
-            const st = m.state_counts.slice(0, 10).reverse();
-            Plotly.newPlot('stateChart', [{
-                x: st.map(d => d[1]), y: st.map(d => d[0]), type: 'bar', orientation: 'h',
-                marker: { color: '#FFA500' }
-            }], { margin: { t: 20, l: 100 }, xaxis: { title: 'Count' } });
-
-            // Authors
-            const au = m.top_authors.slice(0, 10).reverse();
-            Plotly.newPlot('authorChart', [{
-                x: au.map(d => d[1]), y: au.map(d => d[0]), type: 'bar', orientation: 'h',
-                marker: { color: '#DC143C' }
-            }], { margin: { t: 20, l: 150 }, xaxis: { title: 'Count' } });
-
-            // Journals
-            const jn = m.top_journals.slice(0, 10).reverse();
-            Plotly.newPlot('journalChart', [{
-                x: jn.map(d => d[1]), y: jn.map(d => d[0]), type: 'bar', orientation: 'h',
-                marker: { color: '#6A5ACD' }
-            }], { margin: { t: 20, l: 150 }, xaxis: { title: 'Count' } });
-
-            // Funders
-            const fu = m.top_funders.slice(0, 5).reverse();
-            Plotly.newPlot('funderChart', [{
-                x: fu.map(d => d[1]), y: fu.map(d => d[0]), type: 'bar', orientation: 'h',
-                marker: { color: '#20B2AA' }
-            }], { margin: { t: 20, l: 150 }, xaxis: { title: 'Count' } });
-        })();
     </script>
+    <script src="dashboard.js"></script>
 </body>
 </html>
