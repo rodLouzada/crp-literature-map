@@ -1,4 +1,4 @@
-﻿const DATA_URL = 'crp_openalex_enhanced.json';
+﻿const DATA_URL = 'crp_openalex_enhanced.jsonl';
 
 let allRecords = [], filteredRecords = [], recordMap = {};
 let currentPage = 1, pageSize = 10, currentSeed = null;
@@ -83,8 +83,16 @@ function onSearch() {
 
     const resp = await fetch(DATA_URL);
     if (!resp.ok) throw new Error(`Failed to load ${DATA_URL}: ${resp.status}`);
-    const js = await resp.json();
-    allRecords = Array.isArray(js.records) ? js.records : [];
+    const text = await resp.text();
+    // Accept JSONL (one record per line), a {records:[...]} object, or a bare array.
+    let recs;
+    try {
+        const js = JSON.parse(text);
+        recs = Array.isArray(js) ? js : (js.records || []);
+    } catch (e) {
+        recs = text.split(/\r?\n/).filter(l => l.trim()).map(l => JSON.parse(l));
+    }
+    allRecords = recs;
 
 
     allRecords.forEach(r => recordMap[r.id] = r);
