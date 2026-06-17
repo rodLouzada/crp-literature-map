@@ -9,6 +9,7 @@ let currentGraphNodes = [];
 function buildThemeFilters(records) {
     const container = document.getElementById('theme-filters');
     const badge = document.getElementById('theme-count');
+    if (!container || !badge) return;   // tolerate markup/JS mismatch
     const set = new Set();
     records.forEach(r => { if (r.theme) set.add(r.theme); });
     const list = Array.from(set).sort();
@@ -27,6 +28,7 @@ function buildThemeFilters(records) {
 function buildStateFilters(records) {
     const container = document.getElementById('state-filters');
     const badge = document.getElementById('state-count');
+    if (!container || !badge) return;   // tolerate markup/JS mismatch
     const set = new Set();
     records.forEach(r => (r.states || []).forEach(s => set.add(s)));
     const list = Array.from(set).sort();
