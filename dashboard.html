@@ -4,180 +4,132 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>CRP Evidence Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-
-        .card {
-            border-radius: 0.75rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-        }
-
-        .card-header {
-            background-color: #006400;
-            color: #fff;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .chart-container {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 2 / 1;
-        }
-
-        canvas {
-            display: block;
-            width: 100% !important;
-            height: 100% !important;
-        }
-
-        .help-btn {
-            background: none;
-            border: none;
-            color: #fff;
-            margin-left: 0.5rem;
-            font-weight: bold;
-            cursor: pointer;
-        }
-    </style>
+    <link href="styles.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="#">CRP Evidence Dashboard</a>
+
+    <!-- shared nav -->
+    <nav class="crp-nav">
+        <div class="inner">
+            <a class="crp-brand" href="index.html"><span class="mark"></span> CRP&nbsp;<span class="full">Evidence</span></a>
+            <a class="link" href="index.html">Map</a>
+            <a class="link active" href="dashboard.html">Dashboard</a>
+            <a class="link" href="about.html">About</a>
+            <a class="link" href="contact.html">Contact</a>
         </div>
     </nav>
 
-    <div class="container my-4">
-        <h1 class="mb-4 text-center">Conservation Reserve Program Evidence Map</h1>
+    <!-- page header -->
+    <header class="page-head">
+        <div class="inner">
+            <h1>Evidence dashboard</h1>
+            <p>Output, access, impact, themes, and reach across the CRP research record.</p>
+        </div>
+    </header>
 
-        <!-- Chart Cards -->
-        <div class="row">
-            <div class="col-12">
+    <div class="wrap">
 
-                <!-- Charts: 1 to 12 -->
-                <div class="card">
-                    <div class="card-header d-flex align-items-center">
-                        Papers Published Per Year
-                        <button class="help-btn" data-bs-toggle="tooltip" title="Annual count of CRP‐related papers by publication year.">?</button>
-                    </div>
-                    <div class="card-body chart-container"><canvas id="pubsChart"></canvas></div>
+        <div id="loaderr" class="alert alert-warning d-none" role="alert"></div>
+
+        <!-- KPI summary -->
+        <div class="card kpi-card">
+            <div class="card-body">
+                <div class="row text-center kpi-row g-0">
+                    <div class="col"><div class="kpi-num" id="kpi-total">—</div><div class="kpi-lbl">Papers indexed</div></div>
+                    <div class="col"><div class="kpi-num" id="kpi-span">—</div><div class="kpi-lbl">Years covered</div></div>
+                    <div class="col"><div class="kpi-num" id="kpi-oa">—</div><div class="kpi-lbl">Open access</div></div>
+                    <div class="col"><div class="kpi-num" id="kpi-peak">—</div><div class="kpi-lbl">Peak year</div></div>
+                    <div class="col"><div class="kpi-num" id="kpi-vel">—</div><div class="kpi-lbl">Early citations</div></div>
                 </div>
-
-                <div class="card">
-                    <div class="card-header d-flex align-items-center">
-                        Cumulative Publications
-                        <button class="help-btn" data-bs-toggle="tooltip" title="Cumulative number of CRP‐related papers over time.">?</button>
-                    </div>
-                    <div class="card-body chart-container"><canvas id="cumulativeChart"></canvas></div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header d-flex align-items-center">
-                        Open Access Uptake (%)
-                        <button class="help-btn" data-bs-toggle="tooltip" title="Percentage of CRP papers that are open access by year.">?</button>
-                    </div>
-                    <div class="card-body chart-container"><canvas id="oaChart"></canvas></div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header d-flex align-items-center">
-                        Top Domains
-                        <button class="help-btn" data-bs-toggle="tooltip" title="Breakdown of papers by primary topic domain (top 10).">?</button>
-                    </div>
-                    <div class="card-body chart-container"><canvas id="domainChart"></canvas></div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header d-flex align-items-center">
-                        Top Fields
-                        <button class="help-btn" data-bs-toggle="tooltip" title="Breakdown of papers by primary topic field (top 10).">?</button>
-                    </div>
-                    <div class="card-body chart-container"><canvas id="fieldChart"></canvas></div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header d-flex align-items-center">
-                        Avg. Citation Impact (FWCI)
-                        <button class="help-btn" data-bs-toggle="tooltip" title="Average Field‐Weighted Citation Impact per year.">?</button>
-                    </div>
-                    <div class="card-body chart-container"><canvas id="fwciChart"></canvas></div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header d-flex align-items-center">
-                        Avg. APC Cost (USD)
-                        <button class="help-btn" data-bs-toggle="tooltip" title="Average Article Processing Charges in USD by year.">?</button>
-                    </div>
-                    <div class="card-body chart-container"><canvas id="apcChart"></canvas></div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header d-flex align-items-center">
-                        Top Authors
-                        <button class="help-btn" data-bs-toggle="tooltip" title="Top 10 authors by number of CRP‐related papers.">?</button>
-                    </div>
-                    <div class="card-body chart-container"><canvas id="authorChart"></canvas></div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header d-flex align-items-center">
-                        Top Journals
-                        <button class="help-btn" data-bs-toggle="tooltip" title="Top 10 journals publishing CRP‐related research.">?</button>
-                    </div>
-                    <div class="card-body chart-container"><canvas id="journalChart"></canvas></div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header d-flex align-items-center">
-                        Top Funders
-                        <button class="help-btn" data-bs-toggle="tooltip" title="Top 10 grant funders acknowledged in CRP papers.">?</button>
-                    </div>
-                    <div class="card-body chart-container"><canvas id="funderChart"></canvas></div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header d-flex align-items-center">
-                        Indexed-In Trends (Top 5)
-                        <button class="help-btn" data-bs-toggle="tooltip" title="Yearly count of CRP papers indexed in top databases.">?</button>
-                    </div>
-                    <div class="card-body chart-container"><canvas id="indexedTrendChart"></canvas></div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header d-flex align-items-center">
-                        Top Indexing Sources
-                        <button class="help-btn" data-bs-toggle="tooltip" title="Top databases or platforms indexing CRP papers overall.">?</button>
-                    </div>
-                    <div class="card-body chart-container"><canvas id="indexedTopChart"></canvas></div>
-                </div>
-
             </div>
         </div>
+
+        <h2 class="section-title">Output</h2>
+        <p class="section-sub">Annual and cumulative publication counts</p>
+        <div class="row">
+            <div class="col-12"><div class="card"><div class="card-header">Papers published per year <button class="help-btn" data-bs-toggle="tooltip" title="Annual count of CRP-related papers by publication year.">?</button></div><div class="card-body chart-container"><canvas id="pubsChart"></canvas></div></div></div>
+            <div class="col-12"><div class="card"><div class="card-header">Cumulative publications <button class="help-btn" data-bs-toggle="tooltip" title="Running total of CRP-related papers over time.">?</button></div><div class="card-body chart-container"><canvas id="cumulativeChart"></canvas></div></div></div>
+        </div>
+
+        <h2 class="section-title">Access &amp; cost</h2>
+        <p class="section-sub">Open-access share and route, and publishing charges</p>
+        <div class="row">
+            <div class="col-lg-6"><div class="card"><div class="card-header">Open access uptake (%) <button class="help-btn" data-bs-toggle="tooltip" title="Percentage of CRP papers freely available, by year.">?</button></div><div class="card-body chart-container"><canvas id="oaChart"></canvas></div></div></div>
+            <div class="col-lg-6"><div class="card"><div class="card-header">Open access route <button class="help-btn" data-bs-toggle="tooltip" title="OA status: gold, green, hybrid, bronze, diamond, or closed.">?</button></div><div class="card-body chart-container"><canvas id="oaStatusChart"></canvas></div></div></div>
+            <div class="col-12"><div class="card"><div class="card-header">Avg. APC cost (USD) <button class="help-btn" data-bs-toggle="tooltip" title="Average article processing charge by year. When the paid amount is unknown, OpenAlex uses the list price, which can overstate earlier years.">?</button></div><div class="card-body chart-container"><canvas id="apcChart"></canvas></div></div></div>
+        </div>
+
+        <h2 class="section-title">Impact</h2>
+        <p class="section-sub">Field-weighted citation impact over time</p>
+        <div class="row">
+            <div class="col-12"><div class="card"><div class="card-header">Avg. citation impact (FWCI) <button class="help-btn" data-bs-toggle="tooltip" title="Field-Weighted Citation Impact per year. 1.0 is the world average for the field.">?</button></div><div class="card-body chart-container"><canvas id="fwciChart"></canvas></div></div></div>
+        </div>
+
+        <h2 class="section-title">Themes</h2>
+        <p class="section-sub">What the literature is about — CRP themes, plus the underlying OpenAlex fields</p>
+        <div class="row">
+            <div class="col-lg-6"><div class="card"><div class="card-header">CRP themes <button class="help-btn" data-bs-toggle="tooltip" title="Papers grouped into CRP-relevant themes derived from topic and keywords.">?</button></div><div class="card-body chart-container"><canvas id="themeChart"></canvas></div></div></div>
+            <div class="col-lg-6"><div class="card"><div class="card-header">Subfields <button class="help-btn" data-bs-toggle="tooltip" title="Papers by primary-topic subfield (top 10).">?</button></div><div class="card-body chart-container"><canvas id="subfieldChart"></canvas></div></div></div>
+            <div class="col-lg-6"><div class="card"><div class="card-header">OpenAlex fields <button class="help-btn" data-bs-toggle="tooltip" title="Papers by primary-topic field (top 10).">?</button></div><div class="card-body chart-container"><canvas id="fieldChart"></canvas></div></div></div>
+            <div class="col-lg-6"><div class="card"><div class="card-header">Sustainable Development Goals <button class="help-btn" data-bs-toggle="tooltip" title="Papers tagged to each UN SDG by OpenAlex (top goals).">?</button></div><div class="card-body chart-container"><canvas id="sdgChart"></canvas></div></div></div>
+            <div class="col-12"><div class="card"><div class="card-header">Keyword trends <button class="help-btn" data-bs-toggle="tooltip" title="Yearly count of papers whose keywords mention each tracked theme.">?</button></div><div class="card-body chart-container"><canvas id="keywordChart"></canvas></div></div></div>
+        </div>
+
+        <h2 class="section-title">People &amp; venues</h2>
+        <p class="section-sub">Who publishes, where, and on whose funding</p>
+        <div class="row">
+            <div class="col-lg-6"><div class="card"><div class="card-header">Top authors <button class="help-btn" data-bs-toggle="tooltip" title="Top 10 authors by number of CRP-related papers.">?</button></div><div class="card-body chart-container"><canvas id="authorChart"></canvas></div></div></div>
+            <div class="col-lg-6"><div class="card"><div class="card-header">Top journals <button class="help-btn" data-bs-toggle="tooltip" title="Top 10 journals publishing CRP-related research.">?</button></div><div class="card-body chart-container"><canvas id="journalChart"></canvas></div></div></div>
+            <div class="col-12"><div class="card"><div class="card-header">Top funders <button class="help-btn" data-bs-toggle="tooltip" title="Top 10 funders acknowledged across CRP papers (OpenAlex funders and awards).">?</button></div><div class="card-body chart-container"><canvas id="funderChart"></canvas></div></div></div>
+        </div>
+
+        <h2 class="section-title">Reach</h2>
+        <p class="section-sub">Where the work is indexed and which states it comes from</p>
+        <div class="row">
+            <div class="col-12"><div class="card"><div class="card-header">Indexing coverage over time (top 5) <button class="help-btn" data-bs-toggle="tooltip" title="Yearly count of CRP papers in the leading indexing sources.">?</button></div><div class="card-body chart-container"><canvas id="indexedTrendChart"></canvas></div></div></div>
+            <div class="col-lg-6"><div class="card"><div class="card-header">Top indexing sources <button class="help-btn" data-bs-toggle="tooltip" title="Databases and platforms indexing CRP papers overall.">?</button></div><div class="card-body chart-container"><canvas id="indexedTopChart"></canvas></div></div></div>
+            <div class="col-lg-6"><div class="card"><div class="card-header">Papers by state <button class="help-btn" data-bs-toggle="tooltip" title="US states the research comes from (author institutions). Top 15.">?</button></div><div class="card-body chart-container"><canvas id="stateChart"></canvas></div></div></div>
+        </div>
+
     </div>
 
-    <footer class="footer text-center mt-4">
-        <div class="container">
-            <p class="mb-1">&copy; 2025 CRP Evidence Dashboard</p>
-            <p class="mb-0"><a href="#">GitHub Repo</a></p>
+    <!-- shared footer -->
+    <footer class="crp-footer">
+        <div class="inner">
+            <div>
+                <h4>CRP Evidence</h4>
+                <div class="muted">Published research on the USDA Conservation Reserve Program.<br>Data from OpenAlex.</div>
+            </div>
+            <div>
+                <h4>Explore</h4>
+                <div><a href="index.html">Map</a> · <a href="dashboard.html">Dashboard</a></div>
+                <div><a href="about.html">About</a> · <a href="contact.html">Contact</a></div>
+            </div>
+            <!-- ==== SPONSOR LOGOS ==========================================
+                 Put logo files in the /logos subfolder; update each src and alt.
+                 Add or remove a .logo-chip to match how many you have (3-4).
+                 Transparent PNG or SVG looks best on the chips. -->
+            <div>
+                <h4>Supported by</h4>
+                <div class="foot-logos">
+                    <span class="logo-chip"><img src="logos/logo-1.png" alt="[ Institution 1 ]"></span>
+                    <span class="logo-chip"><img src="logos/logo-2.png" alt="[ Institution 2 ]"></span>
+                    <span class="logo-chip"><img src="logos/logo-3.png" alt="[ Institution 3 ]"></span>
+                    <span class="logo-chip"><img src="logos/logo-4.png" alt="[ Institution 4 ]"></span>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <!-- Dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
     <script>
-        // Bootstrap tooltips
-        document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
-            new bootstrap.Tooltip(el);
-        });
+        document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
     </script>
-
-    <!-- Main dashboard logic -->
     <script src="dashboard.js"></script>
 </body>
 </html>

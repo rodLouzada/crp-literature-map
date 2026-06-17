@@ -1,4 +1,4 @@
-﻿const DATA_URL = 'crp_openalex_enhanced.jsonl';
+const DATA_URL = 'crp_openalex_enhanced.jsonl';
 
 let allRecords = [], filteredRecords = [], recordMap = {};
 let currentPage = 1, pageSize = 10, currentSeed = null;
@@ -6,39 +6,15 @@ let currentGraphNodes = [];
 
 
 
-function buildFieldFilters(records) {
-    const container = document.getElementById('field-filters');
-    const badge = document.getElementById('field-count');
+function buildThemeFilters(records) {
+    const container = document.getElementById('theme-filters');
+    const badge = document.getElementById('theme-count');
     const set = new Set();
-    records.forEach(r => {
-        const f = r.primary_topic?.field;
-        if (f) set.add(f);
-    });
+    records.forEach(r => { if (r.theme) set.add(r.theme); });
     const list = Array.from(set).sort();
     badge.textContent = list.length;
     list.forEach(name => {
-        const id = `field-${name.replace(/\W+/g, '_')}`;
-        container.insertAdjacentHTML('beforeend', `
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="${id}" value="${name}">
-        <label class="form-check-label" for="${id}">${name}</label>
-      </div>
-    `);
-    });
-}
-
-function buildDomainFilters(records) {
-    const container = document.getElementById('domain-filters');
-    const badge = document.getElementById('domain-count');
-    const set = new Set();
-    records.forEach(r => {
-        const d = r.primary_topic?.domain;
-        if (d) set.add(d);
-    });
-    const list = Array.from(set).sort();
-    badge.textContent = list.length;
-    list.forEach(name => {
-        const id = `domain-${name.replace(/\W+/g, '_')}`;
+        const id = `theme-${name.replace(/\W+/g, '_')}`;
         container.insertAdjacentHTML('beforeend', `
       <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" id="${id}" value="${name}">
@@ -88,7 +64,9 @@ function onSearch() {
     let recs;
     try {
         const js = JSON.parse(text);
-        recs = Array.isArray(js) ? js : (js.records || []);
+        if (Array.isArray(js)) recs = js;
+        else if (Array.isArray(js.records)) recs = js.records;
+        else throw new Error('not a records wrapper');   // single JSONL line -> parse below
     } catch (e) {
         recs = text.split(/\r?\n/).filter(l => l.trim()).map(l => JSON.parse(l));
     }
@@ -98,8 +76,7 @@ function onSearch() {
     allRecords.forEach(r => recordMap[r.id] = r);
 
 
-    buildFieldFilters(allRecords);
-    buildDomainFilters(allRecords);
+    buildThemeFilters(allRecords);
     buildStateFilters(allRecords);
 
 
@@ -132,7 +109,7 @@ function onSearch() {
 
 function onClear() {
     document.getElementById('filters').reset();
-    ['field-filters', 'domain-filters', 'state-filters']
+    ['theme-filters', 'state-filters']
         .forEach(cid => document.querySelectorAll(`#${cid} input:checked`)
             .forEach(i => i.checked = false));
     document.getElementById('search').value = '';
@@ -149,8 +126,7 @@ function applyFilters() {
 
     const start = document.getElementById('start-date').value || '';
     const end = document.getElementById('end-date').value || '';
-    const fields = getCheckedValues('field-filters');
-    const domains = getCheckedValues('domain-filters');
+    const themes = getCheckedValues('theme-filters');
     const states = getCheckedValues('state-filters');
     const authorQ = (document.getElementById('author-filter').value || '').toLowerCase();
     const journalQ = (document.getElementById('journal-filter').value || '').toLowerCase();
@@ -168,11 +144,9 @@ function applyFilters() {
         const pub = r.publication_date || '';
         if (start && pub < start) return false;
         if (end && pub > end) return false;
-        // Field/domain/state
-        const f = (r.primary_topic?.field || '').toLowerCase();
-        if (fields.length && !fields.includes(f)) return false;
-        const d = (r.primary_topic?.domain || '').toLowerCase();
-        if (domains.length && !domains.includes(d)) return false;
+        // Theme / state
+        const th = (r.theme || '').toLowerCase();
+        if (themes.length && !themes.includes(th)) return false;
         if (states.length) {
             const sList = (r.states || []).map(s => s.toLowerCase());
             if (!states.some(s => sList.includes(s))) return false;
@@ -295,6 +269,7 @@ function showDetails(r) {
     <h5>${r.title}</h5>
     <p><strong>ID:</strong> ${r.id.split('/').pop()}</p>
     <p><strong>Publication Date:</strong> ${r.publication_date || 'N/A'}</p>
+    <p><strong>Theme:</strong> ${r.theme || 'N/A'}</p>
     <p><strong>Topics:</strong> ${(r.topics || []).map(t => t.name).join(', ')}</p>
     <p><strong>Keywords:</strong> ${(r.keywords || []).join(', ')}</p>
     <p><strong>States:</strong> ${(r.states || []).join(', ')}</p>

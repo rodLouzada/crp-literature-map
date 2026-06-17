@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About — CRP Evidence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="styles.css" rel="stylesheet" />
+</head>
+<body>
+
+    <nav class="crp-nav">
+        <div class="inner">
+            <a class="crp-brand" href="index.html"><span class="mark"></span> CRP&nbsp;<span class="full">Evidence</span></a>
+            <a class="link" href="index.html">Map</a>
+            <a class="link" href="dashboard.html">Dashboard</a>
+            <a class="link active" href="about.html">About</a>
+            <a class="link" href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <header class="page-head">
+        <div class="inner">
+            <h1>About this project</h1>
+            <p>An evidence map and dashboard for research on the Conservation Reserve Program.</p>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <div class="row">
+            <div class="col-lg-8">
+
+                <!-- ==== WHAT THIS IS ===========================================
+                     Replace the sample paragraph below with your own description. -->
+                <div class="card"><div class="card-body">
+                    <h2 class="section-title">What this is</h2>
+                    <p class="text-muted" style="font-size:.85rem">Sample text — replace with your own.</p>
+                    <p>[ Project name ] is an evidence map of the published research on the USDA
+                       Conservation Reserve Program (CRP). It brings scattered studies — on wildlife and
+                       habitat, soil and water, economics, climate, and more — into one searchable place,
+                       so researchers, students, and program staff can see what has been studied, where,
+                       and by whom. Use the <a href="index.html">map</a> to search and filter individual
+                       papers, and the <a href="dashboard.html">dashboard</a> to see the literature as a
+                       whole. [ Add a sentence on who it's for and why you built it. ]</p>
+                </div></div>
+
+                <!-- ==== THE DATASET ============================================
+                     Fill in [X] / [N]; the captured-information list is accurate. -->
+                <div class="card"><div class="card-body">
+                    <h2 class="section-title">How the dataset was built</h2>
+                    <p>We compiled roughly <strong>[ X,000 ]</strong> publications spanning
+                       <strong>[ N ]</strong> journals and other venues, collected through the
+                       <a href="https://openalex.org" target="_blank" rel="noopener">OpenAlex</a> API —
+                       an open, comprehensive catalog of the world's scholarly works. Each record is
+                       pulled programmatically, de-duplicated, and refreshed as new work is indexed,
+                       giving a single, consistently structured view of the CRP literature.</p>
+
+                    <p class="mb-2">For every publication we capture:</p>
+                    <ul class="mb-0">
+                        <li><strong>Bibliographic details</strong> — title, DOI, type, publication date, and venue</li>
+                        <li><strong>Authors &amp; institutions</strong> — names, affiliations, and US state of origin</li>
+                        <li><strong>Topics &amp; keywords</strong> — the OpenAlex topic hierarchy plus a CRP theme</li>
+                        <li><strong>Open access</strong> — whether the work is freely available, and by which route</li>
+                        <li><strong>Citation impact</strong> — citation counts and field-weighted citation impact</li>
+                        <li><strong>Funding</strong> — acknowledged funders and awards</li>
+                        <li><strong>Indexing</strong> — the databases and platforms that list each work</li>
+                        <li><strong>Abstract</strong> — reconstructed full text for searching</li>
+                    </ul>
+                </div></div>
+
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card"><div class="card-body">
+                    <h2 class="section-title">At a glance</h2>
+                    <p class="section-sub">Quick links</p>
+                    <p><a href="index.html">Browse and filter papers →</a></p>
+                    <p><a href="dashboard.html">See the summary dashboard →</a></p>
+                    <p><a href="contact.html">Get in touch →</a></p>
+                    <hr>
+                    <p class="section-sub mb-1">Data source</p>
+                    <p class="mb-0"><a href="https://openalex.org" target="_blank" rel="noopener">OpenAlex</a>,
+                       licensed CC0.</p>
+                </div></div>
+
+                <!-- EDIT these placeholders with your project details -->
+                <div class="card"><div class="card-body">
+                    <h2 class="section-title">Project</h2>
+                    <p class="section-sub mb-1">Maintained by</p>
+                    <p class="mb-3">[ Name / team ]<br><span class="text-muted">[ Lab / institution ]</span></p>
+
+                    <p class="section-sub mb-1">Funding &amp; acknowledgments</p>
+                    <p class="mb-3">[ Grant / program, or "—" ]</p>
+
+                    <p class="section-sub mb-1">Code</p>
+                    <p class="mb-0"><a href="#">[ GitHub repository ]</a></p>
+                </div></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="crp-footer">
+        <div class="inner">
+            <div>
+                <h4>CRP Evidence</h4>
+                <div class="muted">Published research on the USDA Conservation Reserve Program.<br>Data from OpenAlex.</div>
+            </div>
+            <div>
+                <h4>Explore</h4>
+                <div><a href="index.html">Map</a> · <a href="dashboard.html">Dashboard</a></div>
+                <div><a href="about.html">About</a> · <a href="contact.html">Contact</a></div>
+            </div>
+            <!-- ==== SPONSOR LOGOS ==========================================
+                 Put logo files in the /logos subfolder; update each src and alt.
+                 Add or remove a .logo-chip to match how many you have (3-4).
+                 Transparent PNG or SVG looks best on the chips. -->
+            <div>
+                <h4>Supported by</h4>
+                <div class="foot-logos">
+                    <span class="logo-chip"><img src="logos/logo-1.png" alt="[ Institution 1 ]"></span>
+                    <span class="logo-chip"><img src="logos/logo-2.png" alt="[ Institution 2 ]"></span>
+                    <span class="logo-chip"><img src="logos/logo-3.png" alt="[ Institution 3 ]"></span>
+                    <span class="logo-chip"><img src="logos/logo-4.png" alt="[ Institution 4 ]"></span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
