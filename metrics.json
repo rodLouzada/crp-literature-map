@@ -1,781 +1,626 @@
 {
+  "corpus_size": 8482,
   "publications_over_time": {
     "by_year": [
       {
+        "year": 1877,
+        "count": 1,
+        "cumulative": 1
+      },
+      {
         "year": 1956,
         "count": 3,
-        "cumulative": 3
+        "cumulative": 4
       },
       {
         "year": 1957,
-        "count": 5,
-        "cumulative": 8
+        "count": 3,
+        "cumulative": 7
       },
       {
         "year": 1958,
-        "count": 4,
-        "cumulative": 12
+        "count": 2,
+        "cumulative": 9
       },
       {
         "year": 1959,
-        "count": 3,
-        "cumulative": 15
+        "count": 2,
+        "cumulative": 11
       },
       {
         "year": 1960,
-        "count": 1,
-        "cumulative": 16
+        "count": 8,
+        "cumulative": 19
       },
       {
         "year": 1961,
-        "count": 7,
-        "cumulative": 23
+        "count": 3,
+        "cumulative": 22
       },
       {
         "year": 1962,
-        "count": 2,
-        "cumulative": 25
+        "count": 4,
+        "cumulative": 26
       },
       {
         "year": 1963,
-        "count": 4,
-        "cumulative": 29
+        "count": 5,
+        "cumulative": 31
       },
       {
         "year": 1964,
-        "count": 1,
-        "cumulative": 30
-      },
-      {
-        "year": 1965,
-        "count": 2,
-        "cumulative": 32
-      },
-      {
-        "year": 1966,
-        "count": 1,
-        "cumulative": 33
-      },
-      {
-        "year": 1967,
-        "count": 1,
+        "count": 3,
         "cumulative": 34
       },
       {
-        "year": 1968,
+        "year": 1966,
         "count": 2,
         "cumulative": 36
       },
       {
+        "year": 1967,
+        "count": 2,
+        "cumulative": 38
+      },
+      {
+        "year": 1968,
+        "count": 2,
+        "cumulative": 40
+      },
+      {
         "year": 1969,
         "count": 8,
-        "cumulative": 44
+        "cumulative": 48
       },
       {
         "year": 1970,
         "count": 2,
-        "cumulative": 46
+        "cumulative": 50
       },
       {
         "year": 1971,
+        "count": 3,
+        "cumulative": 53
+      },
+      {
+        "year": 1972,
+        "count": 2,
+        "cumulative": 55
+      },
+      {
+        "year": 1973,
         "count": 1,
-        "cumulative": 47
+        "cumulative": 56
       },
       {
         "year": 1974,
         "count": 1,
-        "cumulative": 48
+        "cumulative": 57
+      },
+      {
+        "year": 1975,
+        "count": 2,
+        "cumulative": 59
       },
       {
         "year": 1976,
-        "count": 1,
-        "cumulative": 49
+        "count": 2,
+        "cumulative": 61
       },
       {
         "year": 1978,
         "count": 1,
-        "cumulative": 50
+        "cumulative": 62
       },
       {
         "year": 1979,
         "count": 1,
-        "cumulative": 51
+        "cumulative": 63
       },
       {
-        "year": 1980,
-        "count": 1,
-        "cumulative": 52
+        "year": 1981,
+        "count": 2,
+        "cumulative": 65
       },
       {
-        "year": 1983,
+        "year": 1982,
         "count": 1,
-        "cumulative": 53
+        "cumulative": 66
       },
       {
         "year": 1984,
-        "count": 1,
-        "cumulative": 54
+        "count": 2,
+        "cumulative": 68
       },
       {
         "year": 1985,
-        "count": 2,
-        "cumulative": 56
+        "count": 6,
+        "cumulative": 74
       },
       {
         "year": 1986,
-        "count": 16,
-        "cumulative": 72
+        "count": 23,
+        "cumulative": 97
       },
       {
         "year": 1987,
-        "count": 22,
-        "cumulative": 94
+        "count": 24,
+        "cumulative": 121
       },
       {
         "year": 1988,
-        "count": 72,
-        "cumulative": 166
+        "count": 88,
+        "cumulative": 209
       },
       {
         "year": 1989,
-        "count": 99,
-        "cumulative": 265
+        "count": 109,
+        "cumulative": 318
       },
       {
         "year": 1990,
-        "count": 76,
-        "cumulative": 341
+        "count": 89,
+        "cumulative": 407
       },
       {
         "year": 1991,
-        "count": 48,
-        "cumulative": 389
+        "count": 59,
+        "cumulative": 466
       },
       {
         "year": 1992,
-        "count": 79,
-        "cumulative": 468
+        "count": 55,
+        "cumulative": 521
       },
       {
         "year": 1993,
-        "count": 105,
-        "cumulative": 573
+        "count": 71,
+        "cumulative": 592
       },
       {
         "year": 1994,
-        "count": 108,
-        "cumulative": 681
+        "count": 100,
+        "cumulative": 692
       },
       {
         "year": 1995,
-        "count": 114,
-        "cumulative": 795
+        "count": 125,
+        "cumulative": 817
       },
       {
         "year": 1996,
-        "count": 125,
+        "count": 103,
         "cumulative": 920
       },
       {
         "year": 1997,
-        "count": 102,
-        "cumulative": 1022
+        "count": 108,
+        "cumulative": 1028
       },
       {
         "year": 1998,
-        "count": 157,
-        "cumulative": 1179
+        "count": 130,
+        "cumulative": 1158
       },
       {
         "year": 1999,
-        "count": 161,
-        "cumulative": 1340
+        "count": 126,
+        "cumulative": 1284
       },
       {
         "year": 2000,
-        "count": 181,
-        "cumulative": 1521
+        "count": 158,
+        "cumulative": 1442
       },
       {
         "year": 2001,
-        "count": 202,
-        "cumulative": 1723
+        "count": 158,
+        "cumulative": 1600
       },
       {
         "year": 2002,
-        "count": 207,
-        "cumulative": 1930
+        "count": 216,
+        "cumulative": 1816
       },
       {
         "year": 2003,
-        "count": 221,
-        "cumulative": 2151
+        "count": 200,
+        "cumulative": 2016
       },
       {
         "year": 2004,
-        "count": 274,
-        "cumulative": 2425
+        "count": 213,
+        "cumulative": 2229
       },
       {
         "year": 2005,
-        "count": 265,
-        "cumulative": 2690
+        "count": 232,
+        "cumulative": 2461
       },
       {
         "year": 2006,
-        "count": 277,
-        "cumulative": 2967
+        "count": 253,
+        "cumulative": 2714
       },
       {
         "year": 2007,
-        "count": 276,
-        "cumulative": 3243
+        "count": 266,
+        "cumulative": 2980
       },
       {
         "year": 2008,
-        "count": 419,
-        "cumulative": 3662
+        "count": 293,
+        "cumulative": 3273
       },
       {
         "year": 2009,
-        "count": 350,
-        "cumulative": 4012
+        "count": 274,
+        "cumulative": 3547
       },
       {
         "year": 2010,
-        "count": 359,
-        "cumulative": 4371
+        "count": 305,
+        "cumulative": 3852
       },
       {
         "year": 2011,
-        "count": 346,
-        "cumulative": 4717
+        "count": 297,
+        "cumulative": 4149
       },
       {
         "year": 2012,
-        "count": 410,
-        "cumulative": 5127
+        "count": 285,
+        "cumulative": 4434
       },
       {
         "year": 2013,
-        "count": 396,
-        "cumulative": 5523
+        "count": 304,
+        "cumulative": 4738
       },
       {
         "year": 2014,
-        "count": 380,
-        "cumulative": 5903
+        "count": 328,
+        "cumulative": 5066
       },
       {
         "year": 2015,
-        "count": 376,
-        "cumulative": 6279
+        "count": 351,
+        "cumulative": 5417
       },
       {
         "year": 2016,
-        "count": 364,
-        "cumulative": 6643
+        "count": 300,
+        "cumulative": 5717
       },
       {
         "year": 2017,
-        "count": 475,
-        "cumulative": 7118
+        "count": 340,
+        "cumulative": 6057
       },
       {
         "year": 2018,
-        "count": 372,
-        "cumulative": 7490
+        "count": 338,
+        "cumulative": 6395
       },
       {
         "year": 2019,
-        "count": 320,
-        "cumulative": 7810
+        "count": 319,
+        "cumulative": 6714
       },
       {
         "year": 2020,
-        "count": 166,
-        "cumulative": 7976
+        "count": 266,
+        "cumulative": 6980
       },
       {
         "year": 2021,
-        "count": 181,
-        "cumulative": 8157
+        "count": 278,
+        "cumulative": 7258
       },
       {
         "year": 2022,
-        "count": 165,
-        "cumulative": 8322
+        "count": 267,
+        "cumulative": 7525
       },
       {
         "year": 2023,
-        "count": 178,
-        "cumulative": 8500
+        "count": 304,
+        "cumulative": 7829
       },
       {
         "year": 2024,
-        "count": 93,
-        "cumulative": 8593
+        "count": 266,
+        "cumulative": 8095
       },
       {
         "year": 2025,
-        "count": 11,
-        "cumulative": 8604
+        "count": 261,
+        "cumulative": 8356
+      },
+      {
+        "year": 2026,
+        "count": 112,
+        "cumulative": 8468
       }
     ],
-    "peak_year": 2017
+    "peak_year": 2015
   },
   "top_topics_by_year": {
     "2000": [
       {
-        "topic": "Avian ecology and behavior",
-        "count": 19
-      },
-      {
-        "topic": "Rangeland and Wildlife Management",
-        "count": 18
-      },
-      {
-        "topic": "Soil Carbon and Nitrogen Dynamics",
-        "count": 17
-      },
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 15
-      },
-      {
-        "topic": "Soil and Water Nutrient Dynamics",
-        "count": 8
-      }
-    ],
-    "1997": [
-      {
-        "topic": "Rangeland and Wildlife Management",
-        "count": 10
-      },
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 10
-      },
-      {
-        "topic": "Soil Carbon and Nitrogen Dynamics",
-        "count": 9
-      },
-      {
         "topic": "Agricultural Economics and Policy",
-        "count": 5
-      },
-      {
-        "topic": "Soil erosion and sediment transport",
-        "count": 4
-      }
-    ],
-    "2017": [
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 35
+        "count": 16
       },
       {
         "topic": "Rangeland and Wildlife Management",
-        "count": 27
-      },
-      {
-        "topic": "Bioenergy crop production and management",
-        "count": 26
-      },
-      {
-        "topic": "Avian ecology and behavior",
-        "count": 24
-      },
-      {
-        "topic": "Plant and animal studies",
-        "count": 21
-      }
-    ],
-    "1988": [
-      {
-        "topic": "Agricultural Economics and Policy",
-        "count": 15
-      },
-      {
-        "topic": "Economic and Environmental Valuation",
         "count": 13
       },
       {
-        "topic": "Rangeland and Wildlife Management",
-        "count": 5
+        "topic": "Avian ecology and behavior",
+        "count": 13
       },
-      {
-        "topic": "American Environmental and Regional History",
-        "count": 5
-      },
-      {
-        "topic": "Forest Management and Policy",
-        "count": 4
-      }
-    ],
-    "2011": [
-      {
-        "topic": "Bioenergy crop production and management",
-        "count": 27
-      },
-      {
-        "topic": "Forest Management and Policy",
-        "count": 25
-      },
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 24
-      },
-      {
-        "topic": "Soil and Water Nutrient Dynamics",
-        "count": 22
-      },
-      {
-        "topic": "Rangeland and Wildlife Management",
-        "count": 17
-      }
-    ],
-    "1993": [
       {
         "topic": "Economic and Environmental Valuation",
         "count": 11
       },
       {
-        "topic": "Forest Management and Policy",
-        "count": 8
-      },
+        "topic": "Soil Carbon and Nitrogen Dynamics",
+        "count": 9
+      }
+    ],
+    "1997": [
       {
-        "topic": "Rangeland and Wildlife Management",
-        "count": 7
+        "topic": "Economic and Environmental Valuation",
+        "count": 12
       },
       {
         "topic": "Agricultural Economics and Policy",
-        "count": 7
-      },
-      {
-        "topic": "Soil and Water Nutrient Dynamics",
-        "count": 6
-      }
-    ],
-    "2001": [
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 15
-      },
-      {
-        "topic": "Soil and Water Nutrient Dynamics",
-        "count": 15
-      },
-      {
-        "topic": "Avian ecology and behavior",
-        "count": 13
+        "count": 12
       },
       {
         "topic": "Rangeland and Wildlife Management",
-        "count": 13
+        "count": 8
       },
       {
         "topic": "Soil Carbon and Nitrogen Dynamics",
-        "count": 12
-      }
-    ],
-    "1989": [
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 18
+        "count": 5
       },
       {
-        "topic": "Agricultural Economics and Policy",
-        "count": 17
-      },
-      {
-        "topic": "Forest Management and Policy",
-        "count": 8
-      },
-      {
-        "topic": "Rangeland and Wildlife Management",
-        "count": 6
-      },
-      {
-        "topic": "Soil and Water Nutrient Dynamics",
+        "topic": "Environmental Conservation and Management",
         "count": 5
       }
     ],
     "1995": [
       {
-        "topic": "Economic and Environmental Valuation",
-        "count": 11
-      },
-      {
         "topic": "Agricultural Economics and Policy",
-        "count": 10
+        "count": 19
       },
       {
-        "topic": "Bioenergy crop production and management",
-        "count": 9
-      },
-      {
-        "topic": "Rangeland and Wildlife Management",
+        "topic": "Economic and Environmental Valuation",
         "count": 7
       },
       {
-        "topic": "Forest Management and Policy",
-        "count": 6
-      }
-    ],
-    "2006": [
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 44
-      },
-      {
-        "topic": "Soil Carbon and Nitrogen Dynamics",
-        "count": 18
-      },
-      {
-        "topic": "Agricultural Economics and Policy",
-        "count": 18
+        "topic": "Bioenergy crop production and management",
+        "count": 7
       },
       {
         "topic": "Rangeland and Wildlife Management",
-        "count": 14
+        "count": 6
       },
       {
         "topic": "Soil and Water Nutrient Dynamics",
-        "count": 12
+        "count": 5
       }
     ],
-    "1999": [
+    "1993": [
       {
         "topic": "Economic and Environmental Valuation",
-        "count": 23
-      },
-      {
-        "topic": "Avian ecology and behavior",
-        "count": 18
-      },
-      {
-        "topic": "Rangeland and Wildlife Management",
-        "count": 6
-      },
-      {
-        "topic": "Forest Management and Policy",
-        "count": 6
-      },
-      {
-        "topic": "Agricultural Economics and Policy",
-        "count": 6
-      }
-    ],
-    "2004": [
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 29
-      },
-      {
-        "topic": "Soil Carbon and Nitrogen Dynamics",
-        "count": 16
-      },
-      {
-        "topic": "Bioenergy crop production and management",
-        "count": 16
-      },
-      {
-        "topic": "Forest Management and Policy",
-        "count": 15
-      },
-      {
-        "topic": "Avian ecology and behavior",
-        "count": 13
-      }
-    ],
-    "2007": [
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 30
-      },
-      {
-        "topic": "Forest Management and Policy",
-        "count": 22
-      },
-      {
-        "topic": "Agricultural Economics and Policy",
-        "count": 15
-      },
-      {
-        "topic": "Avian ecology and behavior",
-        "count": 15
-      },
-      {
-        "topic": "Soil Carbon and Nitrogen Dynamics",
-        "count": 14
-      }
-    ],
-    "1998": [
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 18
-      },
-      {
-        "topic": "Avian ecology and behavior",
-        "count": 13
-      },
-      {
-        "topic": "Bioenergy crop production and management",
-        "count": 13
-      },
-      {
-        "topic": "Agricultural Economics and Policy",
         "count": 8
       },
       {
-        "topic": "Soil Carbon and Nitrogen Dynamics",
+        "topic": "Rangeland and Wildlife Management",
         "count": 7
-      }
-    ],
-    "2014": [
-      {
-        "topic": "Bioenergy crop production and management",
-        "count": 41
-      },
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 40
-      },
-      {
-        "topic": "Soil and Water Nutrient Dynamics",
-        "count": 23
       },
       {
         "topic": "Forest Management and Policy",
-        "count": 22
+        "count": 7
       },
       {
         "topic": "Agricultural Economics and Policy",
-        "count": 17
+        "count": 5
+      },
+      {
+        "topic": "American Environmental and Regional History",
+        "count": 3
       }
     ],
-    "2009": [
+    "2017": [
       {
-        "topic": "Economic and Environmental Valuation",
-        "count": 43
+        "topic": "Avian ecology and behavior",
+        "count": 34
+      },
+      {
+        "topic": "Rangeland and Wildlife Management",
+        "count": 29
       },
       {
         "topic": "Bioenergy crop production and management",
         "count": 21
       },
       {
-        "topic": "Forest Management and Policy",
-        "count": 18
-      },
-      {
-        "topic": "Agricultural Economics and Policy",
-        "count": 15
-      },
-      {
-        "topic": "Soil and Water Nutrient Dynamics",
-        "count": 14
-      }
-    ],
-    "2016": [
-      {
         "topic": "Economic and Environmental Valuation",
-        "count": 39
-      },
-      {
-        "topic": "Bioenergy crop production and management",
-        "count": 27
-      },
-      {
-        "topic": "Rangeland and Wildlife Management",
         "count": 19
       },
       {
-        "topic": "Soil and Water Nutrient Dynamics",
-        "count": 18
-      },
-      {
         "topic": "Soil Carbon and Nitrogen Dynamics",
-        "count": 17
+        "count": 14
       }
     ],
-    "1990": [
-      {
-        "topic": "Agricultural Economics and Policy",
-        "count": 13
-      },
+    "2011": [
       {
         "topic": "Economic and Environmental Valuation",
-        "count": 12
-      },
-      {
-        "topic": "Forest Management and Policy",
-        "count": 7
-      },
-      {
-        "topic": "American Environmental and Regional History",
-        "count": 5
-      },
-      {
-        "topic": "Soil erosion and sediment transport",
-        "count": 2
-      }
-    ],
-    "2019": [
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 26
-      },
-      {
-        "topic": "Forest Management and Policy",
-        "count": 20
+        "count": 23
       },
       {
         "topic": "Bioenergy crop production and management",
-        "count": 18
-      },
-      {
-        "topic": "Plant and animal studies",
-        "count": 15
+        "count": 21
       },
       {
         "topic": "Rangeland and Wildlife Management",
-        "count": 15
-      }
-    ],
-    "2003": [
+        "count": 20
+      },
       {
-        "topic": "Avian ecology and behavior",
+        "topic": "Agricultural Economics and Policy",
         "count": 18
       },
       {
-        "topic": "Economic and Environmental Valuation",
-        "count": 17
-      },
-      {
-        "topic": "Soil Carbon and Nitrogen Dynamics",
-        "count": 14
-      },
-      {
         "topic": "Forest Management and Policy",
-        "count": 12
-      },
-      {
-        "topic": "Wildlife Ecology and Conservation",
-        "count": 11
+        "count": 17
       }
     ],
-    "1996": [
+    "1988": [
       {
-        "topic": "Bioenergy crop production and management",
+        "topic": "Agricultural Economics and Policy",
+        "count": 19
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
         "count": 10
       },
       {
-        "topic": "Economic and Environmental Valuation",
+        "topic": "Forest Management and Policy",
         "count": 9
       },
       {
-        "topic": "Ecology and Vegetation Dynamics Studies",
+        "topic": "Rangeland and Wildlife Management",
+        "count": 4
+      },
+      {
+        "topic": "American Environmental and Regional History",
+        "count": 3
+      }
+    ],
+    "2001": [
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 19
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 14
+      },
+      {
+        "topic": "Rangeland and Wildlife Management",
+        "count": 12
+      },
+      {
+        "topic": "Soil and Water Nutrient Dynamics",
+        "count": 12
+      },
+      {
+        "topic": "Avian ecology and behavior",
+        "count": 10
+      }
+    ],
+    "1989": [
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 24
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 15
+      },
+      {
+        "topic": "Forest Management and Policy",
+        "count": 6
+      },
+      {
+        "topic": "Rangeland and Wildlife Management",
+        "count": 5
+      },
+      {
+        "topic": "Agricultural Innovations and Practices",
+        "count": 5
+      }
+    ],
+    "1999": [
+      {
+        "topic": "Avian ecology and behavior",
+        "count": 14
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 12
+      },
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 9
+      },
+      {
+        "topic": "Rangeland and Wildlife Management",
+        "count": 8
+      },
+      {
+        "topic": "Soil Carbon and Nitrogen Dynamics",
+        "count": 5
+      }
+    ],
+    "2004": [
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 28
+      },
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 23
+      },
+      {
+        "topic": "Soil and Water Nutrient Dynamics",
+        "count": 11
+      },
+      {
+        "topic": "Forest Management and Policy",
+        "count": 10
+      },
+      {
+        "topic": "Rangeland and Wildlife Management",
+        "count": 9
+      }
+    ],
+    "2006": [
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 35
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 29
+      },
+      {
+        "topic": "Rangeland and Wildlife Management",
+        "count": 16
+      },
+      {
+        "topic": "Soil and Water Nutrient Dynamics",
+        "count": 16
+      },
+      {
+        "topic": "Avian ecology and behavior",
+        "count": 11
+      }
+    ],
+    "1998": [
+      {
+        "topic": "Avian ecology and behavior",
+        "count": 13
+      },
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 9
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
         "count": 8
       },
       {
@@ -783,184 +628,338 @@
         "count": 7
       },
       {
+        "topic": "Forest Management and Policy",
+        "count": 6
+      }
+    ],
+    "2014": [
+      {
         "topic": "Agricultural Economics and Policy",
-        "count": 7
+        "count": 30
+      },
+      {
+        "topic": "Bioenergy crop production and management",
+        "count": 30
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 26
+      },
+      {
+        "topic": "Forest Management and Policy",
+        "count": 12
+      },
+      {
+        "topic": "Soil and Water Nutrient Dynamics",
+        "count": 12
+      }
+    ],
+    "2007": [
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 26
+      },
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 25
+      },
+      {
+        "topic": "Rangeland and Wildlife Management",
+        "count": 16
+      },
+      {
+        "topic": "Avian ecology and behavior",
+        "count": 15
+      },
+      {
+        "topic": "Biofuel production and bioconversion",
+        "count": 15
       }
     ],
     "2005": [
       {
-        "topic": "Economic and Environmental Valuation",
-        "count": 30
-      },
-      {
-        "topic": "Rangeland and Wildlife Management",
+        "topic": "Agricultural Economics and Policy",
         "count": 24
       },
       {
-        "topic": "Soil and Water Nutrient Dynamics",
-        "count": 15
+        "topic": "Economic and Environmental Valuation",
+        "count": 21
       },
       {
-        "topic": "Forest Management and Policy",
-        "count": 11
+        "topic": "Rangeland and Wildlife Management",
+        "count": 20
       },
       {
         "topic": "Avian ecology and behavior",
-        "count": 11
+        "count": 14
+      },
+      {
+        "topic": "Soil and Water Nutrient Dynamics",
+        "count": 12
+      }
+    ],
+    "1990": [
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 17
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 16
+      },
+      {
+        "topic": "Forest Management and Policy",
+        "count": 4
+      },
+      {
+        "topic": "American Environmental and Regional History",
+        "count": 3
+      },
+      {
+        "topic": "Wastewater Treatment and Reuse",
+        "count": 2
       }
     ],
     "1994": [
       {
         "topic": "Economic and Environmental Valuation",
-        "count": 15
+        "count": 13
+      },
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 11
       },
       {
         "topic": "Rangeland and Wildlife Management",
         "count": 6
       },
       {
-        "topic": "Environmental Conservation and Management",
-        "count": 6
+        "topic": "Agricultural Innovations and Practices",
+        "count": 4
       },
       {
+        "topic": "Soil erosion and sediment transport",
+        "count": 4
+      }
+    ],
+    "2008": [
+      {
         "topic": "Agricultural Economics and Policy",
-        "count": 6
+        "count": 37
       },
       {
         "topic": "Bioenergy crop production and management",
+        "count": 27
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 22
+      },
+      {
+        "topic": "Soil and Water Nutrient Dynamics",
+        "count": 16
+      },
+      {
+        "topic": "Biofuel production and bioconversion",
+        "count": 15
+      }
+    ],
+    "2009": [
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 30
+      },
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 19
+      },
+      {
+        "topic": "Forest Management and Policy",
+        "count": 16
+      },
+      {
+        "topic": "Biofuel production and bioconversion",
+        "count": 13
+      },
+      {
+        "topic": "Rangeland and Wildlife Management",
+        "count": 11
+      }
+    ],
+    "2016": [
+      {
+        "topic": "Bioenergy crop production and management",
+        "count": 22
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 21
+      },
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 14
+      },
+      {
+        "topic": "Rangeland and Wildlife Management",
+        "count": 14
+      },
+      {
+        "topic": "Soil and Water Nutrient Dynamics",
+        "count": 13
+      }
+    ],
+    "2003": [
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 18
+      },
+      {
+        "topic": "Avian ecology and behavior",
+        "count": 15
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 13
+      },
+      {
+        "topic": "Rangeland and Wildlife Management",
+        "count": 11
+      },
+      {
+        "topic": "Soil Carbon and Nitrogen Dynamics",
+        "count": 10
+      }
+    ],
+    "2019": [
+      {
+        "topic": "Rangeland and Wildlife Management",
+        "count": 24
+      },
+      {
+        "topic": "Plant and animal studies",
+        "count": 20
+      },
+      {
+        "topic": "Bioenergy crop production and management",
+        "count": 19
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 18
+      },
+      {
+        "topic": "Soil Carbon and Nitrogen Dynamics",
+        "count": 16
+      }
+    ],
+    "1996": [
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 23
+      },
+      {
+        "topic": "Rangeland and Wildlife Management",
+        "count": 10
+      },
+      {
+        "topic": "Bioenergy crop production and management",
+        "count": 5
+      },
+      {
+        "topic": "Avian ecology and behavior",
+        "count": 5
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
         "count": 5
       }
     ],
     "2018": [
       {
         "topic": "Economic and Environmental Valuation",
-        "count": 40
+        "count": 29
       },
       {
         "topic": "Rangeland and Wildlife Management",
-        "count": 20
-      },
-      {
-        "topic": "Bioenergy crop production and management",
-        "count": 19
-      },
-      {
-        "topic": "Soil and Water Nutrient Dynamics",
-        "count": 19
-      },
-      {
-        "topic": "Soil Carbon and Nitrogen Dynamics",
-        "count": 16
-      }
-    ],
-    "2013": [
-      {
-        "topic": "Bioenergy crop production and management",
-        "count": 48
-      },
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 35
-      },
-      {
-        "topic": "Rangeland and Wildlife Management",
-        "count": 26
-      },
-      {
-        "topic": "Soil Carbon and Nitrogen Dynamics",
-        "count": 22
-      },
-      {
-        "topic": "Forest Management and Policy",
-        "count": 19
-      }
-    ],
-    "2010": [
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 31
-      },
-      {
-        "topic": "Bioenergy crop production and management",
-        "count": 30
-      },
-      {
-        "topic": "Soil Carbon and Nitrogen Dynamics",
-        "count": 25
-      },
-      {
-        "topic": "Forest Management and Policy",
-        "count": 20
-      },
-      {
-        "topic": "Rangeland and Wildlife Management",
-        "count": 18
-      }
-    ],
-    "2008": [
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 36
-      },
-      {
-        "topic": "Soil and Water Nutrient Dynamics",
-        "count": 30
-      },
-      {
-        "topic": "Rangeland and Wildlife Management",
-        "count": 26
-      },
-      {
-        "topic": "Bioenergy crop production and management",
-        "count": 23
+        "count": 27
       },
       {
         "topic": "Agricultural Economics and Policy",
-        "count": 18
+        "count": 17
+      },
+      {
+        "topic": "Bioenergy crop production and management",
+        "count": 17
+      },
+      {
+        "topic": "Soil Carbon and Nitrogen Dynamics",
+        "count": 13
       }
     ],
     "2002": [
       {
+        "topic": "Agricultural Economics and Policy",
+        "count": 30
+      },
+      {
         "topic": "Economic and Environmental Valuation",
-        "count": 36
+        "count": 27
+      },
+      {
+        "topic": "Soil Carbon and Nitrogen Dynamics",
+        "count": 11
+      },
+      {
+        "topic": "Rangeland and Wildlife Management",
+        "count": 10
       },
       {
         "topic": "Soil and Water Nutrient Dynamics",
+        "count": 10
+      }
+    ],
+    "2013": [
+      {
+        "topic": "Rangeland and Wildlife Management",
+        "count": 30
+      },
+      {
+        "topic": "Bioenergy crop production and management",
+        "count": 27
+      },
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 26
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 16
+      },
+      {
+        "topic": "Soil Carbon and Nitrogen Dynamics",
+        "count": 11
+      }
+    ],
+    "2010": [
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 24
+      },
+      {
+        "topic": "Bioenergy crop production and management",
+        "count": 22
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
         "count": 21
       },
       {
         "topic": "Rangeland and Wildlife Management",
-        "count": 13
+        "count": 14
       },
       {
         "topic": "Forest Management and Policy",
-        "count": 11
-      },
-      {
-        "topic": "Soil Carbon and Nitrogen Dynamics",
-        "count": 10
-      }
-    ],
-    "2012": [
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 49
-      },
-      {
-        "topic": "Bioenergy crop production and management",
-        "count": 43
-      },
-      {
-        "topic": "Soil and Water Nutrient Dynamics",
-        "count": 25
-      },
-      {
-        "topic": "Rangeland and Wildlife Management",
-        "count": 22
-      },
-      {
-        "topic": "Forest Management and Policy",
-        "count": 18
+        "count": 12
       }
     ],
     "2015": [
@@ -970,72 +969,76 @@
       },
       {
         "topic": "Economic and Environmental Valuation",
-        "count": 29
+        "count": 24
+      },
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 23
       },
       {
         "topic": "Rangeland and Wildlife Management",
-        "count": 27
+        "count": 23
       },
       {
-        "topic": "Forest Management and Policy",
-        "count": 25
-      },
-      {
-        "topic": "Soil and Water Nutrient Dynamics",
-        "count": 22
+        "topic": "Soil Carbon and Nitrogen Dynamics",
+        "count": 17
       }
     ],
-    "1992": [
+    "1991": [
       {
         "topic": "Agricultural Economics and Policy",
         "count": 14
       },
       {
-        "topic": "Rangeland and Wildlife Management",
-        "count": 9
-      },
-      {
-        "topic": "Bioenergy crop production and management",
-        "count": 4
-      },
-      {
-        "topic": "Soil and Water Nutrient Dynamics",
-        "count": 4
-      },
-      {
         "topic": "Economic and Environmental Valuation",
-        "count": 3
-      }
-    ],
-    "1991": [
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 6
-      },
-      {
-        "topic": "Agricultural Economics and Policy",
-        "count": 6
+        "count": 5
       },
       {
         "topic": "Rangeland and Wildlife Management",
         "count": 5
       },
       {
-        "topic": "Bioenergy crop production and management",
-        "count": 3
+        "topic": "Soil erosion and sediment transport",
+        "count": 2
       },
       {
-        "topic": "Agroforestry and silvopastoral systems",
+        "topic": "Botany and Plant Ecology Studies",
         "count": 2
       }
     ],
+    "2021": [
+      {
+        "topic": "Plant and animal studies",
+        "count": 21
+      },
+      {
+        "topic": "Soil Carbon and Nitrogen Dynamics",
+        "count": 18
+      },
+      {
+        "topic": "Rangeland and Wildlife Management",
+        "count": 16
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 16
+      },
+      {
+        "topic": "Bioenergy crop production and management",
+        "count": 11
+      }
+    ],
     "1986": [
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 5
+      },
       {
         "topic": "Environmental Conservation and Management",
         "count": 2
       },
       {
-        "topic": "Soil and Water Nutrient Dynamics",
+        "topic": "Economic and Environmental Valuation",
         "count": 2
       },
       {
@@ -1045,82 +1048,144 @@
       {
         "topic": "American Environmental and Regional History",
         "count": 1
+      }
+    ],
+    "2012": [
+      {
+        "topic": "Bioenergy crop production and management",
+        "count": 32
       },
       {
         "topic": "Economic and Environmental Valuation",
-        "count": 1
+        "count": 22
+      },
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 14
+      },
+      {
+        "topic": "Rangeland and Wildlife Management",
+        "count": 13
+      },
+      {
+        "topic": "Soil Carbon and Nitrogen Dynamics",
+        "count": 11
+      }
+    ],
+    "1992": [
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 9
+      },
+      {
+        "topic": "Rangeland and Wildlife Management",
+        "count": 6
+      },
+      {
+        "topic": "Land Rights and Reforms",
+        "count": 2
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 2
+      },
+      {
+        "topic": "Coastal and Marine Management",
+        "count": 2
+      }
+    ],
+    "2024": [
+      {
+        "topic": "Soil Carbon and Nitrogen Dynamics",
+        "count": 12
+      },
+      {
+        "topic": "Plant and animal studies",
+        "count": 11
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 11
+      },
+      {
+        "topic": "Rangeland and Wildlife Management",
+        "count": 10
+      },
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 10
       }
     ],
     "2020": [
       {
         "topic": "Soil Carbon and Nitrogen Dynamics",
-        "count": 13
-      },
-      {
-        "topic": "Forest Management and Policy",
-        "count": 9
-      },
-      {
-        "topic": "Rangeland and Wildlife Management",
-        "count": 9
-      },
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 9
-      },
-      {
-        "topic": "Soil and Water Nutrient Dynamics",
-        "count": 8
-      }
-    ],
-    "2021": [
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 13
-      },
-      {
-        "topic": "Forest Management and Policy",
-        "count": 12
-      },
-      {
-        "topic": "Rangeland and Wildlife Management",
-        "count": 10
-      },
-      {
-        "topic": "Fire effects on ecosystems",
-        "count": 9
+        "count": 22
       },
       {
         "topic": "Plant and animal studies",
-        "count": 8
+        "count": 17
+      },
+      {
+        "topic": "Bioenergy crop production and management",
+        "count": 15
+      },
+      {
+        "topic": "Rangeland and Wildlife Management",
+        "count": 12
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 11
       }
     ],
     "2023": [
       {
         "topic": "Rangeland and Wildlife Management",
-        "count": 19
-      },
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 10
-      },
-      {
-        "topic": "Land Use and Ecosystem Services",
-        "count": 10
-      },
-      {
-        "topic": "Soil Carbon and Nitrogen Dynamics",
-        "count": 10
+        "count": 26
       },
       {
         "topic": "Plant and animal studies",
-        "count": 9
+        "count": 22
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 19
+      },
+      {
+        "topic": "Soil Carbon and Nitrogen Dynamics",
+        "count": 18
+      },
+      {
+        "topic": "Bioenergy crop production and management",
+        "count": 14
+      }
+    ],
+    "2022": [
+      {
+        "topic": "Soil Carbon and Nitrogen Dynamics",
+        "count": 17
+      },
+      {
+        "topic": "Plant and animal studies",
+        "count": 17
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 15
+      },
+      {
+        "topic": "Bioenergy crop production and management",
+        "count": 13
+      },
+      {
+        "topic": "Soil and Water Nutrient Dynamics",
+        "count": 12
       }
     ],
     "1987": [
       {
-        "topic": "Economic and Environmental Valuation",
-        "count": 5
+        "topic": "Agricultural Economics and Policy",
+        "count": 6
       },
       {
         "topic": "Agricultural Innovations and Practices",
@@ -1131,56 +1196,34 @@
         "count": 2
       },
       {
-        "topic": "Agricultural Economics and Policy",
+        "topic": "Forest Management and Policy",
         "count": 2
       },
       {
-        "topic": "Environmental Impact and Sustainability",
+        "topic": "Rangeland and Wildlife Management",
         "count": 1
       }
     ],
-    "2022": [
+    "2025": [
+      {
+        "topic": "Soil Carbon and Nitrogen Dynamics",
+        "count": 18
+      },
       {
         "topic": "Economic and Environmental Valuation",
         "count": 14
       },
       {
         "topic": "Plant and animal studies",
-        "count": 9
+        "count": 13
       },
       {
-        "topic": "Bioenergy crop production and management",
-        "count": 8
-      },
-      {
-        "topic": "Soil Carbon and Nitrogen Dynamics",
-        "count": 8
+        "topic": "Land Use and Ecosystem Services",
+        "count": 11
       },
       {
         "topic": "Rangeland and Wildlife Management",
-        "count": 8
-      }
-    ],
-    "2024": [
-      {
-        "topic": "Forest Management and Policy",
-        "count": 8
-      },
-      {
-        "topic": "Agricultural Economics and Policy",
-        "count": 7
-      },
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 6
-      },
-      {
-        "topic": "Rangeland and Wildlife Management",
-        "count": 4
-      },
-      {
-        "topic": "Soil and Water Nutrient Dynamics",
-        "count": 3
+        "count": 11
       }
     ],
     "1961": [
@@ -1189,26 +1232,34 @@
         "count": 1
       },
       {
-        "topic": "Plant and animal studies",
+        "topic": "Water resources management and optimization",
         "count": 1
       },
       {
-        "topic": "Forest Management and Policy",
-        "count": 1
-      },
-      {
-        "topic": "Environmental Conservation and Management",
-        "count": 1
-      },
-      {
-        "topic": "Regional Development and Policy",
+        "topic": "Agricultural Economics and Practices",
         "count": 1
       }
     ],
-    "1980": [
+    "2026": [
       {
-        "topic": "Bioenergy crop production and management",
-        "count": 1
+        "topic": "Forest Management and Policy",
+        "count": 11
+      },
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 6
+      },
+      {
+        "topic": "Soil Carbon and Nitrogen Dynamics",
+        "count": 6
+      },
+      {
+        "topic": "Soil and Water Nutrient Dynamics",
+        "count": 5
+      },
+      {
+        "topic": "Environmental Conservation and Management",
+        "count": 3
       }
     ],
     "1969": [
@@ -1221,53 +1272,29 @@
         "count": 2
       },
       {
-        "topic": "Agricultural Economics and Policy",
-        "count": 2
-      },
-      {
         "topic": "Tree Root and Stability Studies",
         "count": 1
       },
       {
         "topic": "Agroforestry and silvopastoral systems",
         "count": 1
-      }
-    ],
-    "1985": [
-      {
-        "topic": "Economic and Environmental Valuation",
-        "count": 1
       },
       {
-        "topic": "Cooperative Studies and Economics",
+        "topic": "Land Rights and Reforms",
         "count": 1
       }
     ],
-    "1984": [
+    "1971": [
       {
-        "topic": "Economic and Environmental Valuation",
-        "count": 1
-      }
-    ],
-    "2025": [
-      {
-        "topic": "Plant and animal studies",
-        "count": 2
-      },
-      {
-        "topic": "Wildlife Ecology and Conservation",
-        "count": 2
-      },
-      {
-        "topic": "Soil Carbon and Nitrogen Dynamics",
+        "topic": "Agriculture and Rural Development Research",
         "count": 1
       },
       {
-        "topic": "Botany and Plant Ecology Studies",
+        "topic": "Rangeland and Wildlife Management",
         "count": 1
       },
       {
-        "topic": "Fish Ecology and Management Studies",
+        "topic": "Legal and Labor Studies",
         "count": 1
       }
     ],
@@ -1277,17 +1304,33 @@
         "count": 1
       },
       {
-        "topic": "Rural development and sustainability",
+        "topic": "Water Quality Monitoring and Analysis",
         "count": 1
       },
       {
-        "topic": "Cassava research and cyanide",
+        "topic": "Agricultural Economics and Policy",
         "count": 1
       }
     ],
-    "1971": [
+    "1985": [
       {
-        "topic": "Rangeland and Wildlife Management",
+        "topic": "Agricultural Economics and Policy",
+        "count": 2
+      },
+      {
+        "topic": "Economic and Environmental Valuation",
+        "count": 1
+      },
+      {
+        "topic": "Water resources management and optimization",
+        "count": 1
+      },
+      {
+        "topic": "American Environmental and Regional History",
+        "count": 1
+      },
+      {
+        "topic": "Rural Development and Agriculture",
         "count": 1
       }
     ],
@@ -1297,11 +1340,15 @@
         "count": 2
       },
       {
-        "topic": "Biological Control of Invasive Species",
+        "topic": "Agricultural Economics and Policy",
         "count": 1
       },
       {
-        "topic": "American Environmental and Regional History",
+        "topic": "Housing, Finance, and Neoliberalism",
+        "count": 1
+      },
+      {
+        "topic": "Forest ecology and management",
         "count": 1
       }
     ],
@@ -1311,111 +1358,51 @@
         "count": 1
       }
     ],
-    "1970": [
-      {
-        "topic": "Agricultural Economics and Policy",
-        "count": 1
-      },
-      {
-        "topic": "Hydrology and Watershed Management Studies",
-        "count": 1
-      }
-    ],
-    "1968": [
-      {
-        "topic": "Forest Management and Policy",
-        "count": 2
-      }
-    ],
-    "1974": [
-      {
-        "topic": "Agricultural Economics and Policy",
-        "count": 1
-      }
-    ],
-    "1957": [
-      {
-        "topic": "Land Rights and Reforms",
-        "count": 2
-      },
-      {
-        "topic": "Conservation, Biodiversity, and Resource Management",
-        "count": 2
-      },
-      {
-        "topic": "Crop Yield and Soil Fertility",
-        "count": 1
-      }
-    ],
-    "1967": [
-      {
-        "topic": "Rangeland and Wildlife Management",
-        "count": 1
-      }
-    ],
-    "1958": [
-      {
-        "topic": "Agricultural Economics and Policy",
-        "count": 2
-      },
-      {
-        "topic": "American Environmental and Regional History",
-        "count": 1
-      }
-    ],
-    "1966": [
-      {
-        "topic": "Agricultural Economics and Policy",
-        "count": 1
-      }
-    ],
-    "1962": [
-      {
-        "topic": "Agricultural Economics and Policy",
-        "count": 1
-      },
-      {
-        "topic": "Water resources management and optimization",
-        "count": 1
-      }
-    ],
-    "1965": [
+    "1984": [
       {
         "topic": "Economic and Environmental Valuation",
         "count": 1
       },
       {
-        "topic": "Agriculture, Land Use, Rural Development",
+        "topic": "Race, History, and American Society",
         "count": 1
       }
     ],
-    "1964": [
+    "1970": [
       {
-        "topic": "Agricultural Innovations and Practices",
+        "topic": "Agricultural Economics and Policy",
+        "count": 2
+      }
+    ],
+    "1877": [
+      {
+        "topic": "Animal Ecology and Behavior Studies",
         "count": 1
       }
     ],
-    "1959": [
+    "1962": [
       {
-        "topic": "Algal biology and biofuel production",
+        "topic": "Housing Market and Economics",
         "count": 1
       },
-      {
-        "topic": "Soil and Land Suitability Analysis",
-        "count": 1
-      },
-      {
-        "topic": "Economics of Agriculture and Food Markets",
-        "count": 1
-      }
-    ],
-    "1960": [
       {
         "topic": "Forest Management and Policy",
         "count": 1
+      },
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 1
+      },
+      {
+        "topic": "Fiscal Policy and Economic Growth",
+        "count": 1
       }
     ],
-    "1976": [
+    "1968": [
+      {
+        "topic": "Soil and Unsaturated Flow",
+        "count": 1
+      },
       {
         "topic": "Forest Management and Policy",
         "count": 1
@@ -1423,901 +1410,1570 @@
     ],
     "1979": [
       {
+        "topic": "Economic and Environmental Valuation",
+        "count": 1
+      }
+    ],
+    "1974": [
+      {
+        "topic": "American Environmental and Regional History",
+        "count": 1
+      }
+    ],
+    "1973": [
+      {
+        "topic": "Horticultural and Viticultural Research",
+        "count": 1
+      }
+    ],
+    "1975": [
+      {
         "topic": "Agricultural Economics and Policy",
+        "count": 1
+      },
+      {
+        "topic": "Agriculture, Land Use, Rural Development",
+        "count": 1
+      }
+    ],
+    "1959": [
+      {
+        "topic": "Forest Management and Policy",
+        "count": 1
+      },
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 1
+      }
+    ],
+    "1960": [
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 3
+      },
+      {
+        "topic": "Rangeland Management and Livestock Ecology",
+        "count": 1
+      },
+      {
+        "topic": "Rangeland and Wildlife Management",
+        "count": 1
+      },
+      {
+        "topic": "Horticultural and Viticultural Research",
+        "count": 1
+      },
+      {
+        "topic": "Soil erosion and sediment transport",
+        "count": 1
+      }
+    ],
+    "1964": [
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 2
+      },
+      {
+        "topic": "Agricultural Innovations and Practices",
+        "count": 1
+      }
+    ],
+    "1966": [
+      {
+        "topic": "Economics of Agriculture and Food Markets",
+        "count": 1
+      },
+      {
+        "topic": "Agriculture and Rural Development Research",
+        "count": 1
+      }
+    ],
+    "1981": [
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 1
+      },
+      {
+        "topic": "Earthquake and Disaster Impact Studies",
+        "count": 1
+      }
+    ],
+    "1972": [
+      {
+        "topic": "Australian History and Society",
+        "count": 2
+      }
+    ],
+    "1976": [
+      {
+        "topic": "Forest Management and Policy",
+        "count": 1
+      },
+      {
+        "topic": "Constructed Wetlands for Wastewater Treatment",
+        "count": 1
+      }
+    ],
+    "1967": [
+      {
+        "topic": "Agricultural Economics and Policy",
+        "count": 1
+      },
+      {
+        "topic": "Education, Innovation and Language Studies",
+        "count": 1
+      }
+    ],
+    "1957": [
+      {
+        "topic": "Soil and Land Suitability Analysis",
+        "count": 1
+      },
+      {
+        "topic": "Agricultural Innovations and Practices",
+        "count": 1
+      },
+      {
+        "topic": "Agriculture and Rural Development Research",
+        "count": 1
+      }
+    ],
+    "1958": [
+      {
+        "topic": "Nuclear and radioactivity studies",
+        "count": 1
+      },
+      {
+        "topic": "American Environmental and Regional History",
+        "count": 1
+      }
+    ],
+    "1982": [
+      {
+        "topic": "American History and Culture",
         "count": 1
       }
     ]
   },
   "keyword_trends": {
     "land values": {
+      "1981": 1,
+      "1986": 1,
       "1988": 1,
-      "1989": 1,
-      "1995": 1,
-      "2000": 1,
+      "1989": 2,
+      "1993": 1,
+      "1994": 1,
       "2002": 1,
-      "2004": 1,
-      "2005": 2,
-      "2009": 1,
+      "2004": 3,
+      "2005": 3,
+      "2006": 2,
+      "2007": 1,
+      "2009": 2,
+      "2011": 1,
       "2012": 1,
-      "2015": 3,
-      "2016": 2,
+      "2013": 1,
+      "2015": 1,
+      "2016": 3,
+      "2017": 2,
       "2019": 1,
       "2020": 1
     },
     "marginal lands": {},
-    "bioenergy": {},
+    "bioenergy": {
+      "1989": 1,
+      "1990": 1,
+      "1992": 1,
+      "1993": 1,
+      "1994": 1,
+      "1995": 4,
+      "1996": 2,
+      "1997": 2,
+      "1998": 3,
+      "2000": 2,
+      "2002": 2,
+      "2003": 4,
+      "2004": 1,
+      "2005": 5,
+      "2006": 8,
+      "2007": 8,
+      "2008": 18,
+      "2009": 13,
+      "2010": 15,
+      "2011": 21,
+      "2012": 34,
+      "2013": 33,
+      "2014": 26,
+      "2015": 29,
+      "2016": 21,
+      "2017": 16,
+      "2018": 21,
+      "2019": 23,
+      "2020": 14,
+      "2021": 15,
+      "2022": 16,
+      "2023": 16,
+      "2024": 5,
+      "2025": 9,
+      "2026": 2
+    },
     "sustainability": {
-      "2013": 1,
-      "2016": 2
+      "1993": 2,
+      "1994": 1,
+      "1995": 1,
+      "1996": 2,
+      "1997": 2,
+      "1998": 1,
+      "1999": 1,
+      "2000": 4,
+      "2001": 6,
+      "2002": 4,
+      "2003": 5,
+      "2004": 1,
+      "2006": 7,
+      "2007": 9,
+      "2008": 3,
+      "2009": 16,
+      "2010": 12,
+      "2011": 10,
+      "2012": 15,
+      "2013": 13,
+      "2014": 6,
+      "2015": 4,
+      "2016": 7,
+      "2017": 13,
+      "2018": 6,
+      "2019": 6,
+      "2020": 9,
+      "2021": 9,
+      "2022": 11,
+      "2023": 17,
+      "2024": 7,
+      "2025": 10,
+      "2026": 13
     },
     "GHG": {},
     "biodiversity": {
+      "1993": 1,
+      "1994": 1,
+      "1995": 1,
+      "1996": 2,
+      "1997": 3,
+      "1998": 3,
       "1999": 1,
-      "2006": 1,
-      "2008": 1,
-      "2010": 2,
-      "2011": 3,
-      "2013": 2,
-      "2015": 2,
-      "2017": 1,
-      "2020": 1,
-      "2021": 1,
-      "2022": 2
+      "2000": 3,
+      "2001": 3,
+      "2002": 5,
+      "2003": 4,
+      "2004": 4,
+      "2005": 3,
+      "2006": 5,
+      "2007": 2,
+      "2008": 3,
+      "2009": 8,
+      "2010": 14,
+      "2011": 15,
+      "2012": 11,
+      "2013": 8,
+      "2014": 17,
+      "2015": 11,
+      "2016": 9,
+      "2017": 16,
+      "2018": 10,
+      "2019": 14,
+      "2020": 18,
+      "2021": 16,
+      "2022": 21,
+      "2023": 24,
+      "2024": 8,
+      "2025": 24,
+      "2026": 10
     }
   },
   "domain_distribution": [
     [
       "Physical Sciences",
-      4371
+      3739
     ],
     [
       "Life Sciences",
-      2661
+      3012
     ],
     [
       "Social Sciences",
-      1342
+      1501
     ],
     [
-      null,
-      187
+      "Unknown",
+      173
     ],
     [
       "Health Sciences",
-      43
+      57
     ]
   ],
   "field_distribution": [
     [
       "Environmental Science",
-      3839
+      3198
     ],
     [
       "Agricultural and Biological Sciences",
-      2596
+      2933
     ],
     [
       "Economics, Econometrics and Finance",
-      1040
+      973
     ],
     [
       "Engineering",
-      369
-    ],
-    [
-      null,
-      187
+      371
     ],
     [
       "Social Sciences",
-      142
+      264
+    ],
+    [
+      "Unknown",
+      173
     ],
     [
       "Decision Sciences",
-      86
-    ],
-    [
-      "Earth and Planetary Sciences",
-      74
-    ],
-    [
-      "Biochemistry, Genetics and Molecular Biology",
-      57
+      102
     ],
     [
       "Business, Management and Accounting",
-      55
+      85
     ],
     [
-      "Energy",
-      54
+      "Earth and Planetary Sciences",
+      79
     ],
     [
-      "Medicine",
-      24
+      "Biochemistry, Genetics and Molecular Biology",
+      74
+    ]
+  ],
+  "subfield_distribution": [
+    [
+      "Ecology",
+      1227
     ],
     [
-      "Computer Science",
-      15
+      "General Agricultural and Biological Sciences",
+      931
     ],
     [
-      "Health Professions",
-      15
+      "Economics and Econometrics",
+      914
     ],
     [
-      "Arts and Humanities",
-      10
+      "Global and Planetary Change",
+      702
     ],
     [
-      "Psychology",
-      9
+      "Soil Science",
+      607
     ],
     [
-      "Materials Science",
-      6
+      "Agronomy and Crop Science",
+      544
     ],
     [
-      "Immunology and Microbiology",
-      6
+      "Plant Science",
+      359
     ],
     [
-      "Chemical Engineering",
-      6
+      "Management, Monitoring, Policy and Law",
+      340
     ],
     [
-      "Mathematics",
-      5
+      "Ecology, Evolution, Behavior and Systematics",
+      302
     ],
     [
-      "Veterinary",
-      2
-    ],
-    [
-      "Physics and Astronomy",
-      2
-    ],
-    [
-      "Nursing",
-      2
-    ],
-    [
-      "Chemistry",
-      1
-    ],
-    [
-      "Neuroscience",
-      1
-    ],
-    [
-      "Pharmacology, Toxicology and Pharmaceutics",
-      1
+      "Environmental Chemistry",
+      298
     ]
   ],
   "open_access_uptake": {
-    "2000": 33.1,
-    "1997": 23.5,
-    "2017": 58.3,
-    "1988": 6.9,
-    "2011": 36.1,
-    "1993": 20.0,
-    "2001": 28.2,
-    "1989": 17.2,
-    "1995": 24.6,
-    "2006": 27.8,
-    "1999": 28.0,
-    "2004": 29.2,
-    "2007": 30.1,
-    "1998": 29.3,
-    "2014": 38.4,
-    "2009": 28.9,
-    "2016": 50.8,
-    "1990": 17.1,
-    "2019": 66.9,
-    "2003": 32.1,
-    "1996": 25.6,
-    "2005": 29.4,
-    "1994": 19.4,
-    "2018": 58.1,
-    "2013": 31.3,
-    "2010": 30.9,
-    "2008": 31.3,
-    "2002": 21.7,
-    "2012": 35.4,
-    "2015": 44.1,
-    "1992": 29.1,
-    "1991": 20.8,
-    "1986": 12.5,
-    "2020": 84.9,
-    "2021": 90.1,
-    "2023": 92.7,
-    "1987": 13.6,
-    "2022": 92.7,
-    "2024": 81.7,
-    "1961": 14.3,
-    "1980": 100.0,
-    "1969": 75.0,
-    "1985": 0.0,
-    "1984": 0.0,
-    "2025": 63.6,
-    "1956": 0.0,
-    "1971": 0.0,
-    "1963": 50.0,
+    "2000": 83.5,
+    "1997": 73.1,
+    "1995": 81.6,
+    "1993": 74.6,
+    "2017": 89.7,
+    "2011": 88.6,
+    "1988": 62.5,
+    "2001": 79.7,
+    "1989": 70.6,
+    "1999": 77.8,
+    "2004": 83.1,
+    "2006": 80.6,
+    "1998": 80.0,
+    "2014": 88.1,
+    "2007": 84.2,
+    "2005": 81.0,
+    "1990": 76.4,
+    "1994": 72.0,
+    "2008": 85.7,
+    "2009": 85.8,
+    "2016": 87.3,
+    "2003": 85.0,
+    "2019": 92.8,
+    "1996": 80.6,
+    "2018": 89.1,
+    "2002": 74.5,
+    "2013": 87.5,
+    "2010": 85.2,
+    "2015": 91.2,
+    "1991": 81.4,
+    "2021": 94.2,
+    "1986": 65.2,
+    "2012": 86.7,
+    "1992": 83.6,
+    "2024": 97.7,
+    "2020": 94.7,
+    "2023": 96.1,
+    "2022": 94.0,
+    "1987": 83.3,
+    "2025": 91.2,
+    "1961": 33.3,
+    "2026": 92.9,
+    "1969": 87.5,
+    "1971": 100.0,
+    "1956": 66.7,
+    "1985": 66.7,
+    "1963": 80.0,
     "1978": 0.0,
-    "1970": 50.0,
+    "1984": 100.0,
+    "1970": 100.0,
+    "1877": 0.0,
+    "1962": 75.0,
     "1968": 50.0,
-    "1974": 0.0,
-    "1957": 60.0,
-    "1967": 0.0,
-    "1958": 75.0,
-    "1966": 0.0,
-    "1962": 0.0,
-    "1965": 50.0,
+    "1979": 100.0,
+    "1974": 100.0,
+    "1973": 100.0,
+    "1975": 100.0,
+    "1959": 100.0,
+    "1960": 100.0,
     "1964": 100.0,
-    "1959": 0.0,
-    "1960": 0.0,
+    "1966": 100.0,
+    "1981": 100.0,
+    "1972": 100.0,
     "1976": 100.0,
-    "1979": 0.0,
-    "1983": 100.0
+    "1967": 50.0,
+    "1957": 100.0,
+    "1958": 100.0,
+    "1982": 100.0
   },
-  "citation_impact": {
-    "average_fwci_by_year": {
-      "2000": 3.13,
-      "1997": 2.95,
-      "2017": 2.94,
-      "1988": 1.71,
-      "2011": 3.33,
-      "1993": 1.88,
-      "2001": 2.69,
-      "1989": 1.41,
-      "1995": 1.84,
-      "2006": 3.22,
-      "1999": 1.93,
-      "2004": 2.99,
-      "2007": 3.95,
-      "1998": 2.1,
-      "2014": 3.68,
-      "2009": 3.88,
-      "2016": 3.46,
-      "1990": 1.31,
-      "2019": 3.1,
-      "2003": 2.88,
-      "1996": 1.29,
-      "2005": 3.03,
-      "1994": 2.17,
-      "2018": 2.47,
-      "2013": 4.3,
-      "2010": 4.47,
-      "2008": 4.87,
-      "2002": 3.32,
-      "2012": 3.53,
-      "2015": 3.2,
-      "1992": 2.3,
-      "1991": 1.48,
-      "1986": 2.64,
-      "2020": 1.92,
-      "2021": 2.19,
-      "2023": 1.86,
-      "1987": 4.39,
-      "2022": 2.05,
-      "2024": 1.82,
-      "1961": 1.97,
-      "1969": 0.09,
-      "1985": 3.87,
-      "1984": 0.0,
-      "2025": 3.33,
-      "1956": 0.0,
-      "1978": 0.0,
-      "1970": 0.0,
-      "1968": 0.88,
-      "1974": 0.0,
-      "1963": 0.0,
-      "1957": 0.31,
-      "1967": 0.0,
-      "1958": 0.0,
-      "1966": 6.78,
-      "1962": 1.97,
-      "1965": 1.76,
-      "1959": 0.0,
-      "1960": 0.0,
-      "1976": 0.0,
-      "1979": 0.0
-    }
-  },
-  "apc_cost_usd_by_year": {},
-  "state_counts": [
+  "oa_status_breakdown": [
     [
-      "Iowa",
-      339
+      "green",
+      4212
     ],
     [
-      "Mississippi",
-      314
+      "gold",
+      1450
     ],
     [
-      "Kansas",
-      238
+      "closed",
+      1160
     ],
     [
-      "North Dakota",
-      200
+      "bronze",
+      842
     ],
     [
-      "Minnesota",
-      179
+      "hybrid",
+      496
     ],
     [
-      "Texas",
-      179
-    ],
-    [
-      "Illinois",
-      177
-    ],
-    [
-      "South Dakota",
-      146
-    ],
-    [
-      "Nebraska",
-      131
-    ],
-    [
-      "Missouri",
-      129
-    ],
-    [
-      "California",
-      129
-    ],
-    [
-      "Washington",
-      119
-    ],
-    [
-      "Wisconsin",
-      104
-    ],
-    [
-      "Colorado",
-      100
-    ],
-    [
-      "Oklahoma",
-      97
-    ],
-    [
-      "Oregon",
-      90
-    ],
-    [
-      "Ohio",
-      85
-    ],
-    [
-      "Louisiana",
-      84
-    ],
-    [
-      "Montana",
-      82
-    ],
-    [
-      "New York",
-      70
-    ],
-    [
-      "Florida",
-      69
-    ],
-    [
-      "Indiana",
-      68
-    ],
-    [
-      "Michigan",
-      62
-    ],
-    [
-      "Idaho",
-      57
-    ],
-    [
-      "Virginia",
-      52
-    ],
-    [
-      "Georgia",
-      48
-    ],
-    [
-      "Arkansas",
-      48
-    ],
-    [
-      "Kentucky",
-      46
-    ],
-    [
-      "Tennessee",
-      46
-    ],
-    [
-      "North Carolina",
-      44
-    ],
-    [
-      "Pennsylvania",
-      44
-    ],
-    [
-      "Maryland",
-      42
-    ],
-    [
-      "New Mexico",
-      33
-    ],
-    [
-      "West Virginia",
-      33
-    ],
-    [
-      "Wyoming",
-      31
-    ],
-    [
-      "Alabama",
-      29
-    ],
-    [
-      "Utah",
-      27
-    ],
-    [
-      "South Carolina",
-      24
-    ],
-    [
-      "Alaska",
-      19
-    ],
-    [
-      "Delaware",
-      14
-    ],
-    [
-      "Vermont",
-      14
-    ],
-    [
-      "Maine",
-      13
-    ],
-    [
-      "New Jersey",
-      13
-    ],
-    [
-      "Arizona",
-      12
-    ],
-    [
-      "Nevada",
-      10
-    ],
-    [
-      "Massachusetts",
-      10
-    ],
-    [
-      "Hawaii",
-      8
-    ],
-    [
-      "Rhode Island",
-      4
-    ],
-    [
-      "Connecticut",
-      3
-    ],
-    [
-      "New Hampshire",
-      3
+      "diamond",
+      322
     ]
   ],
-  "top_journals": [
+  "citation_impact": {
+    "average_fwci_by_year": {
+      "2000": 1.86,
+      "1997": 1.97,
+      "1995": 0.97,
+      "1993": 1.26,
+      "2017": 3.85,
+      "2011": 2.19,
+      "1988": 1.22,
+      "2001": 2.18,
+      "1989": 0.87,
+      "1999": 1.97,
+      "2006": 2.24,
+      "1998": 1.47,
+      "2014": 2.63,
+      "2007": 2.61,
+      "2005": 1.51,
+      "2004": 1.8,
+      "1990": 1.29,
+      "1994": 1.65,
+      "2008": 3.32,
+      "2009": 2.93,
+      "2016": 3.66,
+      "2003": 1.51,
+      "2019": 2.89,
+      "1996": 1.05,
+      "2018": 2.61,
+      "2002": 2.54,
+      "2013": 2.86,
+      "2010": 2.66,
+      "2015": 3.62,
+      "1991": 0.81,
+      "2021": 3.06,
+      "1986": 3.43,
+      "2012": 2.2,
+      "1992": 1.12,
+      "2024": 3.81,
+      "2020": 2.91,
+      "2023": 4.86,
+      "2022": 3.16,
+      "1987": 0.7,
+      "2025": 2.76,
+      "1961": 0.39,
+      "2026": 1.54,
+      "1969": 0.13,
+      "1971": 2.84,
+      "1956": 0.0,
+      "1985": 0.69,
+      "1978": 0.0,
+      "1984": 0.0,
+      "1970": 0.0,
+      "1877": 0.0,
+      "1962": 2.78,
+      "1968": 0.0,
+      "1963": 0.0,
+      "1979": 0.0,
+      "1974": 0.0,
+      "1973": 0.77,
+      "1975": 0.0,
+      "1959": 0.0,
+      "1960": 1.04,
+      "1966": 0.0,
+      "1981": 0.0,
+      "1972": 0.0,
+      "1976": 0.0,
+      "1964": 0.0,
+      "1967": 0.0,
+      "1957": 0.0,
+      "1958": 0.0,
+      "1982": 0.0
+    },
+    "avg_early_citations": 6.59
+  },
+  "apc_cost_usd_by_year": {
+    "2000": 2916.89,
+    "1997": 3065,
+    "1995": 2907.09,
+    "1993": 3381,
+    "2017": 2783.51,
+    "1988": 3349,
+    "2001": 2713.12,
+    "2006": 2675.7,
+    "1999": 2880.75,
+    "1998": 3018.6,
+    "2007": 2817.89,
+    "2005": 2802.7,
+    "2008": 2762.83,
+    "2009": 2761.87,
+    "2016": 2594.49,
+    "2003": 2771.06,
+    "2019": 2766.41,
+    "1994": 1911.64,
+    "2002": 2657.03,
+    "2013": 2630.72,
+    "2010": 2741.33,
+    "2018": 2663.83,
+    "2004": 2588.94,
+    "2011": 2941.82,
+    "2021": 2510.72,
+    "2012": 2567.47,
+    "1991": 3959,
+    "2024": 2620.32,
+    "2015": 2442.11,
+    "2014": 2252.3,
+    "2020": 2357.96,
+    "1992": 3113.75,
+    "2023": 2495.4,
+    "2022": 2677.1,
+    "1996": 2743.12,
+    "1990": 2402,
+    "2026": 2405.86,
+    "2025": 2582.27,
+    "1969": 4070,
+    "1987": 3013.33,
+    "1970": 1575,
+    "1877": 2700,
+    "1968": 3420,
+    "1986": 2427,
+    "1975": 1575,
+    "1989": 2795,
+    "1967": 3870
+  },
+  "country_counts": [
     [
-      "Unknown",
-      1021
+      "US",
+      3385
     ],
     [
-      "Journal of Soil and Water Conservation",
-      276
+      "CN",
+      256
     ],
     [
-      "Journal of Wildlife Management",
-      191
-    ],
-    [
-      "RePEc: Research Papers in Economics",
-      170
-    ],
-    [
-      "American Journal of Agricultural Economics",
+      "CA",
       168
     ],
     [
-      "Journal of Environmental Quality",
-      99
+      "GB",
+      142
     ],
     [
-      "Wildlife Society Bulletin",
-      94
+      "DE",
+      132
     ],
     [
-      "Ecological Economics",
-      87
+      "AU",
+      115
     ],
     [
-      "Agriculture Ecosystems & Environment",
+      "FR",
+      111
+    ],
+    [
+      "IT",
+      65
+    ],
+    [
+      "BR",
+      59
+    ],
+    [
+      "NL",
+      58
+    ],
+    [
+      "IN",
+      50
+    ],
+    [
+      "ES",
+      47
+    ],
+    [
+      "SE",
+      35
+    ],
+    [
+      "JP",
+      34
+    ],
+    [
+      "PL",
+      33
+    ],
+    [
+      "BE",
+      30
+    ],
+    [
+      "DK",
+      29
+    ],
+    [
+      "CH",
+      29
+    ],
+    [
+      "KR",
+      27
+    ],
+    [
+      "TR",
+      23
+    ],
+    [
+      "NO",
+      20
+    ],
+    [
+      "PK",
+      20
+    ],
+    [
+      "AR",
+      19
+    ],
+    [
+      "NZ",
+      19
+    ],
+    [
+      "MX",
+      19
+    ],
+    [
+      "ID",
+      19
+    ],
+    [
+      "RU",
+      18
+    ],
+    [
+      "ZA",
+      18
+    ],
+    [
+      "CZ",
+      17
+    ],
+    [
+      "AT",
+      17
+    ],
+    [
+      "PT",
+      16
+    ],
+    [
+      "TW",
+      15
+    ],
+    [
+      "FI",
+      15
+    ],
+    [
+      "KE",
+      14
+    ],
+    [
+      "SK",
+      12
+    ],
+    [
+      "IE",
+      11
+    ],
+    [
+      "HU",
+      11
+    ],
+    [
+      "GH",
+      11
+    ],
+    [
+      "UA",
+      11
+    ],
+    [
+      "CO",
+      11
+    ],
+    [
+      "ET",
+      11
+    ],
+    [
+      "IR",
+      10
+    ],
+    [
+      "MY",
+      10
+    ],
+    [
+      "SA",
+      9
+    ],
+    [
+      "IL",
+      9
+    ],
+    [
+      "NG",
+      9
+    ],
+    [
+      "PH",
+      8
+    ],
+    [
+      "MW",
+      8
+    ],
+    [
+      "EG",
+      8
+    ],
+    [
+      "RO",
+      8
+    ],
+    [
+      "BD",
+      8
+    ],
+    [
+      "PE",
+      7
+    ],
+    [
+      "NP",
+      7
+    ],
+    [
+      "KZ",
+      6
+    ],
+    [
+      "CL",
+      6
+    ],
+    [
+      "MA",
+      6
+    ],
+    [
+      "LT",
+      6
+    ],
+    [
+      "TH",
+      5
+    ],
+    [
+      "HK",
+      5
+    ],
+    [
+      "GR",
+      5
+    ],
+    [
+      "SI",
+      5
+    ],
+    [
+      "ZW",
+      5
+    ],
+    [
+      "RS",
+      5
+    ],
+    [
+      "TZ",
+      5
+    ],
+    [
+      "EC",
+      4
+    ],
+    [
+      "SD",
+      4
+    ],
+    [
+      "CR",
+      4
+    ],
+    [
+      "VN",
+      4
+    ],
+    [
+      "UY",
+      3
+    ],
+    [
+      "SG",
+      3
+    ],
+    [
+      "BG",
+      3
+    ],
+    [
+      "IQ",
+      3
+    ],
+    [
+      "HR",
+      3
+    ],
+    [
+      "LV",
+      3
+    ],
+    [
+      "JO",
+      3
+    ],
+    [
+      "MK",
+      3
+    ],
+    [
+      "NE",
+      3
+    ],
+    [
+      "MN",
+      3
+    ],
+    [
+      "AE",
+      2
+    ],
+    [
+      "PR",
+      2
+    ],
+    [
+      "DZ",
+      2
+    ],
+    [
+      "LK",
+      2
+    ],
+    [
+      "BJ",
+      2
+    ],
+    [
+      "IS",
+      2
+    ],
+    [
+      "EE",
+      2
+    ],
+    [
+      "VE",
+      2
+    ],
+    [
+      "BH",
+      2
+    ],
+    [
+      "RW",
+      2
+    ],
+    [
+      "UG",
+      2
+    ],
+    [
+      "CI",
+      1
+    ],
+    [
+      "MD",
+      1
+    ],
+    [
+      "ML",
+      1
+    ],
+    [
+      "BW",
+      1
+    ],
+    [
+      "TN",
+      1
+    ],
+    [
+      "CY",
+      1
+    ],
+    [
+      "KG",
+      1
+    ],
+    [
+      "KW",
+      1
+    ],
+    [
+      "MG",
+      1
+    ],
+    [
+      "KH",
+      1
+    ],
+    [
+      "AM",
+      1
+    ],
+    [
+      "NA",
+      1
+    ],
+    [
+      "MZ",
+      1
+    ],
+    [
+      "SS",
+      1
+    ],
+    [
+      "GP",
+      1
+    ],
+    [
+      "AZ",
+      1
+    ],
+    [
+      "SV",
+      1
+    ]
+  ],
+  "state_counts": [],
+  "top_journals": [
+    [
+      "AgEcon Search (University of Minnesota, USA)",
+      1152
+    ],
+    [
+      "Unknown",
+      844
+    ],
+    [
+      "University of North Texas Digital Library (University of North Texas)",
+      233
+    ],
+    [
+      "Lincoln (University of Nebraska)",
+      226
+    ],
+    [
+      "Iowa State University Digital Repository (Iowa State University)",
+      225
+    ],
+    [
+      "Journal of Soil and Water Conservation",
+      192
+    ],
+    [
+      "RePEc: Research Papers in Economics",
+      133
+    ],
+    [
+      "University of Minnesota Digital Conservancy (University of Minnesota)",
+      95
+    ],
+    [
+      "PLoS ONE",
+      91
+    ],
+    [
+      "Open PRAIRIE (South Dakota State University)",
       86
-    ],
-    [
-      "Land Use Policy",
-      85
     ]
   ],
   "top_authors": [
     [
       "Daniel Hellerstein",
-      54
+      58
     ],
     [
-      "Madhu Khanna",
-      47
+      "Ralph M. Chite",
+      53
+    ],
+    [
+      "F. Larry Leistritz",
+      52
     ],
     [
       "Douglas H. Johnson",
-      46
+      51
     ],
     [
-      "L. Wes Burger",
-      44
-    ],
-    [
-      "David A. Haukos",
-      42
+      "Bruce A. Babcock",
+      50
     ],
     [
       "G. Philip Robertson",
-      40
+      48
     ],
     [
-      "Loren M. Smith",
-      37
+      "Jeffrey A. Zinn",
+      48
     ],
     [
-      "Keith Paustian",
-      35
+      "Hongli Feng",
+      44
     ],
     [
-      "Marc Ribaudo",
-      33
+      "Catherine L. Kling",
+      42
     ],
     [
-      "Philip W. Gassman",
-      33
+      "Roger Claassen",
+      38
     ]
   ],
   "top_funders": [
     [
       "U.S. Department of Agriculture",
-      154
-    ],
-    [
-      "National Institute of Food and Agriculture",
-      145
+      1232
     ],
     [
       "National Science Foundation",
-      126
+      330
     ],
     [
-      "National Natural Science Foundation of China",
-      60
-    ],
-    [
-      "U.S. Department of Energy",
-      48
-    ],
-    [
-      "U.S. Geological Survey",
-      45
+      "National Institute of Food and Agriculture",
+      297
     ],
     [
       "U.S. Fish and Wildlife Service",
-      43
+      261
+    ],
+    [
+      "U.S. Department of Energy",
+      256
+    ],
+    [
+      "U.S. Geological Survey",
+      233
     ],
     [
       "Natural Resources Conservation Service",
-      37
+      223
     ],
     [
-      "U.S. Environmental Protection Agency",
-      37
+      "Economic Research Service",
+      182
+    ],
+    [
+      "U.S. Forest Service",
+      172
     ],
     [
       "Agricultural Research Service",
-      23
+      166
     ]
   ],
   "indexed_in_trends": {
     "2000": {
-      "crossref": 162,
-      "pubmed": 8
+      "crossref": 64,
+      "doaj": 4,
+      "pubmed": 3,
+      "datacite": 38
     },
     "1997": {
-      "crossref": 85
-    },
-    "2017": {
-      "crossref": 451,
-      "doaj": 31,
-      "pubmed": 47
-    },
-    "1988": {
-      "crossref": 51
-    },
-    "2011": {
-      "crossref": 318,
-      "pubmed": 33,
-      "doaj": 14
-    },
-    "1993": {
-      "crossref": 86,
-      "pubmed": 3
-    },
-    "2001": {
-      "crossref": 186,
-      "pubmed": 17,
-      "doaj": 1
+      "crossref": 37,
+      "doaj": 3,
+      "datacite": 31
     },
     "1995": {
-      "crossref": 90,
-      "doaj": 1,
+      "crossref": 32,
+      "datacite": 39,
+      "doaj": 8
+    },
+    "1993": {
+      "crossref": 23,
+      "datacite": 12
+    },
+    "2017": {
+      "crossref": 207,
+      "doaj": 57,
+      "datacite": 52,
+      "pubmed": 22
+    },
+    "2011": {
+      "crossref": 120,
+      "pubmed": 9,
+      "datacite": 68,
+      "doaj": 26
+    },
+    "1988": {
+      "crossref": 34,
+      "datacite": 29,
+      "doaj": 2
+    },
+    "2001": {
+      "crossref": 62,
+      "doaj": 7,
+      "pubmed": 9,
+      "datacite": 48
+    },
+    "1989": {
+      "datacite": 38,
+      "crossref": 39,
+      "doaj": 2
+    },
+    "1999": {
+      "crossref": 55,
+      "datacite": 32,
+      "doaj": 6
+    },
+    "2004": {
+      "crossref": 70,
+      "datacite": 83,
+      "doaj": 16,
       "pubmed": 2
     },
     "2006": {
-      "crossref": 232,
-      "pubmed": 25
-    },
-    "2004": {
-      "crossref": 243,
-      "doaj": 1,
-      "pubmed": 12
-    },
-    "1999": {
-      "crossref": 138,
-      "pubmed": 3
-    },
-    "2007": {
-      "crossref": 234,
-      "pubmed": 23,
-      "doaj": 1
+      "crossref": 83,
+      "datacite": 74,
+      "pubmed": 7,
+      "doaj": 13
     },
     "1998": {
-      "crossref": 140,
-      "pubmed": 4,
-      "doaj": 2
-    },
-    "1989": {
-      "crossref": 69,
-      "pubmed": 1
-    },
-    "2009": {
-      "crossref": 313,
-      "pubmed": 47,
-      "doaj": 5
-    },
-    "2016": {
-      "crossref": 334,
-      "doaj": 27,
-      "pubmed": 48
-    },
-    "2019": {
-      "crossref": 300,
-      "pubmed": 37,
-      "doaj": 39
-    },
-    "2003": {
-      "crossref": 197,
-      "doaj": 3,
-      "pubmed": 9
-    },
-    "1990": {
       "crossref": 50,
-      "pubmed": 1
+      "doaj": 7,
+      "datacite": 34
+    },
+    "2007": {
+      "crossref": 91,
+      "datacite": 71,
+      "doaj": 15,
+      "pubmed": 4
     },
     "2005": {
-      "crossref": 230,
-      "pubmed": 16,
-      "doaj": 2
+      "crossref": 72,
+      "datacite": 62,
+      "pubmed": 3,
+      "doaj": 4
     },
-    "1994": {
-      "crossref": 86,
-      "pubmed": 1
-    },
-    "2018": {
-      "crossref": 350,
-      "pubmed": 53,
-      "doaj": 30
-    },
-    "2013": {
-      "crossref": 376,
-      "pubmed": 42,
-      "doaj": 16
-    },
-    "2010": {
-      "crossref": 323,
-      "pubmed": 35,
-      "doaj": 5
+    "1990": {
+      "crossref": 26,
+      "datacite": 38,
+      "doaj": 3
     },
     "2008": {
-      "crossref": 377,
-      "pubmed": 49,
-      "doaj": 6
+      "crossref": 115,
+      "pubmed": 10,
+      "datacite": 70,
+      "doaj": 20
     },
-    "2002": {
-      "crossref": 180,
-      "pubmed": 15
+    "2009": {
+      "crossref": 93,
+      "pubmed": 11,
+      "doaj": 19,
+      "datacite": 73
+    },
+    "2016": {
+      "crossref": 150,
+      "doaj": 57,
+      "pubmed": 28,
+      "datacite": 51
+    },
+    "2003": {
+      "crossref": 66,
+      "datacite": 61,
+      "doaj": 8
+    },
+    "2019": {
+      "crossref": 200,
+      "doaj": 80,
+      "pubmed": 34,
+      "datacite": 46,
+      "arxiv": 1
+    },
+    "1994": {
+      "crossref": 31,
+      "datacite": 32,
+      "doaj": 9
     },
     "1996": {
-      "crossref": 104,
-      "pubmed": 2,
+      "datacite": 33,
+      "crossref": 35,
+      "doaj": 4
+    },
+    "2018": {
+      "crossref": 181,
+      "pubmed": 30,
+      "datacite": 56,
+      "doaj": 61
+    },
+    "2002": {
+      "crossref": 77,
+      "datacite": 59,
+      "doaj": 14,
+      "pubmed": 5
+    },
+    "2013": {
+      "crossref": 152,
+      "pubmed": 20,
+      "doaj": 37,
+      "datacite": 53
+    },
+    "2010": {
+      "crossref": 121,
+      "datacite": 67,
+      "pubmed": 9,
+      "doaj": 21
+    },
+    "1991": {
+      "crossref": 15,
+      "datacite": 23,
+      "doaj": 4
+    },
+    "2014": {
+      "crossref": 155,
+      "pubmed": 25,
+      "doaj": 61,
+      "datacite": 56
+    },
+    "2021": {
+      "crossref": 224,
+      "pubmed": 31,
+      "doaj": 88,
+      "datacite": 37,
+      "arxiv": 1
+    },
+    "1986": {
+      "crossref": 8,
+      "datacite": 10,
       "doaj": 1
     },
     "2012": {
-      "crossref": 382,
-      "pubmed": 32,
-      "doaj": 12
-    },
-    "2014": {
-      "crossref": 352,
-      "pubmed": 45,
-      "doaj": 23
+      "crossref": 118,
+      "doaj": 29,
+      "datacite": 57,
+      "pubmed": 10
     },
     "1992": {
-      "crossref": 69
-    },
-    "1991": {
-      "crossref": 42
-    },
-    "1986": {
-      "crossref": 15
-    },
-    "2015": {
-      "crossref": 355,
-      "pubmed": 49,
-      "doaj": 15
-    },
-    "2020": {
-      "crossref": 154,
-      "doaj": 37,
-      "pubmed": 21
-    },
-    "2021": {
-      "crossref": 178,
-      "pubmed": 16,
-      "doaj": 39,
-      "datacite": 1
-    },
-    "2023": {
-      "crossref": 178,
-      "pubmed": 15
-    },
-    "1987": {
-      "crossref": 16,
-      "pubmed": 1
-    },
-    "2022": {
-      "crossref": 165,
-      "doaj": 29,
-      "pubmed": 20,
-      "arxiv": 1,
-      "datacite": 1
+      "datacite": 17,
+      "crossref": 18,
+      "doaj": 1
     },
     "2024": {
-      "crossref": 93,
-      "pubmed": 13
+      "crossref": 252,
+      "doaj": 97,
+      "pubmed": 43,
+      "datacite": 12,
+      "arxiv": 1
     },
-    "1980": {
-      "crossref": 1
+    "2015": {
+      "crossref": 149,
+      "doaj": 51,
+      "datacite": 55,
+      "pubmed": 33
     },
-    "1969": {
-      "crossref": 8
+    "2020": {
+      "datacite": 27,
+      "crossref": 198,
+      "doaj": 84,
+      "pubmed": 38
     },
-    "1985": {
-      "crossref": 2
+    "2023": {
+      "crossref": 293,
+      "doaj": 120,
+      "pubmed": 42,
+      "datacite": 8,
+      "arxiv": 1
+    },
+    "2022": {
+      "crossref": 254,
+      "doaj": 95,
+      "pubmed": 40,
+      "datacite": 14
+    },
+    "1987": {
+      "datacite": 13,
+      "crossref": 5,
+      "doaj": 1
     },
     "2025": {
-      "crossref": 11,
-      "pubmed": 1
+      "crossref": 228,
+      "doaj": 94,
+      "pubmed": 33,
+      "datacite": 6
+    },
+    "2026": {
+      "crossref": 95,
+      "doaj": 39,
+      "pubmed": 16,
+      "datacite": 7
+    },
+    "1969": {
+      "crossref": 7,
+      "doaj": 5,
+      "datacite": 1
+    },
+    "1971": {
+      "datacite": 1
+    },
+    "1985": {
+      "crossref": 1,
+      "datacite": 3
     },
     "1963": {
-      "crossref": 4
+      "crossref": 2,
+      "datacite": 1
+    },
+    "1984": {
+      "datacite": 1,
+      "crossref": 1
+    },
+    "1961": {
+      "crossref": 1,
+      "datacite": 1
     },
     "1970": {
-      "crossref": 2
+      "crossref": 1,
+      "datacite": 2,
+      "doaj": 1
+    },
+    "1877": {
+      "crossref": 1
+    },
+    "1962": {
+      "datacite": 2
     },
     "1968": {
       "crossref": 2
     },
-    "1974": {
-      "crossref": 1
+    "1979": {
+      "datacite": 1
     },
-    "1961": {
-      "crossref": 6
-    },
-    "1957": {
-      "crossref": 5
-    },
-    "1967": {
-      "crossref": 1
-    },
-    "1958": {
-      "crossref": 4
-    },
-    "1966": {
-      "crossref": 1
-    },
-    "1962": {
-      "crossref": 2
-    },
-    "1965": {
-      "crossref": 2
-    },
-    "1956": {
-      "crossref": 2
+    "1975": {
+      "crossref": 1,
+      "doaj": 1,
+      "datacite": 1
     },
     "1964": {
       "crossref": 1
     },
-    "1959": {
-      "crossref": 3
+    "1966": {
+      "datacite": 1
     },
-    "1960": {
+    "1981": {
+      "datacite": 1,
       "crossref": 1
+    },
+    "1972": {
+      "crossref": 2
     },
     "1976": {
+      "crossref": 1,
+      "datacite": 1
+    },
+    "1967": {
+      "datacite": 1
+    },
+    "1957": {
+      "datacite": 2,
+      "pubmed": 1
+    },
+    "1960": {
+      "datacite": 2
+    },
+    "1959": {
+      "datacite": 1
+    },
+    "1958": {
       "crossref": 1
     },
-    "1979": {
-      "crossref": 1
-    },
-    "1983": {
-      "crossref": 1
+    "1982": {
+      "datacite": 1
     }
   },
   "top_indexed_in": [
     [
       "crossref",
-      7766
-    ],
-    [
-      "pubmed",
-      746
-    ],
-    [
-      "doaj",
-      340
+      4321
     ],
     [
       "datacite",
-      2
+      1716
+    ],
+    [
+      "doaj",
+      1275
+    ],
+    [
+      "pubmed",
+      518
     ],
     [
       "arxiv",
-      1
+      4
+    ]
+  ],
+  "sdg_distribution": [
+    [
+      "Life in Land",
+      2736
+    ],
+    [
+      "Zero hunger",
+      1661
+    ],
+    [
+      "Climate action",
+      393
+    ],
+    [
+      "Clean water and sanitation",
+      353
+    ],
+    [
+      "Responsible consumption and production",
+      192
+    ],
+    [
+      "Affordable and clean energy",
+      132
+    ],
+    [
+      "Life below water",
+      113
+    ],
+    [
+      "Sustainable cities and communities",
+      106
+    ],
+    [
+      "Decent work and economic growth",
+      104
+    ],
+    [
+      "No poverty",
+      90
+    ],
+    [
+      "Partnerships for the goals",
+      62
+    ],
+    [
+      "Peace, Justice and strong institutions",
+      31
+    ],
+    [
+      "Industry, innovation and infrastructure",
+      31
+    ],
+    [
+      "Reduced inequalities",
+      21
+    ],
+    [
+      "Gender equality",
+      19
+    ],
+    [
+      "Quality Education",
+      12
+    ],
+    [
+      "Good health and well-being",
+      9
     ]
   ]
 }
