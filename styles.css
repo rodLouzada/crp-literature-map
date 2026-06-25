@@ -159,6 +159,8 @@ a:hover { color: var(--green-d); }
 /* dashboard chart cards */
 .chart-container { position: relative; width: 100%; aspect-ratio: 2 / 1; padding: 8px 6px 4px; }
 .chart-container canvas { display: block; width: 100% !important; height: 100% !important; }
+.ov-chart { position: relative; height: 210px; }
+.ov-chart canvas { display: block; width: 100% !important; height: 100% !important; }
 .help-btn {
   background: #fff; border: 1px solid var(--line); color: var(--muted);
   width: 19px; height: 19px; border-radius: 50%; font-size: 11px; font-weight: 700;

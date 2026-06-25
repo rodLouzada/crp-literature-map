@@ -156,5 +156,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     lineChart('indexedTrendChart', yrs, ds, 'Papers');
   }
   if (m.top_indexed_in) hBar('indexedTopChart', m.top_indexed_in);
-  if (m.state_counts) hBar('stateChart', m.state_counts, GREEN2, 15);
+  if (m.study_state_counts || m.state_counts)
+    hBar('stateChart', m.study_state_counts || m.state_counts, GREEN2, 15);
 });

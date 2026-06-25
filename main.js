@@ -30,7 +30,7 @@ function buildStateFilters(records) {
     const badge = document.getElementById('state-count');
     if (!container || !badge) return;   // tolerate markup/JS mismatch
     const set = new Set();
-    records.forEach(r => (r.states || []).forEach(s => set.add(s)));
+    records.forEach(r => (r.study_states || r.states || []).forEach(s => set.add(s)));
     const list = Array.from(set).sort();
     badge.textContent = list.length;
     list.forEach(name => {
@@ -48,13 +48,6 @@ function getCheckedValues(containerId) {
     return Array.from(
         document.querySelectorAll(`#${containerId} input:checked`)
     ).map(i => i.value.toLowerCase());
-}
-
-function onSearch() {
-    applyFilters();
-    currentPage = 1;
-    renderTable();
-    renderPagination();
 }
 
 ; (async function init() {
@@ -81,12 +74,6 @@ function onSearch() {
     buildThemeFilters(allRecords);
     buildStateFilters(allRecords);
 
-
-    filteredRecords = allRecords.slice();
-    renderTable();
-    renderPagination();
-
-
     document.getElementById('search-btn').addEventListener('click', onSearch);
     document.getElementById('clear-btn').addEventListener('click', onClear);
     document.getElementById('download-csv')
@@ -96,18 +83,38 @@ function onSearch() {
 
     document.getElementById('search')
         .addEventListener('keypress', e => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                onSearch();
-            }
+            if (e.key === 'Enter') { e.preventDefault(); onSearch(); }
         });
+
+    // live filtering: any filter change recomputes the table + overview
+    const form = document.getElementById('filters');
+    form.addEventListener('change', refresh);                 // checkboxes, dates
+    form.addEventListener('input', debounce(refresh, 200));   // text / number fields
 
     document.getElementById('results')
         .addEventListener('click', onTableClick);
 
     document.getElementById('close-graph').onclick = () => document.getElementById('graphPanel').classList.add('d-none');
     document.getElementById('graph-regenerate').onclick = () => currentSeed && showGraph(currentSeed);
+
+    refresh();   // initial render (no filters = full corpus)
 })();
+
+function debounce(fn, ms) {
+    let t;
+    return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); };
+}
+
+// Apply current filters, then render table, pagination, and the results overview.
+function refresh() {
+    applyFilters();
+    currentPage = 1;
+    renderTable();
+    renderPagination();
+    updateOverview();
+}
+
+function onSearch() { refresh(); }
 
 function onClear() {
     document.getElementById('filters').reset();
@@ -115,10 +122,7 @@ function onClear() {
         .forEach(cid => document.querySelectorAll(`#${cid} input:checked`)
             .forEach(i => i.checked = false));
     document.getElementById('search').value = '';
-    filteredRecords = allRecords.slice();
-    currentPage = 1;
-    renderTable();
-    renderPagination();
+    refresh();
 }
 
 function applyFilters() {
@@ -150,7 +154,7 @@ function applyFilters() {
         const th = (r.theme || '').toLowerCase();
         if (themes.length && !themes.includes(th)) return false;
         if (states.length) {
-            const sList = (r.states || []).map(s => s.toLowerCase());
+            const sList = (r.study_states || r.states || []).map(s => s.toLowerCase());
             if (!states.some(s => sList.includes(s))) return false;
         }
         // Author/journal/keyword
@@ -351,4 +355,71 @@ function showGraph(seed) {
     cy.on('tap', 'node', evt =>
         document.getElementById('node-info').textContent = evt.target.data('label')
     );
+}
+
+// ---- Results overview (live mini-dashboard over the filtered set) ----------
+const OV_SEQ = ['#2f6b46', '#3f8a5c', '#c9a23b', '#6a8caf', '#9c6b8e', '#8b5a2b', '#5b8c5a', '#8fb996'];
+const ovCharts = {};
+
+function computeMetrics(records) {
+    const byYear = {}, themes = {}, states = {};
+    let oa = 0, oaKnown = 0;
+    records.forEach(r => {
+        const y = r.publication_year; if (y) byYear[y] = (byYear[y] || 0) + 1;
+        if (r.theme) themes[r.theme] = (themes[r.theme] || 0) + 1;
+        (r.study_states || r.states || []).forEach(s => states[s] = (states[s] || 0) + 1);
+        if (typeof r.is_oa === 'boolean') { oaKnown++; if (r.is_oa) oa++; }
+    });
+    const years = Object.keys(byYear).map(Number).sort((a, b) => a - b);
+    return {
+        count: records.length,
+        years,
+        byYear: years.map(y => byYear[y]),
+        themes: Object.entries(themes).sort((a, b) => b[1] - a[1]),
+        states: Object.entries(states).sort((a, b) => b[1] - a[1]),
+        oaPct: oaKnown ? Math.round(oa / oaKnown * 100) : null,
+    };
+}
+
+function drawOv(id, config) {
+    const el = document.getElementById(id);
+    if (!el || typeof Chart === 'undefined') return;
+    if (ovCharts[id]) ovCharts[id].destroy();
+    ovCharts[id] = new Chart(el.getContext('2d'), config);
+}
+
+function updateOverview() {
+    if (typeof Chart === 'undefined') return;   // Chart.js not present on the page
+    const m = computeMetrics(filteredRecords);
+
+    const countEl = document.getElementById('ov-count');
+    if (countEl) {
+        const oa = m.oaPct != null ? ` · ${m.oaPct}% open access` : '';
+        countEl.textContent =
+            `Showing ${m.count.toLocaleString()} of ${allRecords.length.toLocaleString()} papers${oa}`;
+    }
+
+    drawOv('ovYear', {
+        type: 'line',
+        data: { labels: m.years, datasets: [{ data: m.byYear, borderColor: '#2f6b46',
+            backgroundColor: 'rgba(47,107,70,.12)', fill: true, tension: .3, borderWidth: 2, pointRadius: 0 }] },
+        options: { maintainAspectRatio: false, plugins: { legend: { display: false } },
+            scales: { x: { grid: { display: false } }, y: { beginAtZero: true } } },
+    });
+
+    const th = m.themes.slice(0, 8);
+    drawOv('ovTheme', {
+        type: 'doughnut',
+        data: { labels: th.map(t => t[0]), datasets: [{ data: th.map(t => t[1]), backgroundColor: OV_SEQ }] },
+        options: { maintainAspectRatio: false, cutout: '58%',
+            plugins: { legend: { position: 'right', labels: { boxWidth: 10, font: { size: 10 } } } } },
+    });
+
+    const st = m.states.slice(0, 10).reverse();
+    drawOv('ovState', {
+        type: 'bar',
+        data: { labels: st.map(s => s[0]), datasets: [{ data: st.map(s => s[1]), backgroundColor: '#3f8a5c' }] },
+        options: { maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } },
+            scales: { x: { beginAtZero: true } } },
+    });
 }
