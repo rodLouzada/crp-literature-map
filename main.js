@@ -139,8 +139,11 @@ function applyFilters() {
     const keywordQ = (document.getElementById('keyword-filter').value || '').toLowerCase();
     const minC = parseInt(document.getElementById('min-cites').value) || 0;
     const maxC = parseInt(document.getElementById('max-cites').value) || Infinity;
+    const showFlagged = document.getElementById('show-flagged')?.checked;
 
     filteredRecords = allRecords.filter(r => {
+        // Hide low-relevance / suspect records unless explicitly included
+        if (!showFlagged && r.review_flag) return false;
         // Title terms
         if (terms.length) {
             const t = (r.title || '').toLowerCase();

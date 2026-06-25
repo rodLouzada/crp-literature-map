@@ -1,9 +1,9 @@
 {
-  "corpus_size": 3385,
+  "corpus_size": 3430,
   "publications_over_time": {
     "by_year": [
       {
-        "year": 1961,
+        "year": 1945,
         "count": 1,
         "cumulative": 1
       },
@@ -49,208 +49,208 @@
       },
       {
         "year": 1986,
-        "count": 1,
-        "cumulative": 17
+        "count": 2,
+        "cumulative": 18
       },
       {
         "year": 1987,
         "count": 3,
-        "cumulative": 20
+        "cumulative": 21
       },
       {
         "year": 1988,
         "count": 5,
-        "cumulative": 25
+        "cumulative": 26
       },
       {
         "year": 1989,
         "count": 13,
-        "cumulative": 38
+        "cumulative": 39
       },
       {
         "year": 1990,
         "count": 15,
-        "cumulative": 53
+        "cumulative": 54
       },
       {
         "year": 1991,
         "count": 10,
-        "cumulative": 63
+        "cumulative": 64
       },
       {
         "year": 1992,
         "count": 14,
-        "cumulative": 77
+        "cumulative": 78
       },
       {
         "year": 1993,
         "count": 15,
-        "cumulative": 92
+        "cumulative": 93
       },
       {
         "year": 1994,
         "count": 19,
-        "cumulative": 111
+        "cumulative": 112
       },
       {
         "year": 1995,
-        "count": 22,
+        "count": 21,
         "cumulative": 133
       },
       {
         "year": 1996,
-        "count": 30,
-        "cumulative": 163
+        "count": 29,
+        "cumulative": 162
       },
       {
         "year": 1997,
         "count": 31,
-        "cumulative": 194
+        "cumulative": 193
       },
       {
         "year": 1998,
         "count": 48,
-        "cumulative": 242
+        "cumulative": 241
       },
       {
         "year": 1999,
         "count": 46,
-        "cumulative": 288
+        "cumulative": 287
       },
       {
         "year": 2000,
-        "count": 58,
-        "cumulative": 346
+        "count": 60,
+        "cumulative": 347
       },
       {
         "year": 2001,
         "count": 69,
-        "cumulative": 415
+        "cumulative": 416
       },
       {
         "year": 2002,
         "count": 69,
-        "cumulative": 484
+        "cumulative": 485
       },
       {
         "year": 2003,
         "count": 67,
-        "cumulative": 551
+        "cumulative": 552
       },
       {
         "year": 2004,
-        "count": 76,
-        "cumulative": 627
+        "count": 77,
+        "cumulative": 629
       },
       {
         "year": 2005,
         "count": 76,
-        "cumulative": 703
+        "cumulative": 705
       },
       {
         "year": 2006,
         "count": 94,
-        "cumulative": 797
+        "cumulative": 799
       },
       {
         "year": 2007,
-        "count": 90,
-        "cumulative": 887
+        "count": 91,
+        "cumulative": 890
       },
       {
         "year": 2008,
         "count": 110,
-        "cumulative": 997
+        "cumulative": 1000
       },
       {
         "year": 2009,
-        "count": 103,
-        "cumulative": 1100
+        "count": 106,
+        "cumulative": 1106
       },
       {
         "year": 2010,
         "count": 115,
-        "cumulative": 1215
+        "cumulative": 1221
       },
       {
         "year": 2011,
-        "count": 120,
-        "cumulative": 1335
+        "count": 121,
+        "cumulative": 1342
       },
       {
         "year": 2012,
-        "count": 119,
-        "cumulative": 1454
+        "count": 121,
+        "cumulative": 1463
       },
       {
         "year": 2013,
-        "count": 133,
-        "cumulative": 1587
+        "count": 138,
+        "cumulative": 1601
       },
       {
         "year": 2014,
-        "count": 132,
-        "cumulative": 1719
+        "count": 135,
+        "cumulative": 1736
       },
       {
         "year": 2015,
-        "count": 156,
-        "cumulative": 1875
+        "count": 161,
+        "cumulative": 1897
       },
       {
         "year": 2016,
-        "count": 120,
-        "cumulative": 1995
+        "count": 123,
+        "cumulative": 2020
       },
       {
         "year": 2017,
-        "count": 159,
-        "cumulative": 2154
+        "count": 161,
+        "cumulative": 2181
       },
       {
         "year": 2018,
         "count": 128,
-        "cumulative": 2282
+        "cumulative": 2309
       },
       {
         "year": 2019,
-        "count": 146,
-        "cumulative": 2428
+        "count": 147,
+        "cumulative": 2456
       },
       {
         "year": 2020,
-        "count": 145,
-        "cumulative": 2573
+        "count": 147,
+        "cumulative": 2603
       },
       {
         "year": 2021,
-        "count": 140,
-        "cumulative": 2713
+        "count": 146,
+        "cumulative": 2749
       },
       {
         "year": 2022,
-        "count": 151,
-        "cumulative": 2864
+        "count": 154,
+        "cumulative": 2903
       },
       {
         "year": 2023,
-        "count": 176,
-        "cumulative": 3040
+        "count": 177,
+        "cumulative": 3080
       },
       {
         "year": 2024,
-        "count": 152,
-        "cumulative": 3192
+        "count": 154,
+        "cumulative": 3234
       },
       {
         "year": 2025,
-        "count": 126,
-        "cumulative": 3318
+        "count": 127,
+        "cumulative": 3361
       },
       {
         "year": 2026,
-        "count": 67,
-        "cumulative": 3385
+        "count": 69,
+        "cumulative": 3430
       }
     ],
     "peak_year": 2023
@@ -274,7 +274,7 @@
         "count": 5
       },
       {
-        "topic": "Land Rights and Reforms",
+        "topic": "Forest Management and Policy",
         "count": 2
       }
     ],
@@ -314,12 +314,12 @@
         "count": 2
       },
       {
-        "topic": "Bioenergy crop production and management",
+        "topic": "Ruminant Nutrition and Digestive Physiology",
         "count": 2
       },
       {
-        "topic": "Ruminant Nutrition and Digestive Physiology",
-        "count": 2
+        "topic": "Soil Carbon and Nitrogen Dynamics",
+        "count": 1
       }
     ],
     "1993": [
@@ -409,7 +409,7 @@
     "2001": [
       {
         "topic": "Soil and Water Nutrient Dynamics",
-        "count": 10
+        "count": 9
       },
       {
         "topic": "Rangeland and Wildlife Management",
@@ -523,7 +523,7 @@
       },
       {
         "topic": "Avian ecology and behavior",
-        "count": 9
+        "count": 10
       },
       {
         "topic": "Agricultural Economics and Policy",
@@ -589,11 +589,11 @@
       },
       {
         "topic": "Bioenergy crop production and management",
-        "count": 7
+        "count": 8
       },
       {
         "topic": "Soil Carbon and Nitrogen Dynamics",
-        "count": 7
+        "count": 8
       },
       {
         "topic": "Forest Management and Policy",
@@ -618,11 +618,11 @@
         "count": 9
       },
       {
-        "topic": "Soil Carbon and Nitrogen Dynamics",
-        "count": 7
+        "topic": "Avian ecology and behavior",
+        "count": 8
       },
       {
-        "topic": "Avian ecology and behavior",
+        "topic": "Soil Carbon and Nitrogen Dynamics",
         "count": 7
       }
     ],
@@ -632,15 +632,15 @@
         "count": 8
       },
       {
-        "topic": "Agricultural Economics and Policy",
+        "topic": "Economic and Environmental Valuation",
         "count": 7
       },
       {
-        "topic": "Economic and Environmental Valuation",
+        "topic": "Forest Management and Policy",
         "count": 6
       },
       {
-        "topic": "Forest Management and Policy",
+        "topic": "Agricultural Economics and Policy",
         "count": 6
       },
       {
@@ -680,16 +680,16 @@
         "count": 2
       },
       {
-        "topic": "Avian ecology and behavior",
-        "count": 2
-      },
-      {
         "topic": "Bioenergy crop production and management",
         "count": 2
       },
       {
         "topic": "Economic and Environmental Valuation",
         "count": 2
+      },
+      {
+        "topic": "Market Dynamics and Volatility",
+        "count": 1
       }
     ],
     "1994": [
@@ -765,7 +765,7 @@
       },
       {
         "topic": "Rangeland and Wildlife Management",
-        "count": 18
+        "count": 19
       },
       {
         "topic": "Soil Carbon and Nitrogen Dynamics",
@@ -773,7 +773,7 @@
       },
       {
         "topic": "Economic and Environmental Valuation",
-        "count": 8
+        "count": 9
       },
       {
         "topic": "Biofuel production and bioconversion",
@@ -782,11 +782,11 @@
     ],
     "2010": [
       {
-        "topic": "Agricultural Economics and Policy",
-        "count": 9
+        "topic": "Avian ecology and behavior",
+        "count": 8
       },
       {
-        "topic": "Avian ecology and behavior",
+        "topic": "Agricultural Economics and Policy",
         "count": 8
       },
       {
@@ -820,8 +820,8 @@
         "count": 10
       },
       {
-        "topic": "Wildlife Ecology and Conservation",
-        "count": 7
+        "topic": "Agricultural Economics and Policy",
+        "count": 8
       }
     ],
     "1991": [
@@ -879,7 +879,7 @@
       },
       {
         "topic": "Avian ecology and behavior",
-        "count": 7
+        "count": 9
       },
       {
         "topic": "Forest Management and Policy",
@@ -909,13 +909,13 @@
       },
       {
         "topic": "Rangeland and Wildlife Management",
-        "count": 7
+        "count": 8
       }
     ],
     "2012": [
       {
         "topic": "Bioenergy crop production and management",
-        "count": 19
+        "count": 20
       },
       {
         "topic": "Soil and Water Nutrient Dynamics",
@@ -962,12 +962,12 @@
         "count": 14
       },
       {
-        "topic": "Bioenergy crop production and management",
+        "topic": "Plant and animal studies",
         "count": 11
       },
       {
-        "topic": "Plant and animal studies",
-        "count": 10
+        "topic": "Bioenergy crop production and management",
+        "count": 11
       },
       {
         "topic": "Economic and Environmental Valuation",
@@ -1018,7 +1018,7 @@
         "count": 12
       },
       {
-        "topic": "Wildlife Ecology and Conservation",
+        "topic": "Avian ecology and behavior",
         "count": 8
       }
     ],
@@ -1036,11 +1036,11 @@
         "count": 11
       },
       {
-        "topic": "Economic and Environmental Valuation",
-        "count": 7
+        "topic": "Soil Carbon and Nitrogen Dynamics",
+        "count": 8
       },
       {
-        "topic": "Soil Carbon and Nitrogen Dynamics",
+        "topic": "Economic and Environmental Valuation",
         "count": 7
       }
     ],
@@ -1101,7 +1101,7 @@
     "2026": [
       {
         "topic": "Forest Management and Policy",
-        "count": 8
+        "count": 9
       },
       {
         "topic": "Agricultural Economics and Policy",
@@ -1140,9 +1140,9 @@
         "count": 2
       }
     ],
-    "1961": [
+    "1945": [
       {
-        "topic": "Water resources management and optimization",
+        "topic": "Agricultural Economics and Policy",
         "count": 1
       }
     ],
@@ -1192,6 +1192,10 @@
       {
         "topic": "Soil Mechanics and Vehicle Dynamics",
         "count": 1
+      },
+      {
+        "topic": "Hermeneutics and Narrative Identity",
+        "count": 1
       }
     ],
     "1984": [
@@ -1219,10 +1223,10 @@
       "2006": 5,
       "2007": 4,
       "2008": 11,
-      "2009": 5,
+      "2009": 6,
       "2010": 5,
       "2011": 12,
-      "2012": 19,
+      "2012": 20,
       "2013": 22,
       "2014": 16,
       "2015": 15,
@@ -1261,7 +1265,7 @@
       "2019": 4,
       "2020": 4,
       "2021": 8,
-      "2022": 8,
+      "2022": 10,
       "2023": 11,
       "2024": 1,
       "2025": 5,
@@ -1283,7 +1287,7 @@
       "2010": 5,
       "2011": 8,
       "2012": 5,
-      "2013": 2,
+      "2013": 3,
       "2014": 12,
       "2015": 7,
       "2016": 3,
@@ -1296,21 +1300,21 @@
       "2023": 16,
       "2024": 1,
       "2025": 11,
-      "2026": 9
+      "2026": 10
     }
   },
   "theme_distribution": [
     [
       "Wildlife & Habitat",
-      1009
+      1029
     ],
     [
       "Soil & Water",
-      866
+      882
     ],
     [
       "Economics & Policy",
-      763
+      769
     ],
     [
       "Climate & Carbon",
@@ -1318,37 +1322,37 @@
     ],
     [
       "Bioenergy",
-      236
+      237
     ],
     [
       "Agriculture",
-      124
+      126
     ],
     [
       "Vegetation & Restoration",
-      57
+      58
     ],
     [
       "Other",
-      45
+      43
     ],
     [
       "Earth & Environment",
-      42
+      43
     ]
   ],
   "domain_distribution": [
     [
       "Physical Sciences",
-      1664
+      1691
     ],
     [
       "Life Sciences",
-      1197
+      1210
     ],
     [
       "Social Sciences",
-      492
+      499
     ],
     [
       "Health Sciences",
@@ -1356,37 +1360,37 @@
     ],
     [
       "Unknown",
-      16
+      14
     ]
   ],
   "field_distribution": [
     [
       "Environmental Science",
-      1468
+      1494
     ],
     [
       "Agricultural and Biological Sciences",
-      1157
+      1170
     ],
     [
       "Economics, Econometrics and Finance",
-      362
+      365
     ],
     [
       "Engineering",
-      146
+      147
     ],
     [
       "Social Sciences",
-      69
+      70
     ],
     [
       "Biochemistry, Genetics and Molecular Biology",
-      38
+      37
     ],
     [
       "Decision Sciences",
-      28
+      30
     ],
     [
       "Earth and Planetary Sciences",
@@ -1394,99 +1398,99 @@
     ],
     [
       "Arts and Humanities",
-      16
+      17
     ],
     [
-      "Unknown",
-      16
+      "Energy",
+      14
     ]
   ],
   "subfield_distribution": [
     [
       "Ecology",
-      628
+      641
     ],
     [
       "Economics and Econometrics",
-      352
+      354
     ],
     [
       "Global and Planetary Change",
-      318
+      326
     ],
     [
       "Soil Science",
-      295
+      299
     ],
     [
       "Agronomy and Crop Science",
-      270
+      272
     ],
     [
       "General Agricultural and Biological Sciences",
-      237
+      239
     ],
     [
       "Environmental Chemistry",
-      160
+      162
     ],
     [
       "Ecology, Evolution, Behavior and Systematics",
-      154
+      156
     ],
     [
       "Plant Science",
-      128
+      130
     ],
     [
       "Nature and Landscape Conservation",
-      117
+      119
     ]
   ],
   "open_access_uptake": {
-    "2000": 77.6,
-    "1997": 54.8,
-    "1995": 72.7,
+    "2000": 78.3,
+    "1997": 58.1,
+    "1995": 71.4,
     "1993": 73.3,
-    "2017": 85.5,
-    "2011": 80.8,
+    "2017": 85.7,
+    "2011": 81.0,
     "1988": 60.0,
-    "2001": 63.8,
-    "2004": 73.7,
-    "2006": 66.0,
+    "2001": 65.2,
+    "2004": 74.0,
+    "2006": 67.0,
     "1999": 78.3,
     "1998": 64.6,
-    "2007": 82.2,
+    "2007": 82.4,
     "2005": 68.4,
     "2008": 78.2,
-    "2009": 81.6,
-    "2016": 81.7,
+    "2009": 82.1,
+    "2016": 82.1,
     "2003": 77.6,
     "2019": 92.5,
-    "1996": 63.3,
+    "1996": 62.1,
     "1994": 89.5,
     "2018": 89.1,
     "2002": 68.1,
-    "2013": 81.2,
+    "2013": 81.9,
     "2010": 80.9,
-    "2015": 87.8,
+    "2015": 88.2,
     "1991": 60.0,
     "1990": 66.7,
-    "2014": 82.6,
-    "2021": 90.7,
-    "2012": 84.0,
-    "2024": 96.7,
+    "2014": 83.0,
+    "2021": 91.1,
+    "2012": 84.3,
+    "2024": 96.8,
     "2020": 95.9,
     "1992": 78.6,
     "2023": 97.7,
-    "2022": 94.7,
+    "2022": 94.8,
     "1987": 33.3,
-    "2025": 92.1,
+    "2025": 91.3,
     "1989": 76.9,
-    "2026": 94.0,
+    "2026": 92.8,
     "1985": 33.3,
-    "1963": 50.0,
-    "1961": 0.0,
+    "1963": 0.0,
+    "1945": 0.0,
     "1970": 100.0,
     "1962": 100.0,
     "1969": 100.0,
@@ -1498,15 +1502,15 @@
   "oa_status_breakdown": [
     [
       "green",
-      968
+      972
     ],
     [
       "gold",
-      859
+      881
     ],
     [
       "bronze",
-      562
+      576
     ],
     [
       "closed",
@@ -1514,7 +1518,7 @@
     ],
     [
       "hybrid",
-      320
+      325
     ],
     [
       "diamond",
@@ -1525,46 +1529,46 @@
     "average_fwci_by_year": {
       "2000": 2.73,
       "1997": 2.16,
-      "1995": 1.89,
+      "1995": 1.93,
       "1993": 1.62,
-      "2017": 6.13,
+      "2017": 6.1,
       "2011": 3.07,
       "1988": 3.35,
-      "2001": 3.45,
+      "2001": 3.48,
       "2006": 3.3,
       "1999": 2.6,
-      "1998": 1.26,
-      "2007": 4.18,
+      "1998": 1.25,
+      "2007": 4.13,
       "2005": 2.42,
-      "2008": 6.06,
-      "2009": 4.38,
-      "2016": 4.66,
-      "2003": 2.13,
-      "2019": 4.21,
-      "1996": 0.77,
+      "2008": 6.07,
+      "2009": 4.46,
+      "2016": 4.63,
+      "2003": 2.53,
+      "2019": 4.65,
+      "1996": 0.79,
       "1994": 0.36,
       "2018": 4.84,
       "2002": 3.39,
-      "2013": 3.96,
-      "2010": 4.19,
-      "2015": 4.36,
-      "2004": 2.42,
+      "2013": 3.97,
+      "2010": 4.22,
+      "2015": 4.31,
+      "2004": 2.39,
       "1991": 1.95,
       "1990": 1.59,
       "2014": 4.05,
-      "2021": 4.41,
+      "2021": 4.36,
       "2012": 3.53,
       "2024": 3.51,
-      "2020": 3.2,
+      "2020": 3.18,
       "1992": 1.95,
-      "2023": 3.81,
-      "2022": 3.74,
+      "2023": 3.83,
+      "2022": 3.67,
       "1987": 2.06,
-      "2025": 2.18,
+      "2025": 2.17,
       "1989": 0.18,
-      "2026": 1.02,
+      "2026": 1.05,
       "1985": 0.0,
-      "1961": 0.0,
+      "1945": 0.0,
       "1970": 0.0,
       "1962": 0.0,
       "1969": 0.2,
@@ -1573,7 +1577,7 @@
       "1986": 0.0,
       "1984": 0.0
     },
-    "avg_early_citations": 8.95
+    "avg_early_citations": 8.94
   },
   "apc_cost_usd_by_year": {
     "2000": 3016.92,
@@ -1582,37 +1586,37 @@
     "1993": 3381,
     "2017": 2811.48,
     "1988": 2905,
-    "2001": 2764.05,
+    "2001": 2792.95,
     "2006": 2726.11,
     "1999": 2578.5,
-    "1998": 3031.73,
+    "1998": 3054.08,
     "2007": 2774.78,
     "2005": 3110,
     "2008": 2768.31,
-    "2009": 2794.03,
+    "2009": 2876.03,
     "2016": 2629.03,
-    "2003": 3043.62,
+    "2003": 3069.07,
     "2019": 2804.69,
     "1994": 1698.5,
     "2002": 2768.15,
-    "2013": 2732.86,
+    "2013": 2783.21,
     "2010": 2772.02,
     "2018": 2872.86,
     "2004": 2601.76,
     "2011": 3109.09,
-    "2021": 2526.04,
+    "2021": 2504.06,
     "2012": 2902.86,
     "1991": 4198.75,
     "2024": 2602.49,
-    "2015": 2531.58,
+    "2015": 2541.85,
     "2014": 2332.45,
-    "2020": 2299.42,
+    "2020": 2318.11,
     "1992": 3113.75,
     "2023": 2412.31,
-    "2022": 2837.09,
+    "2022": 2800.41,
     "1996": 2725,
     "1990": 2345,
-    "2026": 2493.09,
+    "2026": 2472.73,
     "2025": 2659.6,
     "1987": 2512.5,
     "1970": 1575,
@@ -1622,19 +1626,19 @@
   "country_counts": [
     [
       "US",
-      3385
+      3430
     ],
     [
       "CN",
-      81
+      82
     ],
     [
       "CA",
-      75
+      76
     ],
     [
       "GB",
-      58
+      59
     ],
     [
       "DE",
@@ -1654,11 +1658,19 @@
     ],
     [
       "NL",
-      23
+      24
     ],
     [
       "SE",
       20
+    ],
+    [
+      "BR",
+      20
+    ],
+    [
+      "KR",
+      19
     ],
     [
       "JP",
@@ -1666,19 +1678,15 @@
     ],
     [
       "IN",
-      19
-    ],
-    [
-      "BR",
-      19
-    ],
-    [
-      "KR",
       18
     ],
     [
       "CH",
       18
+    ],
+    [
+      "DK",
+      12
     ],
     [
       "BE",
@@ -1689,15 +1697,11 @@
       11
     ],
     [
-      "DK",
+      "PL",
       10
     ],
     [
       "TW",
-      9
-    ],
-    [
-      "PL",
       9
     ],
     [
@@ -1733,11 +1737,11 @@
       8
     ],
     [
-      "MW",
+      "RU",
       7
     ],
     [
-      "RU",
+      "IE",
       7
     ],
     [
@@ -1745,15 +1749,15 @@
       7
     ],
     [
+      "GH",
+      7
+    ],
+    [
       "KE",
       7
     ],
     [
-      "IE",
-      6
-    ],
-    [
-      "GH",
+      "MW",
       6
     ],
     [
@@ -1773,6 +1777,10 @@
       5
     ],
     [
+      "CL",
+      4
+    ],
+    [
       "PT",
       4
     ],
@@ -1789,12 +1797,12 @@
       4
     ],
     [
-      "SA",
+      "NG",
       4
     ],
     [
-      "CL",
-      3
+      "SA",
+      4
     ],
     [
       "HK",
@@ -1806,10 +1814,6 @@
     ],
     [
       "ID",
-      3
-    ],
-    [
-      "NG",
       3
     ],
     [
@@ -1956,427 +1960,15 @@
   "state_counts": [
     [
       "Iowa",
-      414
-    ],
-    [
-      "Illinois",
-      253
-    ],
-    [
-      "Colorado",
-      231
-    ],
-    [
-      "Texas",
-      224
-    ],
-    [
-      "Washington",
-      220
-    ],
-    [
-      "California",
-      199
-    ],
-    [
-      "Minnesota",
-      180
-    ],
-    [
-      "Michigan",
-      178
+      194
     ],
     [
       "Kansas",
-      178
-    ],
-    [
-      "North Dakota",
-      163
-    ],
-    [
-      "Nebraska",
-      161
-    ],
-    [
-      "Ohio",
-      155
-    ],
-    [
-      "Oklahoma",
-      152
-    ],
-    [
-      "Wisconsin",
-      138
-    ],
-    [
-      "Oregon",
-      132
-    ],
-    [
-      "North Carolina",
-      132
-    ],
-    [
-      "Louisiana",
-      116
-    ],
-    [
-      "Maryland",
-      116
-    ],
-    [
-      "Montana",
-      113
+      126
     ],
     [
       "Mississippi",
-      109
-    ],
-    [
-      "Tennessee",
-      109
-    ],
-    [
-      "Missouri",
-      108
-    ],
-    [
-      "South Dakota",
-      102
-    ],
-    [
-      "New York",
-      95
-    ],
-    [
-      "District of Columbia",
-      90
-    ],
-    [
-      "Virginia",
-      90
-    ],
-    [
-      "Arizona",
-      84
-    ],
-    [
-      "Pennsylvania",
-      82
-    ],
-    [
-      "Georgia",
-      77
-    ],
-    [
-      "Idaho",
-      75
-    ],
-    [
-      "Florida",
-      72
-    ],
-    [
-      "Massachusetts",
-      64
-    ],
-    [
-      "Indiana",
-      59
-    ],
-    [
-      "Alabama",
-      59
-    ],
-    [
-      "Arkansas",
-      57
-    ],
-    [
-      "Wyoming",
-      50
-    ],
-    [
-      "Utah",
-      50
-    ],
-    [
-      "Kentucky",
-      47
-    ],
-    [
-      "New Mexico",
-      44
-    ],
-    [
-      "West Virginia",
-      34
-    ],
-    [
-      "Alaska",
-      32
-    ],
-    [
-      "New Jersey",
-      30
-    ],
-    [
-      "South Carolina",
-      30
-    ],
-    [
-      "Delaware",
-      29
-    ],
-    [
-      "New Hampshire",
-      23
-    ],
-    [
-      "Nevada",
-      21
-    ],
-    [
-      "Vermont",
-      21
-    ],
-    [
-      "Maine",
-      19
-    ],
-    [
-      "Connecticut",
-      16
-    ],
-    [
-      "Hawaii",
-      10
-    ],
-    [
-      "Rhode Island",
-      7
-    ]
-  ],
-  "author_state_counts": [
-    [
-      "Iowa",
-      414
-    ],
-    [
-      "Illinois",
-      253
-    ],
-    [
-      "Colorado",
-      231
-    ],
-    [
-      "Texas",
-      224
-    ],
-    [
-      "Washington",
-      220
-    ],
-    [
-      "California",
-      199
-    ],
-    [
-      "Minnesota",
-      180
-    ],
-    [
-      "Michigan",
-      178
-    ],
-    [
-      "Kansas",
-      178
-    ],
-    [
-      "North Dakota",
-      163
-    ],
-    [
-      "Nebraska",
-      161
-    ],
-    [
-      "Ohio",
-      155
-    ],
-    [
-      "Oklahoma",
-      152
-    ],
-    [
-      "Wisconsin",
-      138
-    ],
-    [
-      "Oregon",
-      132
-    ],
-    [
-      "North Carolina",
-      132
-    ],
-    [
-      "Louisiana",
-      116
-    ],
-    [
-      "Maryland",
-      116
-    ],
-    [
-      "Montana",
-      113
-    ],
-    [
-      "Mississippi",
-      109
-    ],
-    [
-      "Tennessee",
-      109
-    ],
-    [
-      "Missouri",
-      108
-    ],
-    [
-      "South Dakota",
-      102
-    ],
-    [
-      "New York",
-      95
-    ],
-    [
-      "District of Columbia",
-      90
-    ],
-    [
-      "Virginia",
-      90
-    ],
-    [
-      "Arizona",
-      84
-    ],
-    [
-      "Pennsylvania",
-      82
-    ],
-    [
-      "Georgia",
-      77
-    ],
-    [
-      "Idaho",
-      75
-    ],
-    [
-      "Florida",
-      72
-    ],
-    [
-      "Massachusetts",
-      64
-    ],
-    [
-      "Indiana",
-      59
-    ],
-    [
-      "Alabama",
-      59
-    ],
-    [
-      "Arkansas",
-      57
-    ],
-    [
-      "Wyoming",
-      50
-    ],
-    [
-      "Utah",
-      50
-    ],
-    [
-      "Kentucky",
-      47
-    ],
-    [
-      "New Mexico",
-      44
-    ],
-    [
-      "West Virginia",
-      34
-    ],
-    [
-      "Alaska",
-      32
-    ],
-    [
-      "New Jersey",
-      30
-    ],
-    [
-      "South Carolina",
-      30
-    ],
-    [
-      "Delaware",
-      29
-    ],
-    [
-      "New Hampshire",
-      23
-    ],
-    [
-      "Nevada",
-      21
-    ],
-    [
-      "Vermont",
-      21
-    ],
-    [
-      "Maine",
-      19
-    ],
-    [
-      "Connecticut",
-      16
-    ],
-    [
-      "Hawaii",
-      10
-    ],
-    [
-      "Rhode Island",
-      7
-    ]
-  ],
-  "study_state_counts": [
-    [
-      "Iowa",
-      193
-    ],
-    [
-      "Mississippi",
-      120
-    ],
-    [
-      "Kansas",
-      114
+      122
     ],
     [
       "North Dakota",
@@ -2384,83 +1976,87 @@
     ],
     [
       "Texas",
-      94
+      97
     ],
     [
       "Illinois",
-      88
+      90
     ],
     [
       "Nebraska",
       73
     ],
     [
-      "Ohio",
+      "Minnesota",
       73
     ],
     [
-      "Minnesota",
-      71
+      "Ohio",
+      72
     ],
     [
       "South Dakota",
-      63
-    ],
-    [
-      "Missouri",
-      59
+      64
     ],
     [
       "Oklahoma",
-      59
+      60
+    ],
+    [
+      "Missouri",
+      58
     ],
     [
       "Colorado",
-      47
+      48
+    ],
+    [
+      "Montana",
+      43
     ],
     [
       "Louisiana",
       42
     ],
     [
-      "Montana",
-      42
+      "California",
+      41
     ],
     [
       "Washington",
       40
     ],
     [
-      "California",
-      40
-    ],
-    [
       "Wisconsin",
-      34
+      35
     ],
     [
       "Michigan",
-      29
+      30
+    ],
+    [
+      "Florida",
+      27
     ],
     [
       "New York",
       27
     ],
     [
-      "Florida",
-      26
+      "Indiana",
+      25
     ],
     [
-      "Indiana",
-      24
+      "Wyoming",
+      23
     ],
     [
       "Maryland",
       23
     ],
     [
-      "Wyoming",
-      22
+      "Oregon",
+      23
     ],
     [
       "Georgia",
@@ -2473,10 +2069,6 @@
     [
       "Arkansas",
       22
-    ],
-    [
-      "Oregon",
-      21
     ],
     [
       "Kentucky",
@@ -2508,11 +2100,11 @@
     ],
     [
       "West Virginia",
-      13
+      15
     ],
     [
       "Alabama",
-      12
+      13
     ],
     [
       "South Carolina",
@@ -2523,15 +2115,15 @@
       6
     ],
     [
+      "Arizona",
+      6
+    ],
+    [
       "Utah",
       5
     ],
     [
       "Nevada",
-      5
-    ],
-    [
-      "Arizona",
       5
     ],
     [
@@ -2557,16 +2149,424 @@
     [
       "New Jersey",
       1
+    ],
+    [
+      "Rhode Island",
+      1
+    ]
+  ],
+  "author_state_counts": [
+    [
+      "Iowa",
+      417
+    ],
+    [
+      "Illinois",
+      258
+    ],
+    [
+      "Colorado",
+      232
+    ],
+    [
+      "Texas",
+      227
+    ],
+    [
+      "Washington",
+      221
+    ],
+    [
+      "California",
+      201
+    ],
+    [
+      "Kansas",
+      183
+    ],
+    [
+      "Minnesota",
+      180
+    ],
+    [
+      "Michigan",
+      179
+    ],
+    [
+      "North Dakota",
+      163
+    ],
+    [
+      "Nebraska",
+      161
+    ],
+    [
+      "Ohio",
+      157
+    ],
+    [
+      "Oklahoma",
+      153
+    ],
+    [
+      "Wisconsin",
+      138
+    ],
+    [
+      "North Carolina",
+      133
+    ],
+    [
+      "Oregon",
+      132
+    ],
+    [
+      "Louisiana",
+      117
+    ],
+    [
+      "Maryland",
+      116
+    ],
+    [
+      "Montana",
+      114
+    ],
+    [
+      "Mississippi",
+      112
+    ],
+    [
+      "Missouri",
+      110
+    ],
+    [
+      "Tennessee",
+      108
+    ],
+    [
+      "South Dakota",
+      104
+    ],
+    [
+      "New York",
+      98
+    ],
+    [
+      "District of Columbia",
+      91
+    ],
+    [
+      "Virginia",
+      91
+    ],
+    [
+      "Arizona",
+      84
+    ],
+    [
+      "Pennsylvania",
+      82
+    ],
+    [
+      "Georgia",
+      81
+    ],
+    [
+      "Idaho",
+      76
+    ],
+    [
+      "Florida",
+      72
+    ],
+    [
+      "Massachusetts",
+      65
+    ],
+    [
+      "Indiana",
+      60
+    ],
+    [
+      "Alabama",
+      59
+    ],
+    [
+      "Arkansas",
+      58
+    ],
+    [
+      "Wyoming",
+      50
+    ],
+    [
+      "Utah",
+      50
+    ],
+    [
+      "Kentucky",
+      49
+    ],
+    [
+      "New Mexico",
+      44
+    ],
+    [
+      "West Virginia",
+      36
+    ],
+    [
+      "Alaska",
+      32
+    ],
+    [
+      "New Jersey",
+      31
+    ],
+    [
+      "South Carolina",
+      30
+    ],
+    [
+      "Delaware",
+      29
+    ],
+    [
+      "New Hampshire",
+      23
+    ],
+    [
+      "Nevada",
+      21
+    ],
+    [
+      "Vermont",
+      21
+    ],
+    [
+      "Maine",
+      19
+    ],
+    [
+      "Connecticut",
+      18
+    ],
+    [
+      "Hawaii",
+      10
+    ],
+    [
+      "Rhode Island",
+      8
+    ]
+  ],
+  "study_state_counts": [
+    [
+      "Iowa",
+      194
+    ],
+    [
+      "Kansas",
+      126
+    ],
+    [
+      "Mississippi",
+      122
+    ],
+    [
+      "North Dakota",
+      100
+    ],
+    [
+      "Texas",
+      97
+    ],
+    [
+      "Illinois",
+      90
+    ],
+    [
+      "Nebraska",
+      73
+    ],
+    [
+      "Minnesota",
+      73
+    ],
+    [
+      "Ohio",
+      72
+    ],
+    [
+      "South Dakota",
+      64
+    ],
+    [
+      "Oklahoma",
+      60
+    ],
+    [
+      "Missouri",
+      58
+    ],
+    [
+      "Colorado",
+      48
+    ],
+    [
+      "Montana",
+      43
+    ],
+    [
+      "Louisiana",
+      42
+    ],
+    [
+      "California",
+      41
+    ],
+    [
+      "Washington",
+      40
+    ],
+    [
+      "Wisconsin",
+      35
+    ],
+    [
+      "Michigan",
+      30
+    ],
+    [
+      "Florida",
+      27
+    ],
+    [
+      "New York",
+      27
+    ],
+    [
+      "Indiana",
+      25
+    ],
+    [
+      "Wyoming",
+      23
+    ],
+    [
+      "Maryland",
+      23
+    ],
+    [
+      "Oregon",
+      23
+    ],
+    [
+      "Georgia",
+      22
+    ],
+    [
+      "Idaho",
+      22
+    ],
+    [
+      "Arkansas",
+      22
+    ],
+    [
+      "Kentucky",
+      19
+    ],
+    [
+      "Tennessee",
+      18
+    ],
+    [
+      "North Carolina",
+      18
+    ],
+    [
+      "New Mexico",
+      17
+    ],
+    [
+      "Pennsylvania",
+      17
+    ],
+    [
+      "Virginia",
+      17
+    ],
+    [
+      "Alaska",
+      15
+    ],
+    [
+      "West Virginia",
+      15
+    ],
+    [
+      "Alabama",
+      13
+    ],
+    [
+      "South Carolina",
+      7
+    ],
+    [
+      "Delaware",
+      6
+    ],
+    [
+      "Arizona",
+      6
+    ],
+    [
+      "Utah",
+      5
+    ],
+    [
+      "Nevada",
+      5
+    ],
+    [
+      "Maine",
+      4
+    ],
+    [
+      "Massachusetts",
+      3
+    ],
+    [
+      "Vermont",
+      3
+    ],
+    [
+      "Hawaii",
+      2
+    ],
+    [
+      "Connecticut",
+      1
+    ],
+    [
+      "New Jersey",
+      1
+    ],
+    [
+      "Rhode Island",
+      1
     ]
   ],
   "top_journals": [
     [
       "Unknown",
-      310
+      329
     ],
     [
       "AgEcon Search (University of Minnesota, USA)",
-      222
+      220
     ],
     [
       "Iowa State University Digital Repository (Iowa State University)",
@@ -2598,7 +2598,7 @@
     ],
     [
       "GCB Bioenergy",
-      42
+      43
     ]
   ],
   "top_authors": [
@@ -2616,7 +2616,7 @@
     ],
     [
       "Daniel Hellerstein",
-      31
+      32
     ],
     [
       "David A. Haukos",
@@ -2624,7 +2624,7 @@
     ],
     [
       "Madhu Khanna",
-      25
+      26
     ],
     [
       "Lawrence D. Igl",
@@ -2646,7 +2646,7 @@
   "top_funders": [
     [
       "U.S. Department of Agriculture",
-      740
+      748
     ],
     [
       "National Science Foundation",
@@ -2654,31 +2654,31 @@
     ],
     [
       "National Institute of Food and Agriculture",
-      241
+      245
     ],
     [
       "U.S. Department of Energy",
-      208
+      215
     ],
     [
       "U.S. Fish and Wildlife Service",
-      173
+      175
     ],
     [
       "U.S. Geological Survey",
-      152
+      153
     ],
     [
       "Natural Resources Conservation Service",
-      141
+      143
     ],
     [
       "Agricultural Research Service",
-      126
+      128
     ],
     [
       "U.S. Forest Service",
-      97
+      98
     ],
     [
       "Office of Science",
@@ -2687,7 +2687,7 @@
   ],
   "indexed_in_trends": {
     "2000": {
-      "crossref": 38,
+      "crossref": 40,
       "doaj": 4,
       "pubmed": 3,
       "datacite": 11
@@ -2706,13 +2706,13 @@
       "crossref": 12
     },
     "2017": {
-      "crossref": 147,
+      "crossref": 149,
       "doaj": 42,
       "pubmed": 20,
       "datacite": 6
     },
     "2011": {
-      "crossref": 85,
+      "crossref": 86,
       "pubmed": 8,
       "datacite": 18,
       "doaj": 18
@@ -2722,14 +2722,14 @@
       "doaj": 2
     },
     "2001": {
-      "crossref": 48,
+      "crossref": 49,
       "doaj": 5,
       "pubmed": 9,
-      "datacite": 12
+      "datacite": 11
     },
     "2004": {
-      "crossref": 48,
-      "pubmed": 2,
+      "crossref": 49,
+      "pubmed": 3,
       "doaj": 11,
       "datacite": 27
     },
@@ -2750,7 +2750,7 @@
       "datacite": 6
     },
     "2007": {
-      "crossref": 58,
+      "crossref": 59,
       "doaj": 9,
       "datacite": 19,
       "pubmed": 3
@@ -2768,13 +2768,13 @@
       "datacite": 23
     },
     "2009": {
-      "crossref": 73,
+      "crossref": 76,
       "pubmed": 11,
-      "doaj": 14,
+      "doaj": 15,
       "datacite": 20
     },
     "2016": {
-      "crossref": 102,
+      "crossref": 105,
       "doaj": 45,
       "pubmed": 21,
       "datacite": 7
@@ -2785,8 +2785,8 @@
       "datacite": 23
     },
     "2019": {
-      "crossref": 133,
-      "doaj": 55,
+      "crossref": 134,
+      "doaj": 54,
       "pubmed": 31,
       "datacite": 16,
       "arxiv": 1
@@ -2814,15 +2814,15 @@
       "datacite": 12
     },
     "2013": {
-      "crossref": 107,
+      "crossref": 112,
       "pubmed": 19,
       "doaj": 29,
       "datacite": 14
     },
     "2010": {
-      "crossref": 86,
+      "crossref": 87,
       "datacite": 15,
-      "pubmed": 7,
+      "pubmed": 8,
       "doaj": 12
     },
     "1991": {
@@ -2835,38 +2835,38 @@
       "doaj": 2
     },
     "2014": {
-      "crossref": 103,
+      "crossref": 106,
       "pubmed": 21,
       "doaj": 38,
       "datacite": 11
     },
     "2021": {
-      "crossref": 136,
-      "pubmed": 24,
-      "doaj": 58,
+      "crossref": 142,
+      "pubmed": 25,
+      "doaj": 60,
       "datacite": 5,
       "arxiv": 1
     },
     "2012": {
-      "crossref": 83,
+      "crossref": 85,
       "doaj": 21,
       "pubmed": 9,
       "datacite": 22
     },
     "2024": {
-      "crossref": 150,
+      "crossref": 152,
       "doaj": 58,
       "pubmed": 30,
       "datacite": 4
     },
     "2015": {
-      "crossref": 103,
-      "doaj": 34,
+      "crossref": 107,
+      "doaj": 35,
       "pubmed": 21,
       "datacite": 17
     },
     "2020": {
-      "crossref": 134,
+      "crossref": 136,
       "doaj": 63,
       "pubmed": 33,
       "datacite": 11
@@ -2877,15 +2877,15 @@
       "doaj": 1
     },
     "2023": {
-      "crossref": 176,
+      "crossref": 177,
       "doaj": 78,
       "pubmed": 25,
       "datacite": 2
     },
     "2022": {
-      "crossref": 148,
+      "crossref": 151,
       "doaj": 57,
-      "pubmed": 26,
+      "pubmed": 27,
       "datacite": 6
     },
     "1987": {
@@ -2893,7 +2893,7 @@
       "doaj": 1
     },
     "2025": {
-      "crossref": 118,
+      "crossref": 119,
       "doaj": 54,
       "pubmed": 25,
       "datacite": 2
@@ -2904,9 +2904,9 @@
       "doaj": 2
     },
     "2026": {
-      "crossref": 59,
-      "doaj": 21,
-      "pubmed": 12,
+      "crossref": 61,
+      "doaj": 23,
+      "pubmed": 13,
       "datacite": 4
     },
     "1985": {
@@ -2915,7 +2915,7 @@
     "1963": {
       "crossref": 2
     },
-    "1961": {
+    "1945": {
       "crossref": 1
     },
     "1970": {
@@ -2938,19 +2938,19 @@
   "top_indexed_in": [
     [
       "crossref",
-      2742
+      2789
     ],
     [
       "doaj",
-      837
+      842
     ],
     [
       "pubmed",
-      403
+      408
     ],
     [
       "datacite",
-      381
+      380
     ],
     [
       "arxiv",
@@ -2960,19 +2960,19 @@
   "sdg_distribution": [
     [
       "Life in Land",
-      1375
+      1399
     ],
     [
       "Zero hunger",
-      527
+      532
     ],
     [
       "Climate action",
-      160
+      161
     ],
     [
       "Clean water and sanitation",
-      158
+      160
     ],
     [
       "Responsible consumption and production",
@@ -2980,15 +2980,15 @@
     ],
     [
       "Life below water",
-      62
+      64
     ],
     [
       "Affordable and clean energy",
-      55
+      56
     ],
     [
       "Sustainable cities and communities",
-      51
+      53
     ],
     [
       "No poverty",
@@ -3004,7 +3004,7 @@
     ],
     [
       "Peace, Justice and strong institutions",
-      16
+      15
     ],
     [
       "Industry, innovation and infrastructure",
